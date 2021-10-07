@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+#pizzatime {
+  font-family: "Molle";
+  color: burlywood;
+  background-color: coral;
+  font-size: 1.5rem;
+}
+
+.upload {
+  background-color: purple;
+  color: gold;
+  font-family: "Futura";
+}
+
+.upload:hover {
+  opacity: 0.7;
+}
+
+#trash:before {
+  font-family: "FontAwesome";
+  content: "\f1f8";
+  font-size: 1.5rem;
+}
+
