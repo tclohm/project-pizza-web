@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import ImagePlaceholder from "./components/ImagePlaceholder";
+import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
 import './App.css';
 
-const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8"
+const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b"
 
 function App() {
   const uploadedImage = useRef(null);
@@ -51,12 +52,20 @@ function App() {
         {isPlaceholder ?
           <div className="mt-4"></div>
           :
-        <input 
-          className="h-12 w-full mt-4 px-8 focus:outline-none font-bold" 
-          type="text" 
-          name="name" 
-          placeholder="What's the name of the pizza"
-        />
+        <div className="flex flex-col ml-8 w-full">
+          <input 
+            className="h-12 w-full mt-4 px-8 focus:outline-none font-bold" 
+            type="text" 
+            name="name" 
+            placeholder="What's the name of the pizza"
+          />
+          <button 
+            id="location"
+            className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
+            name="location" 
+          > Add a location
+          </button>
+        </div>
         }
         <input
           type="file"
@@ -86,12 +95,9 @@ function App() {
           isPlaceholder ?
           <></>
           :
-          <div className="flex flex-col w-full p-2">
-            <input 
-              className={inputstyles}
-              type="text" 
-              name="category" 
-              placeholder="What category does it fall under? (required)"/>
+          <div className="flex flex-col w-full p-2 text-gray-600">
+            <label className="py-2 px-8">What category does it fall under? (required)</label>
+            <PizzaCategoryButtons/>
             <input 
               className={inputstyles} 
               type="text" 
