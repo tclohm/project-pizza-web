@@ -52,9 +52,9 @@ function App() {
         {isPlaceholder ?
           <div className="mt-4"></div>
           :
-        <div className="flex flex-col ml-8 w-full">
+        <div className="flex flex-col w-full">
           <input 
-            className="h-12 w-full mt-4 px-8 focus:outline-none font-bold" 
+            className="h-12 w-full px-8 focus:outline-none font-bold" 
             type="text" 
             name="name" 
             placeholder="What's the name of the pizza"
