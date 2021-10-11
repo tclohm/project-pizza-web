@@ -28,6 +28,7 @@ function App() {
     toggle()
     setIsPlaceholder(true)
     uploadedImage.current.src = ""
+    setSelected("")
   }
 
   const handleImageUpload = e => {
@@ -86,6 +87,10 @@ function App() {
             ref={uploadedImage}
             className="h-full"
           />
+          {selected === "" ? <></>
+          :
+          <p className="absolute mt-40 bg-black text-white px-8 py-2 bg-opacity-80">{selected}</p>
+          }
           <button 
             id="trash" 
             className="hidden hover:bg-purple-400 h-12 w-12 rounded absolute top-0 right-0"
