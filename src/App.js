@@ -8,7 +8,8 @@ const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 p
 function App() {
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
-  const [isPlaceholder, setIsPlaceholder] = useState(true)
+  const [isPlaceholder, setIsPlaceholder] = useState(true);
+  const [selected, setSelected] = useState('');
 
 
   const toggle = () => {
@@ -97,7 +98,16 @@ function App() {
           :
           <div className="flex flex-col w-full p-2 text-gray-600">
             <label className="py-2 px-8">What category does it fall under? (required)</label>
-            <PizzaCategoryButtons/>
+            <PizzaCategoryButtons set={setSelected} selected={selected}/>
+            {selected === "Other" ?
+              <input 
+              className={inputstyles} 
+              type="text" 
+              name="type" 
+              placeholder="What's this type of pizza"/>
+              :
+              <></>
+            }
             <input 
               className={inputstyles} 
               type="text" 
