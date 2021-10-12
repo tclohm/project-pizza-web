@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
 import './App.css';
@@ -10,7 +11,7 @@ function App() {
   const imageUploader = useRef(null);
   const [isPlaceholder, setIsPlaceholder] = useState(true);
   const [selected, setSelected] = useState('');
-
+  const [other, setOther] = useState('Other');
 
   const toggle = () => {
     const placeholder = document.getElementById('placeholder')
@@ -53,21 +54,21 @@ function App() {
       >
         {isPlaceholder ?
           <div className="mt-4"></div>
-          :
-        <div className="flex flex-col w-full">
-          <input 
-            className="h-12 w-full px-8 focus:outline-none font-bold" 
-            type="text" 
-            name="name" 
-            placeholder="What's the name of the pizza"
-          />
-          <button 
-            id="location"
-            className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
-            name="location" 
-          > Add a location
-          </button>
-        </div>
+        :
+          <div className="flex flex-col w-full">
+            <input 
+              className="h-12 w-full px-8 focus:outline-none font-bold" 
+              type="text" 
+              name="name" 
+              placeholder="What's the name of the pizza"
+            />
+            <Link to="/findplace"
+              id="location"
+              className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200" 
+            > 
+            Add a location
+            </Link>
+          </div>
         }
         <input
           type="file"
@@ -89,7 +90,19 @@ function App() {
           />
           {selected === "" ? <></>
           :
-          <p className="absolute mt-40 bg-black text-white px-8 py-2 bg-opacity-80">{selected}</p>
+            selected === "Other" ?
+
+              <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
+                 style={{ width: `${uploadedImage.current.width}px` }}
+              >
+              {other}
+              </p>
+              :
+             <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
+                 style={{ width: `${uploadedImage.current.width}px` }}
+              >
+              {selected}
+              </p>  
           }
           <button 
             id="trash" 
@@ -101,16 +114,18 @@ function App() {
           isPlaceholder ?
           <></>
           :
-          <div className="flex flex-col w-full p-2 text-gray-600">
+          <div className="flex flex-col w-full p-2 text-gray-600 text-sm">
             <label className="py-2 px-8">What category does it fall under? (required)</label>
             <PizzaCategoryButtons set={setSelected} selected={selected}/>
             {selected === "Other" ?
               <input 
-              className={inputstyles} 
-              type="text" 
-              name="type" 
-              placeholder="What's this type of pizza"/>
-              :
+                className={inputstyles} 
+                type="text" 
+                name="other"
+                value={other} 
+                onChange={e => setOther(e.target.value)}
+                placeholder="What's this type of pizza"/>
+            :
               <></>
             }
             <input 
