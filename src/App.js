@@ -1,5 +1,8 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+
+import { LocationContext } from "./context/LocationContext";
+
 import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
 import './App.css';
@@ -12,6 +15,8 @@ function App() {
   const [isPlaceholder, setIsPlaceholder] = useState(true);
   const [selected, setSelected] = useState('');
   const [other, setOther] = useState('Other');
+
+  const { location } = useContext(LocationContext);
 
   const toggle = () => {
     const placeholder = document.getElementById('placeholder')
@@ -48,8 +53,7 @@ function App() {
   };
 
   return (
-    <div className="">
-      <nav className="border-b border-gray-200 py-4 flex items-center justify-between mb-12 px-6"><h1 id="pizzatime">cheese. tomato. dough.</h1></nav>
+    <div className="mt-12">
       <div className="flex flex-col justify-center items-center"
       >
         {isPlaceholder ?
@@ -64,9 +68,10 @@ function App() {
             />
             <Link to="/findplace"
               id="location"
-              className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200" 
+              className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
             > 
             Add a location
+            {location}
             </Link>
           </div>
         }
