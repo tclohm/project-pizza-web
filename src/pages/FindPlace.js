@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
-import { LocationContext } from "../context/LocationContext";
+import { PizzaInputContext } from "../context/PizzaInputContext";
 
 export default function FindPlace() {
 	
@@ -11,7 +11,7 @@ export default function FindPlace() {
 	const [area, setArea] = useState(true);
 	const [places, setPlaces] = useState([]);
 
-	const { setLocation } = useContext(LocationContext);
+	const { add } = useContext(PizzaInputContext);
 	const history = useHistory();
 
 	const getCoordinates = position => {
@@ -20,6 +20,7 @@ export default function FindPlace() {
 	}
 
 	const callback = (results, status) => {
+		console.log(results)
 		if (status === "OK") setPlaces(results)
 	}
 
@@ -67,7 +68,14 @@ export default function FindPlace() {
 				key={id}
 				className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
 				onClick={e => {
-					setLocation(e.target.value)
+					add({
+						location: {
+							venueName: obj.name,
+							lat: null,
+							lon: null,
+							address: obj.vicinity,
+						}
+					})
 					history.push("/")
 				}}
 				>

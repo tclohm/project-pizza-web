@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import { LocationProvider } from "./context/LocationContext";
+import { PizzaInputProvider } from "./context/PizzaInputContext";
 
 import App from './App';
 import FindPlace from './pages/FindPlace';
+import TasteMeter from './pages/TasteMeter';
 
 import Header from "./components/Header";
 
@@ -26,7 +27,7 @@ const render = (status) => {
 ReactDOM.render(
   <React.StrictMode>
     <Header/>
-      <LocationProvider>
+      <PizzaInputProvider>
         <Router>
          <Switch>
             <Route exact path="/">
@@ -37,9 +38,12 @@ ReactDOM.render(
                 <FindPlace/>
               </Wrapper>
             </Route>
+            <Route path="/taste">
+              <TasteMeter/>
+            </Route>
          </Switch>
         </Router>
-      </LocationProvider>
+      </PizzaInputProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

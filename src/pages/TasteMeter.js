@@ -1,4 +1,5 @@
 import React from "react";
+import Slider from "../components/Slider";
 
 export default function TasteMeter () {
 	return (
@@ -14,7 +15,7 @@ export default function TasteMeter () {
 			<div className="flex flex-col mx-8 md:mx-0">
 			<label className="text-xs font-black text-yellow-500">Optional</label>
 			<Slider name="Pungency" value="10" />
-			<Slider name="fattiness" value="0" />
+			<Slider name="Fattiness" value="0" />
 			</div>
 		</div>
 	);
