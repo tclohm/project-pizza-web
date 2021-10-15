@@ -20,6 +20,11 @@
   font-size: 1.5rem;
 }
 
+#close:before {
+  font-family: "FontAwesome";
+  content: "\f00d";
+}
+
 #trash:before {
   font-family: "FontAwesome";
   content: "\f1f8";

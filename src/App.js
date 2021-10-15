@@ -8,168 +8,230 @@ import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
 import Modal from "./components/Modal";
 import FindPlace from "./pages/FindPlace";
-import './App.css';
 
-const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b"
+import './App.css';
+const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b inputfield"
 
 const render = (status) => {
-  if (status === Status.LOADING) return <p>loading...</p>
-  if (status === Status.FAILURE) return <p>Error :(</p>
-  return null
+    if (status === Status.LOADING) return <p>loading...</p>
+    if (status === Status.FAILURE) return <p>Error :(</p>
+    return null
 }
 
+
 function App() {
-  const uploadedImage = useRef(null);
-  const imageUploader = useRef(null);
-  const [isPlaceholder, setIsPlaceholder] = useState(true);
-  const [style, setStyle] = useState('');
-  const [other, setOther] = useState('Other');
+    const uploadedImage = useRef(null);
+    const imageUploader = useRef(null);
+    const [isPlaceholder, setIsPlaceholder] = useState(true);
+    const [style, setStyle] = useState('');
+    const [other, setOther] = useState('Other');
 
-  const [open, setOpen] = useState(false);
+    // MARK: -- Modal
+    const [open, setOpen] = useState(false);
 
-  const { input, add } = useContext(PizzaInputContext);
+    const { input, add } = useContext(PizzaInputContext);
 
-  const toggle = () => {
-    const placeholder = document.getElementById('placeholder')
-    const trash = document.getElementById('trash')
-    const inputArea = document.getElementById('inputPictureArea')
-    placeholder.classList.toggle('hidden')
-    trash.classList.toggle('hidden')
-    inputArea.classList.toggle('bg-black')
-    inputArea.classList.toggle('bg-opacity-50')
-  }
+    console.log(input)
 
-  const remove = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    toggle()
-    setIsPlaceholder(true)
-    uploadedImage.current.src = ""
-    setStyle("")
-  }
-
-  const handleImageUpload = e => {
-    setIsPlaceholder(false)
-    toggle()
-    const [file] = e.target.files;
-    if (file) {
-      const reader = new FileReader();
-      const { current } = uploadedImage;
-      current.file = file;
-      reader.onload = e => {
-        current.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-      // add({ image: file })
+    const toggle = () => {
+        const placeholder = document.getElementById('placeholder')
+        const trash = document.getElementById('trash')
+        const inputArea = document.getElementById('inputPictureArea')
+        placeholder.classList.toggle('hidden')
+        trash.classList.toggle('hidden')
+        inputArea.classList.toggle('bg-black')
+        inputArea.classList.toggle('bg-opacity-50')
     }
-  };
 
-  const modal = () => {
-    const container = document.getElementById("wrapper");
-    container.classList.toggle('bg-gray-900')
-    setOpen(true)
-  }
+    const remove = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        toggle()
+        setIsPlaceholder(true)
+        uploadedImage.current.src = ""
+        setStyle("")
+    }
 
-  return (
-    <div className="mt-12">
-      <div className="flex flex-col justify-center items-center"
-      >
-        {isPlaceholder ?
-          <div className="mt-4"></div>
-        :
-          <div className="flex flex-col w-full">
-            <input 
-              className="h-12 w-full px-8 focus:outline-none font-bold" 
-              type="text" 
-              name="name" 
-              placeholder="What's the name of the pizza"
-            />
-            <button
-              id="location"
-              className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
-              onClick={e => modal()}
-            > 
-            Add a location
-            {input.location.vicinity}
-            </button>
-            <Modal open={open} setOpen={setOpen}>
-            <Wrapper apiKey={process.env.REACT_APP_GG_KEY}>
-              <FindPlace setOpen={setOpen} />
-            </Wrapper>
-        </Modal>
-          </div>
+    const handleImageUpload = e => {
+        setIsPlaceholder(false)
+        toggle()
+        const [file] = e.target.files;
+        if (file) {
+            const reader = new FileReader();
+            const { current } = uploadedImage;
+            current.file = file;
+            reader.onload = e => {
+                current.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            // add({ image: file })
         }
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          ref={imageUploader}
-          className="hidden"
-        />
-        <div
-          id="inputPictureArea"
-          className="flex justify-center items-center border-dashed border-4 h-96 w-3/4 cursor-pointer relative" 
-          onClick={() => imageUploader.current.click()}
-        >
-          <ImagePlaceholder/>
-          <img
-            alt=""
-            ref={uploadedImage}
-            className="h-full"
-          />
-          {style === "" ? <></>
-          :
-            style === "Other" ?
+    };
 
-              <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
-                 style={{ width: `${uploadedImage.current.width}px` }}
-              >
-              {other}
-              </p>
-              :
-             <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
-                 style={{ width: `${uploadedImage.current.width}px` }}
-              >
-              {style}
-              </p>  
-          }
-          <button 
-            id="trash" 
-            className="hidden hover:bg-purple-400 h-12 w-12 rounded absolute top-0 right-0"
-            onClick={e => remove(e)}
-            ></button>
-        </div>
-        {
-          isPlaceholder ?
-          <></>
-          :
-          <div className="flex flex-col w-full p-2 text-gray-600 text-sm">
-            <label className="py-2 px-8">What category does it fall under? (required)</label>
-            <PizzaCategoryButtons set={setStyle} selected={style}/>
-            {style === "Other" ?
-              <input 
-                className={inputstyles} 
-                type="text" 
-                name="other"
-                value={other} 
-                onChange={e => setOther(e.target.value)}
-                placeholder="What's this type of pizza"/>
-            :
-              <></>
+    // MARK: -- Toggle
+    const modalRef = useRef(null);
+    const toggleModal = e => {
+        const wrapper = document.getElementById('wrapper')
+        const inputlist = document.getElementsByClassName('inputfield')
+        if (open) {
+            wrapper.classList.toggle('bg-gray-200')
+            for (const el of inputlist) { el.classList.toggle('bg-gray-200') }
+            document.body.style.backgroundColor = "white"
+            setOpen(false)
+        } else {
+            // this ugly code changes the background to gray
+            wrapper.classList.toggle('bg-gray-200')
+            for (const el of inputlist) { el.classList.toggle('bg-gray-200') }
+            document.body.style.backgroundColor = "rgba(191,194,198, 0.38)"
+            setOpen(true)
+        }
+    }
+
+    const closeModal = e => {
+        if (modalRef.current === e.target) setOpen(false)
+    }
+
+    // MARK: -- Location Services
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+
+    const getLocation = () => {
+        if (navigator.geolocation) {
+
+            function error(err) {
+                console.error("To err is human", err)
             }
-            <input 
-              className={inputstyles} 
-              type="text" 
-              name="description" 
-              placeholder="Any more detail you like to add about the pizza (optional)"/>
-          </div>
+
+            navigator.geolocation.getCurrentPosition(getCoordinates, error)
+
+        } else {
+            alert("Geolocation is not supported in this browsers");
         }
-        <Link 
-        to="/taste"
-        className="upload px-48 my-4 py-2 rounded-lg">continue</Link>
-      </div>
-    </div>
-  );
+    }
+
+    const getCoordinates = position => {
+        setLongitude(position.coords.longitude);
+        setLatitude(position.coords.latitude);
+
+        toggleModal()
+    }
+
+    return (
+        <Wrapper apiKey={process.env.REACT_APP_GG_KEY} render={render}>
+            <div className="mt-12" ref={modalRef} onClick={e => closeModal(e)}>
+                <div id="map"/>
+                <div className="flex flex-col justify-center items-center">
+                    {isPlaceholder ?
+                        <div className="mt-4"></div>
+                    :
+                        <div className="flex flex-col w-full">
+                            <input 
+                            className="h-12 w-full px-8 focus:outline-none font-bold inputfield" 
+                            type="text" 
+                            name="pizzaName" 
+                            placeholder="What's the name of the pizza"
+                            onChange={e => add({
+                                pizzaName: e.target.value
+                            })}
+                            />
+                            <button
+                            id="location"
+                            className="flex items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
+                            onClick={() => getLocation()}
+                            > 
+                                Add a location
+                                <span className="absolute right-8 bg-red-500 text-white rounded p-2">{input.location.venueName}</span>
+                            </button>
+                            <Modal open={open} toggle={setOpen}>
+                                <FindPlace 
+                                latitude={latitude} 
+                                longitude={longitude} 
+                                add={add}
+                                modalRef={modalRef}
+                                close={toggleModal}
+                                />
+                            </Modal>
+                        </div>
+                    }
+                    <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    ref={imageUploader}
+                    className="hidden"
+                    />
+                    <div
+                    id="inputPictureArea"
+                    className="flex justify-center items-center border-dashed border-4 h-96 w-3/4 cursor-pointer relative" 
+                    onClick={() => imageUploader.current.click()}>
+                        <ImagePlaceholder/>
+                        <img
+                        alt=""
+                        ref={uploadedImage}
+                        className="h-full"
+                        />
+                        {style === "" ? 
+                            <></>
+                        :
+                            style === "Other" ?
+                                <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
+                                style={{ width: `${uploadedImage.current.width}px` }}
+                                >
+                                    {other}
+                                </p>
+                            :
+                                <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
+                                style={{ width: `${uploadedImage.current.width}px` }}
+                                >
+                                    {style}
+                                </p>  
+                        }
+                        <button 
+                        id="trash" 
+                        className="hidden hover:bg-purple-400 h-12 w-12 rounded absolute top-0 right-0"
+                        onClick={e => remove(e)}
+                        ></button>
+                    </div>
+                    {isPlaceholder ?
+                        <></>
+                    :
+                        <div className="flex flex-col w-full p-2 text-gray-600 text-sm">
+                            <label className="py-2 px-8">What category does it fall under? (required)</label>
+                            <PizzaCategoryButtons set={setStyle} selected={style} add={add} />
+                            {style === "Other" ?
+                                <input 
+                                className={inputstyles} 
+                                type="text" 
+                                name="other"
+                                value={other} 
+                                onChange={e => { 
+                                    setOther(e.target.value)
+                                    add({ style: e.target.value })
+                                }}
+                                placeholder="What's this type of pizza"/>
+                            :
+                                <></>
+                            }
+                            <input 
+                            className={inputstyles} 
+                            type="text" 
+                            name="description" 
+                            placeholder="Any more detail you like to add about the pizza (optional)"
+                            onChange={e => add({
+                                details: e.target.value
+                            })}
+                            />
+                        </div>
+                    }
+                        <Link 
+                        to="/taste"
+                        className="upload px-48 my-4 py-2 rounded-lg">
+                            continue
+                        </Link>
+                </div>
+            </div>
+        </Wrapper>
+    );
 }
 
 export default App;
