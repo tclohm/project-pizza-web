@@ -1,22 +1,33 @@
 import { useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
-import { LocationContext } from "./context/LocationContext";
+import { PizzaInputContext } from "./context/PizzaInputContext";
 
 import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
+import Modal from "./components/Modal";
+import FindPlace from "./pages/FindPlace";
 import './App.css';
 
 const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b"
+
+const render = (status) => {
+  if (status === Status.LOADING) return <p>loading...</p>
+  if (status === Status.FAILURE) return <p>Error :(</p>
+  return null
+}
 
 function App() {
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
   const [isPlaceholder, setIsPlaceholder] = useState(true);
-  const [selected, setSelected] = useState('');
+  const [style, setStyle] = useState('');
   const [other, setOther] = useState('Other');
 
-  const { location } = useContext(LocationContext);
+  const [open, setOpen] = useState(false);
+
+  const { input, add } = useContext(PizzaInputContext);
 
   const toggle = () => {
     const placeholder = document.getElementById('placeholder')
@@ -34,7 +45,7 @@ function App() {
     toggle()
     setIsPlaceholder(true)
     uploadedImage.current.src = ""
-    setSelected("")
+    setStyle("")
   }
 
   const handleImageUpload = e => {
@@ -49,8 +60,15 @@ function App() {
         current.src = e.target.result;
       };
       reader.readAsDataURL(file);
+      // add({ image: file })
     }
   };
+
+  const modal = () => {
+    const container = document.getElementById("wrapper");
+    container.classList.toggle('bg-gray-900')
+    setOpen(true)
+  }
 
   return (
     <div className="mt-12">
@@ -66,13 +84,19 @@ function App() {
               name="name" 
               placeholder="What's the name of the pizza"
             />
-            <Link to="/findplace"
+            <button
               id="location"
               className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
+              onClick={e => modal()}
             > 
             Add a location
-            {location}
-            </Link>
+            {input.location.vicinity}
+            </button>
+            <Modal open={open} setOpen={setOpen}>
+            <Wrapper apiKey={process.env.REACT_APP_GG_KEY}>
+              <FindPlace setOpen={setOpen} />
+            </Wrapper>
+        </Modal>
           </div>
         }
         <input
@@ -93,9 +117,9 @@ function App() {
             ref={uploadedImage}
             className="h-full"
           />
-          {selected === "" ? <></>
+          {style === "" ? <></>
           :
-            selected === "Other" ?
+            style === "Other" ?
 
               <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
                  style={{ width: `${uploadedImage.current.width}px` }}
@@ -106,7 +130,7 @@ function App() {
              <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
                  style={{ width: `${uploadedImage.current.width}px` }}
               >
-              {selected}
+              {style}
               </p>  
           }
           <button 
@@ -121,8 +145,8 @@ function App() {
           :
           <div className="flex flex-col w-full p-2 text-gray-600 text-sm">
             <label className="py-2 px-8">What category does it fall under? (required)</label>
-            <PizzaCategoryButtons set={setSelected} selected={selected}/>
-            {selected === "Other" ?
+            <PizzaCategoryButtons set={setStyle} selected={style}/>
+            {style === "Other" ?
               <input 
                 className={inputstyles} 
                 type="text" 
@@ -137,10 +161,12 @@ function App() {
               className={inputstyles} 
               type="text" 
               name="description" 
-              placeholder="Add a description if you would like to give more context (optional)"/>
+              placeholder="Any more detail you like to add about the pizza (optional)"/>
           </div>
         }
-        <button className="upload px-48 my-4 py-2 rounded-lg">continue</button>
+        <Link 
+        to="/taste"
+        className="upload px-48 my-4 py-2 rounded-lg">continue</Link>
       </div>
     </div>
   );

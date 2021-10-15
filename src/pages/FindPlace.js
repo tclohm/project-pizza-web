@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { PizzaInputContext } from "../context/PizzaInputContext";
 
-import { LocationContext } from "../context/LocationContext";
-
-export default function FindPlace() {
+export default function FindPlace({ setOpen }) {
 	
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
@@ -11,8 +9,7 @@ export default function FindPlace() {
 	const [area, setArea] = useState(true);
 	const [places, setPlaces] = useState([]);
 
-	const { setLocation } = useContext(LocationContext);
-	const history = useHistory();
+	const { add } = useContext(PizzaInputContext);
 
 	const getCoordinates = position => {
 		setLongitude(position.coords.longitude);
@@ -20,6 +17,7 @@ export default function FindPlace() {
 	}
 
 	const callback = (results, status) => {
+		console.log(results)
 		if (status === "OK") setPlaces(results)
 	}
 
@@ -58,24 +56,31 @@ export default function FindPlace() {
 	}, [latitude, longitude, coord, area])
 
 	return (
-	<div className="mt-12">
+	<div className="mt-12 px-8 border rounded-xl bg-white w-11/12">
 		<div id="map"/>
-		<h1 className="text-gray-400 text-lg font-black ml-8">Around you</h1>
+		<h1 className="text-gray-400 text-lg font-black mt-8 border-b">Around you</h1>
 		<div>
 			{places.map((obj, id) => (
 				<button 
 				key={id}
-				className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
+				className="flex justify-start items-center h-12 mt-1 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
 				onClick={e => {
-					setLocation(e.target.value)
-					history.push("/")
+					add({
+						location: {
+							venueName: obj.name,
+							lat: null,
+							lon: null,
+							address: obj.vicinity,
+						}
+					})
+					setOpen(false)
 				}}
 				>
 					{obj.name}
 				</button>
 			))}
 			<input 
-              className="w-full overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b mb-8"
+              className="flex overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 w-full border-b mb-8"
               type="text" 
               name="location" 
               placeholder="Dont see the restaurant where you ordered your pizza. Type it in here"/>
