@@ -14,11 +14,12 @@ const selection = [
 "Other"
 ]
 
-export default function PizzaCategoryButtons({ set, selected }) {
+export default function PizzaCategoryButtons({ set, selected, add }) {
 
 	const select = e => {
 		e.preventDefault();
 		set(e.target.textContent)
+		add({ style: e.target.textContent })
 	}
 
 	return (
@@ -28,7 +29,7 @@ export default function PizzaCategoryButtons({ set, selected }) {
 				<button
 				key={id} 
 				onClick={e => select(e)}
-				className="border-red-300 bg-red-300 text-white border-2 my-4 mx-1 px-1 py-2 rounded-lg font-semibold">
+				className="border-red-500 bg-red-500 text-white border-2 my-4 mx-1 px-1 py-2 rounded-lg font-semibold">
 					{style}
 				</button>
 				:

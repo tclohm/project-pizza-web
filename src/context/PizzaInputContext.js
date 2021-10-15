@@ -31,11 +31,23 @@ const reducer = (state = initialState, action) => {
 	if (action.type === ADD) {
 		const { payload } = action
 		const key = Object.keys(payload)[0]
+		console.log(key)
 		switch (key) {
 			case "image":
 				const { image } = payload
-				console.log({...state, image})
 				return { ...state, image }
+			case "pizzaName":
+				const { pizzaName } = payload
+				return { ...state, pizzaName }
+			case "location":
+				const { location } = payload
+				return { ...state, location }
+			case "style":
+				const { style } = payload
+				return { ...state, style }
+			case "details":
+				const { details } = payload
+				return { ...state, details }
 			default:
 				return { ...state, payload }
 		}
