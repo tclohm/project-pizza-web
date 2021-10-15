@@ -1,13 +1,22 @@
 import { useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 import { PizzaInputContext } from "./context/PizzaInputContext";
 
 import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
+import Modal from "./components/Modal";
+import FindPlace from "./pages/FindPlace";
 import './App.css';
 
 const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b"
+
+const render = (status) => {
+  if (status === Status.LOADING) return <p>loading...</p>
+  if (status === Status.FAILURE) return <p>Error :(</p>
+  return null
+}
 
 function App() {
   const uploadedImage = useRef(null);
@@ -15,6 +24,8 @@ function App() {
   const [isPlaceholder, setIsPlaceholder] = useState(true);
   const [style, setStyle] = useState('');
   const [other, setOther] = useState('Other');
+
+  const [open, setOpen] = useState(false);
 
   const { input, add } = useContext(PizzaInputContext);
 
@@ -49,9 +60,15 @@ function App() {
         current.src = e.target.result;
       };
       reader.readAsDataURL(file);
-      add({ image: file })
+      // add({ image: file })
     }
   };
+
+  const modal = () => {
+    const container = document.getElementById("wrapper");
+    container.classList.toggle('bg-gray-900')
+    setOpen(true)
+  }
 
   return (
     <div className="mt-12">
@@ -67,13 +84,19 @@ function App() {
               name="name" 
               placeholder="What's the name of the pizza"
             />
-            <Link to="/findplace"
+            <button
               id="location"
               className="flex justify-start items-center h-12 mt-4 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
+              onClick={e => modal()}
             > 
             Add a location
             {input.location.vicinity}
-            </Link>
+            </button>
+            <Modal open={open} setOpen={setOpen}>
+            <Wrapper apiKey={process.env.REACT_APP_GG_KEY}>
+              <FindPlace setOpen={setOpen} />
+            </Wrapper>
+        </Modal>
           </div>
         }
         <input
