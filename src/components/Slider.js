@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
 
-export default function Slider ({ name, value }) {
+export default function Slider ({ name, value, set }) {
 	const [v, setV] = useState(value)
 
 	const onChange = (e) => {
 		e.preventDefault()
 		setV(e.target.value)
+		set(e.target.value)
 	}
 
 	return (
