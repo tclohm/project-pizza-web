@@ -11,9 +11,9 @@ export default function Slider ({ name, value, set }) {
 	}
 
 	return (
-		<>
+		<div className="flex flex-col">
 			<label className="text-xs text-gray-500">{name}</label>
-		    <input className="slider" type="range" name="sweet" value={v} min="0" max="10" step="1" onChange={e => onChange(e)} />
-	    </>
+		    <input className="slider" type="range" name="sweet" value={v} min="0" max="5" step="0.1" onChange={e => onChange(e)} />
+	    </div>
     );
 };
