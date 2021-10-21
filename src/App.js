@@ -1,6 +1,8 @@
 import { useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import useMeasure from "react-use-measure";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import { useSpring, animated } from "@react-spring/web";
 
 import { PizzaInputContext } from "./context/PizzaInputContext";
 
@@ -23,30 +25,46 @@ function App() {
     const uploadedImage = useRef(null);
     const imageUploader = useRef(null);
     const [isPlaceholder, setIsPlaceholder] = useState(true);
+    const [image, setImage] = useState('null')
     const [style, setStyle] = useState('');
     const [other, setOther] = useState('Other');
+
+    // MARK: -- Animation
+    // const [ref, { width }] = useMeasure();
+    // const 
+    // const props = useSpring({ width: open ? width : 0 })
 
     // MARK: -- Modal
     const [open, setOpen] = useState(false);
 
     const { input, add } = useContext(PizzaInputContext);
 
-    console.log(input)
-
-    const toggle = () => {
+    const addImage = () => {
         const placeholder = document.getElementById('placeholder')
         const trash = document.getElementById('trash')
         const inputArea = document.getElementById('inputPictureArea')
-        placeholder.classList.toggle('hidden')
-        trash.classList.toggle('hidden')
-        inputArea.classList.toggle('bg-black')
-        inputArea.classList.toggle('bg-opacity-50')
+
+        if (!placeholder.classList.contains('hidden')) {
+            placeholder.classList.add('hidden')
+            trash.classList.remove('hidden')
+            inputArea.classList.add('bg-black')
+            inputArea.classList.add('bg-opacity-50')
+        }
     }
 
-    const remove = (e) => {
+    const removeImage = (e) => {
         e.preventDefault()
         e.stopPropagation()
-        toggle()
+
+        const placeholder = document.getElementById('placeholder')
+        const trash = document.getElementById('trash')
+        const inputArea = document.getElementById('inputPictureArea')
+
+        placeholder.classList.remove('hidden')
+        trash.classList.add('hidden')
+        inputArea.classList.remove('bg-black')
+        inputArea.classList.remove('bg-opacity-50')
+
         setIsPlaceholder(true)
         uploadedImage.current.src = ""
         setStyle("")
@@ -54,7 +72,6 @@ function App() {
 
     const handleImageUpload = e => {
         setIsPlaceholder(false)
-        toggle()
         const [file] = e.target.files;
         if (file) {
             const reader = new FileReader();
@@ -64,9 +81,26 @@ function App() {
                 current.src = e.target.result;
             };
             reader.readAsDataURL(file);
-            // add({ image: file })
+            // send the file to our server, even if it will not be used
+            upload(file)
+            addImage()
         }
     };
+
+    const upload = async file => {
+        const response = await fetch("http://localhost:8080/upload", { 
+            method: 'POST',
+            headers: { 'Content-Type': 'image/jpeg' },
+            body: file
+        })
+        .then(res => console.log(res))
+        .catch(err => console.error(err))
+        
+        
+    }
+
+
+
 
     // MARK: -- Toggle
     const modalRef = useRef(null);
@@ -189,7 +223,7 @@ function App() {
                         <button 
                         id="trash" 
                         className="hidden hover:bg-purple-400 h-12 w-12 rounded absolute top-0 right-0"
-                        onClick={e => remove(e)}
+                        onClick={e => removeImage(e)}
                         ></button>
                     </div>
                     {isPlaceholder ?
