@@ -11,7 +11,6 @@ const initialState = {
 		lon: null,
 		address: '',
 	},
-	image: '',
 	style: '',
 	details: '',
 	taste: {
@@ -33,9 +32,6 @@ const reducer = (state = initialState, action) => {
 		const key = Object.keys(payload)[0]
 		console.log(key)
 		switch (key) {
-			case "image":
-				const { image } = payload
-				return { ...state, image }
 			case "pizzaName":
 				const { pizzaName } = payload
 				return { ...state, pizzaName }
