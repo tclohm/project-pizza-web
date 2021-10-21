@@ -88,10 +88,12 @@ function App() {
     };
 
     const upload = async file => {
-        const response = await fetch("http://localhost:8080/upload", { 
+        const data = new FormData();
+        data.append('file', file)
+        await fetch("http://localhost:8080/upload", { 
             method: 'POST',
-            headers: { 'Content-Type': 'image/jpeg' },
-            body: file
+            headers: {},
+            body: data
         })
         .then(res => console.log(res))
         .catch(err => console.error(err))
