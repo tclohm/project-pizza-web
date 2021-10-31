@@ -52,7 +52,7 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
 					(e) => {
 						add({
 							location: {
-								venueName: obj.name,
+								name: obj.name,
 								lat: obj.geometry.location.lat(),
 								lon: obj.geometry.location.lng(),
 								address: obj.vicinity,

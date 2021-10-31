@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { PizzaInputContext } from "../context/PizzaInputContext";
 
@@ -13,6 +13,18 @@ export default function TasteMeter () {
 	const [charSize, setCharSize] = useState(0)
 
 	const { input, add } = useContext(PizzaInputContext);
+
+	useEffect(() => {
+		add({
+			taste: {
+				cheesiness: Number(cheeseSize),
+				flavor: Number(flavorSize),
+				sauciness: Number(saucinessSize),
+				saltiness: Number(saltinessSize),
+				charness: Number(charSize),
+			}
+		})
+	}, [cheeseSize, flavorSize, saucinessSize, saltinessSize, charSize])
 
 	return (
 		<div className="absolute min-h-90 w-full">

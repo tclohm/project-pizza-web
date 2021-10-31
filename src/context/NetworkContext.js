@@ -10,18 +10,6 @@ import { PizzaInputContext } from "./PizzaInputContext";
 
 // const POST_PIZZA = 'POST_PIZZA'
 
-// pizzaName: '',
-// 	imageId: '',
-// 	location: {
-// 		venueName: '',
-// 		lat: null,
-// 		lon: null,
-// 		address: '',
-// 	},
-// 	style: '',
-// 	details: '',
-// 	tasteId: null,
-
 export const NetworkContext = createContext();
 
 export const NetworkProvider = ({ children }) => {
@@ -56,13 +44,18 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
     }
 
-    const postVenue = async venue => {
-    	await fetch("http://localhost:8000/post/venue", { 
+    const postVenue = venue => { 
+    	fetch("http://localhost:8000/post/venue", { 
             method: 'POST',
             headers: {},
-            body: venue
+            body: JSON.stringify(venue)
         })
         .then(res => res.json())
+        .then(data => {
+            if (data.id) {
+                add({ venueId: data.id })
+            }
+        })
         .catch(err => console.error(err))
     }
 
@@ -76,13 +69,18 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
     }
 
-    const postTaste = async taste => {
-		await fetch("http://localhost:8000/post/taste", { 
+    const postTaste = taste => {
+		fetch("http://localhost:8000/post/taste", { 
             method: 'POST',
             headers: {},
-            body: taste
+            body: JSON.stringify(taste)
         })
         .then(res => res.json())
+        .then(data => {
+            if (data.id) {
+                add({ tasteId: data.id })
+            }
+        })
         .catch(err => console.error(err))
     }
 
