@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import { PizzaInputProvider } from "./context/PizzaInputContext";
+import { NetworkProvider } from "./context/NetworkContext";
 
 import App from './App';
 import TasteMeter from './pages/TasteMeter';
@@ -15,17 +16,20 @@ ReactDOM.render(
   <React.StrictMode>
     <div id="wrapper">
       <Header/>
-        <PizzaInputProvider>
-          <Router>
-           <Switch>
-              <Route exact path="/">
-                <App/>
-              </Route>
-              <Route path="/taste">
-                <TasteMeter/>
-              </Route>
-           </Switch>
-          </Router>
+      <PizzaInputProvider>
+        <NetworkProvider>
+          
+            <Router>
+             <Switch>
+                <Route exact path="/">
+                  <App/>
+                </Route>
+                <Route path="/taste">
+                  <TasteMeter/>
+                </Route>
+             </Switch>
+            </Router>
+        </NetworkProvider>
         </PizzaInputProvider>
       </div>
   </React.StrictMode>,
