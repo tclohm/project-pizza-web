@@ -142,10 +142,10 @@ function App() {
                             <input 
                             className="h-12 w-full px-8 focus:outline-none font-bold inputfield" 
                             type="text" 
-                            name="pizzaName" 
+                            name="name"
                             placeholder="What's the name of the pizza"
                             onChange={e => add({
-                                pizzaName: e.target.value
+                                name: e.target.value
                             })}
                             />
                             <button
@@ -154,7 +154,7 @@ function App() {
                             onClick={() => getLocation()}
                             > 
                                 Add a location
-                                <span className="absolute right-8 bg-red-500 text-white rounded p-2">{input.location.venueName}</span>
+                                <span className="absolute right-8 bg-red-500 text-white rounded p-2">{input.location.name}</span>
                             </button>
                             <Modal open={open} toggle={setOpen}>
                                 <FindPlace 
@@ -237,12 +237,13 @@ function App() {
                             />
                         </div>
                     }
-                        <button 
+                        <Link 
                         className="upload px-48 my-4 py-2 rounded-lg"
+                        to="/taste"
                         onClick={e => postVenue(input.location)}
                         >
                             continue
-                        </button>
+                        </Link>
                 </div>
             </div>
         </Wrapper>

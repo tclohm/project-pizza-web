@@ -4,10 +4,11 @@ import useLocalStorage from "../useLocalStorage";
 export const PizzaInputContext = createContext();
 
 const initialState = {
-	pizzaName: '',
+	name: '',
 	imageId: '',
+	venueId: '',
 	location: {
-		venueName: '',
+		name: '',
 		lat: null,
 		lon: null,
 		address: '',
@@ -15,6 +16,13 @@ const initialState = {
 	style: '',
 	details: '',
 	tasteId: null,
+	taste: {
+		cheesiness: 0,
+		flavor: 0,
+		sauciness: 0,
+		saltiness: 0,
+		charness: 0
+	}
 }
 
 const ADD = "ADD";
@@ -27,10 +35,13 @@ const reducer = (state = initialState, action) => {
 		switch (key) {
 			case "imageId":
 				const { imageId } = payload
-				return {...state, imageId }
-			case "pizzaName":
-				const { pizzaName } = payload
-				return { ...state, pizzaName }
+				return { ...state, imageId }
+			case "name":
+				const { name } = payload
+				return { ...state, name }
+			case "venueId":
+				const { venueId } = payload
+				return { ...state, venueId }
 			case "location":
 				const { location } = payload
 				return { ...state, location }
@@ -40,6 +51,9 @@ const reducer = (state = initialState, action) => {
 			case "details":
 				const { details } = payload
 				return { ...state, details }
+			case "taste":
+				const { taste } = payload
+				return { ...state, taste }
 			default:
 				return { ...state, payload }
 		}
