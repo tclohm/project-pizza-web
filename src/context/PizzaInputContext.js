@@ -5,6 +5,7 @@ export const PizzaInputContext = createContext();
 
 const initialState = {
 	pizzaName: '',
+	imageId: '',
 	location: {
 		venueName: '',
 		lat: null,
@@ -13,15 +14,7 @@ const initialState = {
 	},
 	style: '',
 	details: '',
-	taste: {
-		Sweet: 0,
-		Sour: 0,
-		Bitter: 0,
-		Salty: 0,
-		Umami: 0,
-		Pungency: 0,
-		Fattiness: 0,
-	}
+	tasteId: null,
 }
 
 const ADD = "ADD";
@@ -32,6 +25,9 @@ const reducer = (state = initialState, action) => {
 		const key = Object.keys(payload)[0]
 		console.log(key)
 		switch (key) {
+			case "imageId":
+				const { imageId } = payload
+				return {...state, imageId }
 			case "pizzaName":
 				const { pizzaName } = payload
 				return { ...state, pizzaName }

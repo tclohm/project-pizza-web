@@ -1,10 +1,9 @@
 import { useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import useMeasure from "react-use-measure";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { useSpring, animated } from "@react-spring/web";
 
 import { PizzaInputContext } from "./context/PizzaInputContext";
+import { NetworkContext } from "./context/NetworkContext";
 
 import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
@@ -29,17 +28,13 @@ function App() {
     const [style, setStyle] = useState('');
     const [other, setOther] = useState('Other');
 
-    // MARK: -- Animation
-    // const [ref, { width }] = useMeasure();
-    // const 
-    // const props = useSpring({ width: open ? width : 0 })
-
     // MARK: -- Modal
     const [open, setOpen] = useState(false);
 
     const { input, add } = useContext(PizzaInputContext);
+    const { upload, postVenue } = useContext(NetworkContext);
 
-    const addImage = () => {
+    const showImg = () => {
         const placeholder = document.getElementById('placeholder')
         const trash = document.getElementById('trash')
         const inputArea = document.getElementById('inputPictureArea')
@@ -83,26 +78,9 @@ function App() {
             reader.readAsDataURL(file);
             // send the file to our server, even if it will not be used
             upload(file)
-            addImage()
+            showImg()
         }
     };
-
-    const upload = async file => {
-        const data = new FormData();
-        data.append('file', file)
-        await fetch("http://localhost:8080/upload", { 
-            method: 'POST',
-            headers: {},
-            body: data
-        })
-        .then(res => console.log(res))
-        .catch(err => console.error(err))
-        
-        
-    }
-
-
-
 
     // MARK: -- Toggle
     const modalRef = useRef(null);
@@ -259,11 +237,12 @@ function App() {
                             />
                         </div>
                     }
-                        <Link 
-                        to="/taste"
-                        className="upload px-48 my-4 py-2 rounded-lg">
+                        <button 
+                        className="upload px-48 my-4 py-2 rounded-lg"
+                        onClick={e => postVenue(input.location)}
+                        >
                             continue
-                        </Link>
+                        </button>
                 </div>
             </div>
         </Wrapper>
