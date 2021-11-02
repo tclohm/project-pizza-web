@@ -24,7 +24,6 @@ function App() {
     const uploadedImage = useRef(null);
     const imageUploader = useRef(null);
     const [isPlaceholder, setIsPlaceholder] = useState(true);
-    const [image, setImage] = useState('null')
     const [style, setStyle] = useState('');
     const [other, setOther] = useState('Other');
 
@@ -38,10 +37,12 @@ function App() {
         const placeholder = document.getElementById('placeholder')
         const trash = document.getElementById('trash')
         const inputArea = document.getElementById('inputPictureArea')
+        const contBtn = document.getElementById('continue')
 
         if (!placeholder.classList.contains('hidden')) {
             placeholder.classList.add('hidden')
             trash.classList.remove('hidden')
+            contBtn.classList.remove('hidden')
             inputArea.classList.add('bg-black')
             inputArea.classList.add('bg-opacity-50')
         }
@@ -54,9 +55,11 @@ function App() {
         const placeholder = document.getElementById('placeholder')
         const trash = document.getElementById('trash')
         const inputArea = document.getElementById('inputPictureArea')
+        const contBtn = document.getElementById('continue')
 
         placeholder.classList.remove('hidden')
         trash.classList.add('hidden')
+        contBtn.classList.add('hidden')
         inputArea.classList.remove('bg-black')
         inputArea.classList.remove('bg-opacity-50')
 
@@ -238,7 +241,8 @@ function App() {
                         </div>
                     }
                         <Link 
-                        className="upload px-48 my-4 py-2 rounded-lg"
+                        id="continue"
+                        className="upload px-24 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8"
                         to="/taste"
                         onClick={e => postVenue(input.location)}
                         >
