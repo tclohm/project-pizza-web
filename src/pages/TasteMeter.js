@@ -1,12 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 
 import { PizzaInputContext } from "../context/PizzaInputContext";
+import { NetworkContext } from "../context/NetworkContext";
 
 import PizzaImageNameVenue from "../components/PizzaImageNameVenue";
 import Slider from "../components/Slider";
 
 export default function TasteMeter () {
 	const { input, add } = useContext(PizzaInputContext);
+	const { postTaste, postPizza, postVenuePizza } = useContext(NetworkContext);
 	const [image, setImage] = useState('')
 
 	useEffect(() => {

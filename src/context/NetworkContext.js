@@ -94,12 +94,8 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
 	}
 
-	const postPizza = async pizza => {
-		return
-	}
-
-	const updatePizza = async (pizza, id) => {
-		await fetch(`http://localhost:8000/put/pizza/${id}`, { 
+	const postPizza = pizza => {
+		fetch("http://localhost:8000/post/pizza/", { 
             method: 'PUT',
             headers: {},
             body: pizza
@@ -107,6 +103,26 @@ export const NetworkProvider = ({ children }) => {
         .then(res => res.json())
         .catch(err => console.error(err))
 	}
+
+	const updatePizza = (pizza, id) => {
+		fetch(`http://localhost:8000/put/pizza/${id}`, { 
+            method: 'PUT',
+            headers: {},
+            body: pizza
+        })
+        .then(res => res.json())
+        .catch(err => console.error(err))
+	}
+
+    const postVenuePizza = (pizzaId, venueId) => {
+        fetch(`http://localhost:8000/put/venuepizza/`, { 
+            method: 'PUT',
+            headers: {},
+            body: { pizzaId, venueId }
+        })
+        .then(res => res.json())
+        .catch(err => console.error(err))
+    }
 
 	return (
 		<NetworkContext.Provider value={{  
@@ -117,7 +133,8 @@ export const NetworkProvider = ({ children }) => {
 			postTaste,
 			updateTaste,
 			postPizza,
-			updatePizza
+			updatePizza,
+            postVenuePizza
 		}}>
 			{children}
 		</NetworkContext.Provider>
