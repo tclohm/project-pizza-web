@@ -8,16 +8,30 @@ import Slider from "../components/Slider";
 
 export default function TasteMeter () {
 	const { input, add } = useContext(PizzaInputContext);
-	const { postTaste, postPizza, postVenuePizza } = useContext(NetworkContext);
+	const { getImage, postTaste, postPizza, postVenuePizza } = useContext(NetworkContext);
 	const [image, setImage] = useState('')
 
 	useEffect(() => {
-		fetch(`http://localhost:8000/image/${input.imageId}`)
-		.then(res => {
-			setImage(res.url)
+		if (image === '') {
+			getImage(input.imageId).then(res => {
+				if (res.url) {
+					setImage(res.url)
+				}
+			})
+		}
+	}, [input.imageId, getImage, image])
+
+	const all = e => {
+		postTaste(input.taste)
+		postPizza({ 
+			name: input.name, 
+			style: input.style, 
+			description: input.description, 
+			tasteId: input.tasteId,
+			imageId: input.imageId 
 		})
-		.catch(err => console.error(err))
-	}, [input.imageId])
+		postVenuePizza(input.venueId, input.pizzaId)
+	}
 
 	return (
 		<div className="absolute flex flex-col justify-around min-h-90 w-full">
@@ -64,7 +78,8 @@ export default function TasteMeter () {
 					</div>
 				</div>
 			</div>
-			<button className="upload bg-red-600 mx-4 my-4 py-2 lg:w-20 lg:self-end rounded">submit</button>
+			<button className="upload bg-red-600 mx-4 my-4 py-2 lg:w-20 lg:self-end rounded"
+			onClick={e => postTaste(input.taste)}>submit</button>
 		</div>
 	);
 };

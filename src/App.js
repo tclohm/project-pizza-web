@@ -9,7 +9,6 @@ import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
 import Modal from "./components/Modal";
 import FindPlace from "./pages/FindPlace";
-import Heart from "./components/Heart";
 
 import './App.css';
 const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b inputfield"
