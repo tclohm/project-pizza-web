@@ -34,15 +34,12 @@ export const NetworkProvider = ({ children }) => {
         
     }
 
-    const getImage = async id => {
-        await fetch(`http://localhost:8000/image/${id}`, {
-            method: 'GET',
-            headers: {},
-        })
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.error(err))
+    const getImage = async imageId => {
+        const res = await fetch(`http://localhost:8000/image/${imageId}`)
+        return res
     }
+
+
 
     const postVenue = venue => { 
     	fetch("http://localhost:8000/post/venue", { 
@@ -95,10 +92,10 @@ export const NetworkProvider = ({ children }) => {
 	}
 
 	const postPizza = pizza => {
-		fetch("http://localhost:8000/post/pizza/", { 
+		fetch("http://localhost:8000/post/pizza", { 
             method: 'PUT',
             headers: {},
-            body: pizza
+            body: JSON.stringify(pizza)
         })
         .then(res => res.json())
         .catch(err => console.error(err))
@@ -115,10 +112,10 @@ export const NetworkProvider = ({ children }) => {
 	}
 
     const postVenuePizza = (pizzaId, venueId) => {
-        fetch(`http://localhost:8000/put/venuepizza/`, { 
+        fetch("http://localhost:8000/put/venuepizza", { 
             method: 'PUT',
             headers: {},
-            body: { pizzaId, venueId }
+            body: JSON.stringify({ pizzaId, venueId })
         })
         .then(res => res.json())
         .catch(err => console.error(err))
