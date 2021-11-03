@@ -9,6 +9,7 @@ import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
 import Modal from "./components/Modal";
 import FindPlace from "./pages/FindPlace";
+import Heart from "./components/Heart";
 
 import './App.css';
 const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b inputfield"
@@ -205,7 +206,7 @@ function App() {
                         }
                         <button 
                         id="trash" 
-                        className="hidden hover:bg-purple-400 h-12 w-12 rounded absolute top-0 right-0"
+                        className="hidden hover:bg-blue-400 h-12 w-12 rounded absolute top-0 right-0"
                         onClick={e => removeImage(e)}
                         ></button>
                     </div>
@@ -242,7 +243,7 @@ function App() {
                     }
                         <Link 
                         id="continue"
-                        className="upload px-24 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8"
+                        className="hidden upload px-24 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8"
                         to="/taste"
                         onClick={e => postVenue(input.location)}
                         >
