@@ -64,8 +64,8 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
     }
 
-    const postPizza = (pizza) => {
-        fetch("http://localhost:8000/post/pizza", {
+    const postPizza = async pizza => {
+        const res = await fetch("http://localhost:8000/post/pizza", {
             method: 'POST',
             headers: {},
             body: JSON.stringify(pizza)
@@ -73,9 +73,10 @@ export const NetworkProvider = ({ children }) => {
         .then(res => res.json())
         .then(data => {
             if (data.id) {
-                add({ pizzaId: data.id })
+                return data.id
             }
         })
+        return res
     }
 
 	const updatePizza = (pizza, id) => {
@@ -88,14 +89,13 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
 	}
 
-    const postPizzaVenue = (pizza, pizzaVenue) => {
-        fetch("http://localhost:8000/post/tpv", {
+    const postVenuePizza = venuepizza => {
+        return fetch("http://localhost:8000/post/venuepizza", {
             method: 'POST',
             headers: {},
-            body: JSON.stringify({ pizza: pizza, pizzaVenue: pizzaVenue })
+            body: JSON.stringify(venuepizza)
         })
         .then(res => res.json())
-        .then(data => console.log(data))
         .catch(err => console.error(err))
     }
 
@@ -107,7 +107,7 @@ export const NetworkProvider = ({ children }) => {
 			updateVenue,
             postPizza,
             updatePizza,
-            postPizzaVenue
+            postVenuePizza
 		}}>
 			{children}
 		</NetworkContext.Provider>
