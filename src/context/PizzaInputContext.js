@@ -7,7 +7,6 @@ const initialState = {
 	name: '',
 	pizzaId: null,
 	venueId: null,
-	tasteId: null,
 	imageId: null,
 	location: {
 		name: '',
@@ -17,13 +16,12 @@ const initialState = {
 	},
 	style: '',
 	details: '',
-	taste: {
-		cheesiness: 0,
-		flavor: 0,
-		sauciness: 0,
-		saltiness: 0,
-		charness: 0
-	}
+	cheesiness: 0,
+	flavor: 0,
+	sauciness: 0,
+	saltiness: 0,
+	charness: 0
+	
 }
 
 const ADD = "ADD";
@@ -55,9 +53,21 @@ const reducer = (state = initialState, action) => {
 			case "details":
 				const { details } = payload
 				return { ...state, details }
-			case "taste":
-				const { taste } = payload
-				return { ...state, taste }
+			case "cheesiness":
+				const { cheesiness } = payload
+				return { ...state, cheesiness }
+			case "flavor":
+				const { flavor } = payload
+				return { ...state, flavor }
+			case "sauciness":
+				const { sauciness } = payload
+				return { ...state, sauciness }
+			case "saltiness":
+				const { saltiness } = payload
+				return { ...state, saltiness }
+			case "charness":
+				const { charness } = payload
+				return { ...state, charness }
 			default:
 				return { ...state, payload }
 		}

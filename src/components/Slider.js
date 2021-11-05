@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 
-export default function Slider ({ name, value, state, add }) {
+export default function Slider ({ name, value, add }) {
 	const [v, setV] = useState(value)
 
 	const onChange = (e) => {
 		e.preventDefault()
 		setV(e.target.value)
 		add({
-			taste: {...state, [e.target.name]: Number(e.target.value) }
+			[e.target.name]: Number(e.target.value)
 		})
 	}
 
