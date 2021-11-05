@@ -23,23 +23,17 @@ export default function TasteMeter () {
 
 	const all = e => {
 		e.preventDefault()
-		Promise.all(
-			[
-				postTaste(input.taste),
-				postPizza({ 
-					name: input.name, 
-					style: input.style, 
-					description: input.description, 
-					tasteId: input.tasteId,
-					imageId: input.imageId 
-				}),
-				postVenuePizza(
-					input.venueId, 
-					input.pizzaId
-				)
-			]
-		).then(values => {
-			console.log(values)
+		
+		postTaste(input.taste).then(id => {
+			postPizza({ 
+				name: input.name, 
+				style: input.style, 
+				description: input.description, 
+				tasteId: id,
+				imageId: input.imageId 
+			}).then(pizzaId => {
+				postVenuePizza(input.venueId, pizzaId)
+			})
 		})
 	}
 

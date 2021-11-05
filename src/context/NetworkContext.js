@@ -66,17 +66,15 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
     }
 
-    const postTaste = taste => {
-		fetch("http://localhost:8000/post/taste", { 
+    const postTaste = async taste => {
+		return await fetch("http://localhost:8000/post/taste", { 
             method: 'POST',
             headers: {},
             body: JSON.stringify(taste)
         })
         .then(res => res.json())
         .then(data => {
-            if (data.id) {
-                add({ tasteId: data.id })
-            }
+            return data.id
         })
         .catch(err => console.error(err))
     }
@@ -91,13 +89,16 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
 	}
 
-	const postPizza = pizza => {
-		fetch("http://localhost:8000/post/pizza", { 
+	const postPizza = async pizza => {
+		return await fetch("http://localhost:8000/post/pizza", { 
             method: 'POST',
             headers: {},
             body: JSON.stringify(pizza)
         })
         .then(res => res.json())
+        .then(data => { 
+            return data.id
+        })
         .catch(err => console.error(err))
 	}
 
@@ -111,13 +112,14 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
 	}
 
-    const postVenuePizza = (pizzaId, venueId) => {
-        fetch("http://localhost:8000/post/venuepizza", { 
+    const postVenuePizza = async (pizzaId, venueId) => {
+        return await fetch("http://localhost:8000/post/venuepizza", { 
             method: 'POST',
             headers: {},
             body: JSON.stringify({ pizzaId, venueId })
         })
         .then(res => res.json())
+        .then(data => console.log(data))
         .catch(err => console.error(err))
     }
 
