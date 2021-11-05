@@ -22,15 +22,25 @@ export default function TasteMeter () {
 	}, [input.imageId, getImage, image])
 
 	const all = e => {
-		postTaste(input.taste)
-		postPizza({ 
-			name: input.name, 
-			style: input.style, 
-			description: input.description, 
-			tasteId: input.tasteId,
-			imageId: input.imageId 
+		e.preventDefault()
+		Promise.all(
+			[
+				postTaste(input.taste),
+				postPizza({ 
+					name: input.name, 
+					style: input.style, 
+					description: input.description, 
+					tasteId: input.tasteId,
+					imageId: input.imageId 
+				}),
+				postVenuePizza(
+					input.venueId, 
+					input.pizzaId
+				)
+			]
+		).then(values => {
+			console.log(values)
 		})
-		postVenuePizza(input.venueId, input.pizzaId)
 	}
 
 	return (
@@ -79,7 +89,7 @@ export default function TasteMeter () {
 				</div>
 			</div>
 			<button className="upload bg-red-600 mx-4 my-4 py-2 lg:w-20 lg:self-end rounded"
-			onClick={e => postTaste(input.taste)}>submit</button>
+			onClick={e => all(e)}>submit</button>
 		</div>
 	);
 };
