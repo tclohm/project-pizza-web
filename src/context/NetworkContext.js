@@ -93,7 +93,7 @@ export const NetworkProvider = ({ children }) => {
 
 	const postPizza = pizza => {
 		fetch("http://localhost:8000/post/pizza", { 
-            method: 'PUT',
+            method: 'POST',
             headers: {},
             body: JSON.stringify(pizza)
         })
@@ -112,8 +112,8 @@ export const NetworkProvider = ({ children }) => {
 	}
 
     const postVenuePizza = (pizzaId, venueId) => {
-        fetch("http://localhost:8000/put/venuepizza", { 
-            method: 'PUT',
+        fetch("http://localhost:8000/post/venuepizza", { 
+            method: 'POST',
             headers: {},
             body: JSON.stringify({ pizzaId, venueId })
         })
