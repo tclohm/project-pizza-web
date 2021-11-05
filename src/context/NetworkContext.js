@@ -39,8 +39,6 @@ export const NetworkProvider = ({ children }) => {
         return res
     }
 
-
-
     const postVenue = venue => { 
     	fetch("http://localhost:8000/post/venue", { 
             method: 'POST',
@@ -66,41 +64,19 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
     }
 
-    const postTaste = async taste => {
-		return await fetch("http://localhost:8000/post/taste", { 
-            method: 'POST',
-            headers: {},
-            body: JSON.stringify(taste)
-        })
-        .then(res => res.json())
-        .then(data => {
-            return data.id
-        })
-        .catch(err => console.error(err))
-    }
-
-	const updateTaste = async (taste, id) => {
-		await fetch(`http://localhost:8000/put/taste/${id}`, { 
-            method: 'PUT',
-            headers: {},
-            body: taste
-        })
-        .then(res => res.json())
-        .catch(err => console.error(err))
-	}
-
-	const postPizza = async pizza => {
-		return await fetch("http://localhost:8000/post/pizza", { 
+    const postPizza = (pizza) => {
+        fetch("http://localhost:8000/post/pizza", {
             method: 'POST',
             headers: {},
             body: JSON.stringify(pizza)
         })
         .then(res => res.json())
-        .then(data => { 
-            return data.id
+        .then(data => {
+            if (data.id) {
+                add({ pizzaId: data.id })
+            }
         })
-        .catch(err => console.error(err))
-	}
+    }
 
 	const updatePizza = (pizza, id) => {
 		fetch(`http://localhost:8000/put/pizza/${id}`, { 
@@ -112,11 +88,11 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
 	}
 
-    const postVenuePizza = async (pizzaId, venueId) => {
-        return await fetch("http://localhost:8000/post/venuepizza", { 
+    const postPizzaVenue = (pizza, pizzaVenue) => {
+        fetch("http://localhost:8000/post/tpv", {
             method: 'POST',
             headers: {},
-            body: JSON.stringify({ pizzaId, venueId })
+            body: JSON.stringify({ pizza: pizza, pizzaVenue: pizzaVenue })
         })
         .then(res => res.json())
         .then(data => console.log(data))
@@ -129,11 +105,9 @@ export const NetworkProvider = ({ children }) => {
 			getImage,
 			postVenue,
 			updateVenue,
-			postTaste,
-			updateTaste,
-			postPizza,
-			updatePizza,
-            postVenuePizza
+            postPizza,
+            updatePizza,
+            postPizzaVenue
 		}}>
 			{children}
 		</NetworkContext.Provider>
