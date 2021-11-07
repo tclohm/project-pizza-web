@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import './index.css';
 
 import { PizzaInputProvider } from "./context/PizzaInputContext";
@@ -7,6 +8,8 @@ import { NetworkProvider } from "./context/NetworkContext";
 
 import App from './App';
 import TasteMeter from './pages/TasteMeter';
+import Map from "./pages/Map";
+
 import Header from "./components/Header";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -26,6 +29,9 @@ ReactDOM.render(
                 </Route>
                 <Route path="/taste">
                   <TasteMeter/>
+                </Route>
+                <Route path="/map">
+                  <Map/>
                 </Route>
              </Switch>
             </Router>
