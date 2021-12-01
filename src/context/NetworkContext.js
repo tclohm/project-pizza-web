@@ -12,6 +12,8 @@ import { PizzaInputContext } from "./PizzaInputContext";
 
 export const NetworkContext = createContext();
 
+const url = "http://localhost:4000/v1"
+
 export const NetworkProvider = ({ children }) => {
 
 	const { add } = useContext(PizzaInputContext);
@@ -19,7 +21,7 @@ export const NetworkProvider = ({ children }) => {
 	const upload = file => {
         const data = new FormData();
         data.append('file', file)
-        fetch("http://localhost:8000/upload/image", { 
+        fetch(`${url}/images`, { 
             method: 'POST',
             headers: {},
             body: data
@@ -35,12 +37,12 @@ export const NetworkProvider = ({ children }) => {
     }
 
     const getImage = async imageId => {
-        const res = await fetch(`http://localhost:8000/image/${imageId}`)
+        const res = await fetch(`${url}/${imageId}`)
         return res
     }
 
     const postVenue = venue => { 
-    	fetch("http://localhost:8000/post/venue", { 
+    	fetch(`${url}/venue`, { 
             method: 'POST',
             headers: {},
             body: JSON.stringify(venue)
@@ -55,8 +57,8 @@ export const NetworkProvider = ({ children }) => {
     }
 
     const updateVenue = async (venue, id) => {
-    	await fetch(`http://localhost:8000/put/venue/${id}`, { 
-            method: 'PUT',
+    	await fetch(`${url}/venue/${id}`, { 
+            method: 'PATCH',
             headers: {},
             body: venue
         })
@@ -65,7 +67,7 @@ export const NetworkProvider = ({ children }) => {
     }
 
     const postPizza = async pizza => {
-        const res = await fetch("http://localhost:8000/post/pizza", {
+        const res = await fetch(`${url}/pizzas`, {
             method: 'POST',
             headers: {},
             body: JSON.stringify(pizza)
@@ -80,7 +82,7 @@ export const NetworkProvider = ({ children }) => {
     }
 
 	const updatePizza = (pizza, id) => {
-		fetch(`http://localhost:8000/put/pizza/${id}`, { 
+		fetch(`${url}/pizzas/${id}`, { 
             method: 'PUT',
             headers: {},
             body: pizza
@@ -90,7 +92,7 @@ export const NetworkProvider = ({ children }) => {
 	}
 
     const postVenuePizza = venuepizza => {
-        return fetch("http://localhost:8000/post/venuepizza", {
+        return fetch(`${url}/venuepizza`, {
             method: 'POST',
             headers: {},
             body: JSON.stringify(venuepizza)

@@ -39,10 +39,8 @@ export default function Map() {
     .then(res => res.json())
     .then(data => {
       setData(data)
-      console.log(data)
     })
     .catch(err => console.error(err))
-
   }
 
 
@@ -58,9 +56,8 @@ export default function Map() {
 
 
   useEffect(() => {
-    if (data.length) return
     myZas()
-  })
+  }, [getLocation])
 
   return (
     <div>
