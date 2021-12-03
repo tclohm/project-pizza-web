@@ -28,8 +28,9 @@ export const NetworkProvider = ({ children }) => {
         })
         .then(res => res.json())
         .then(data => { 
-        	if (data.id) {
-        		add({ imageId: data.id })
+            console.log(data.image)
+        	if (data.image.id) {
+        		add({ imageId: data.image.id })
         	}
         })
         .catch(err => console.error(err))
@@ -37,12 +38,12 @@ export const NetworkProvider = ({ children }) => {
     }
 
     const getImage = async imageId => {
-        const res = await fetch(`${url}/${imageId}`)
+        const res = await fetch(`${url}/images/${imageId}`)
         return res
     }
 
     const postVenue = venue => { 
-    	fetch(`${url}/venue`, { 
+    	fetch(`${url}/venues`, { 
             method: 'POST',
             headers: {},
             body: JSON.stringify(venue)
@@ -57,7 +58,7 @@ export const NetworkProvider = ({ children }) => {
     }
 
     const updateVenue = async (venue, id) => {
-    	await fetch(`${url}/venue/${id}`, { 
+    	await fetch(`${url}/venues/${id}`, { 
             method: 'PATCH',
             headers: {},
             body: venue
