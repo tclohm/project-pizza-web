@@ -30,7 +30,6 @@ const reducer = (state = initialState, action) => {
 	if (action.type === ADD) {
 		const { payload } = action
 		const key = Object.keys(payload)[0]
-		console.log(key)
 		switch (key) {
 			case "imageId":
 				const { imageId } = payload
