@@ -28,7 +28,6 @@ export const NetworkProvider = ({ children }) => {
         })
         .then(res => res.json())
         .then(data => { 
-            console.log(data.image)
         	if (data.image.id) {
         		add({ imageId: data.image.id })
         	}
@@ -50,8 +49,8 @@ export const NetworkProvider = ({ children }) => {
         })
         .then(res => res.json())
         .then(data => {
-            if (data.id) {
-                add({ venueId: data.id })
+            if (data.venue.id) {
+                add({ venueId: data.venue.id })
             }
         })
         .catch(err => console.error(err))
