@@ -10,7 +10,7 @@ export default function Map() {
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(11);
 
-  const [data, setData] = useState([]);
+  const [d, setD] = useState([]);
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -32,13 +32,14 @@ export default function Map() {
   }
 
   const myZas = () => {
-    fetch("http://localhost:8000/get/mypizzas", {
+    fetch("http://localhost:4000/v1/pizzas", {
       method: 'GET',
       headers: {}
     })
     .then(res => res.json())
     .then(data => {
-      setData(data)
+      console.log(data)
+      setD(data.pizza)
     })
     .catch(err => console.error(err))
   }
@@ -56,8 +57,34 @@ export default function Map() {
 
 
   useEffect(() => {
+    if (d && d.length) return
     myZas()
   }, [getLocation])
+
+  // const stores = {
+  //     "type": "FeatureCollection",
+  //     "features": [
+  //   {
+  //     "type": "Feature",
+  //     "geometry": {
+  //       "type": "Point",
+  //       "coordinates": [
+  //         -77.034084142948,
+  //         38.909671288923
+  //       ]
+  //     },
+  //     "properties": {
+  //       "phoneFormatted": "(202) 234-7336",
+  //       "phone": "2022347336",
+  //       "address": "1471 P St NW",
+  //       "city": "Washington DC",
+  //       "country": "United States",
+  //       "crossStreet": "at 15th St NW",
+  //       "postalCode": "20005",
+  //       "state": "D.C."
+  //     }
+  //   },
+  // }
 
   return (
     <div>
