@@ -35,7 +35,6 @@ export default function TasteMeter () {
 				charness: input.charness,
 			}
 		).then(id => {
-			console.log(id)
 			if (id) {
 				postVenuePizza({ venue_id: input.venueId, pizza_id: id })
 			}

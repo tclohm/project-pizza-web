@@ -235,7 +235,7 @@ function App() {
                             name="description" 
                             placeholder="Any more detail you like to add about the pizza (optional)"
                             onChange={e => add({
-                                details: e.target.value
+                                description: e.target.value
                             })}
                             />
                         </div>

@@ -74,9 +74,11 @@ export const NetworkProvider = ({ children }) => {
         })
         .then(res => res.json())
         .then(data => {
-            if (data.id) {
-                return data.id
+            if (data.pizza.id) {
+                return data.pizza.id
             }
+        }).catch(err => {
+            console.error(err)
         })
         return res
     }
