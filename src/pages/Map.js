@@ -6,11 +6,38 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidGNsb2htIiwiYSI6ImNqMDMwM3N3azA4N2cycWxzOXRxc
 export default function Map() {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
-  const [zoom, setZoom] = useState(11);
+  const [lng, setLng] = useState(-118.431133);
+  const [lat, setLat] = useState(34.004421);
+  const [zoom, setZoom] = useState(13);
 
   const [d, setD] = useState([]);
+
+
+  const stores = {
+      "type": "FeatureCollection",
+      "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.431133,
+          34.004421        
+        ]
+      },
+      "properties": {
+        "phoneFormatted": "(202) 234-7336",
+        "phone": "2022347336",
+        "address": "1471 P St NW",
+        "city": "Washington DC",
+        "country": "United States",
+        "crossStreet": "at 15th St NW",
+        "postalCode": "20005",
+        "state": "D.C."
+      }
+    }
+    ]
+  }
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -49,9 +76,20 @@ export default function Map() {
     // if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapbox/light-v10',
       center: [lng, lat],
       zoom: zoom
+    });
+
+    map.current.on('load', () => {
+      map.current.addLayer({
+        id: 'locations',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: stores
+        }
+      });
     });
   }, [lng, lat]);
 
@@ -60,31 +98,6 @@ export default function Map() {
     if (d && d.length) return
     myZas()
   }, [getLocation])
-
-  // const stores = {
-  //     "type": "FeatureCollection",
-  //     "features": [
-  //   {
-  //     "type": "Feature",
-  //     "geometry": {
-  //       "type": "Point",
-  //       "coordinates": [
-  //         -77.034084142948,
-  //         38.909671288923
-  //       ]
-  //     },
-  //     "properties": {
-  //       "phoneFormatted": "(202) 234-7336",
-  //       "phone": "2022347336",
-  //       "address": "1471 P St NW",
-  //       "city": "Washington DC",
-  //       "country": "United States",
-  //       "crossStreet": "at 15th St NW",
-  //       "postalCode": "20005",
-  //       "state": "D.C."
-  //     }
-  //   },
-  // }
 
   return (
     <div>
