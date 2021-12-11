@@ -103,6 +103,14 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
     }
 
+    const getVenuesPizza = async () => {
+        const res = await fetch(`${url}/venuepizzas`, {
+            method: 'GET',
+            headers: {},
+        })
+        return res
+    }
+
 	return (
 		<NetworkContext.Provider value={{  
 			upload,
@@ -111,7 +119,8 @@ export const NetworkProvider = ({ children }) => {
 			updateVenue,
             postPizza,
             updatePizza,
-            postVenuePizza
+            postVenuePizza,
+            getVenuesPizza
 		}}>
 			{children}
 		</NetworkContext.Provider>
