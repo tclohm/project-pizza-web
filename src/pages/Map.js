@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
+import { NetworkContext } from "../context/NetworkContext";
 import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidGNsb2htIiwiYSI6ImNqMDMwM3N3azA4N2cycWxzOXRxc2ExenQifQ.LNWEYTdZW2YaurDIgqXJtg';
@@ -9,11 +10,44 @@ export default function Map() {
   const [lng, setLng] = useState(-118.431133);
   const [lat, setLat] = useState(34.004421);
   const [zoom, setZoom] = useState(13);
+  const [data, setData] = useState([]);
+  const [dataReceived, setDataReceived] = useState(false);
 
-  const [d, setD] = useState([]);
+  const { getVenuesPizza } = useContext(NetworkContext)
 
+  const feature = (lat, lon) => {
+    return {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          lat,
+          lon
+        ]
+      },
+      "properties": {
+        "phoneFormatted": "(202) 234-7336",
+        "phone": "2022347336",
+        "address": "1471 P St NW",
+        "city": "Washington DC",
+        "country": "United States",
+        "crossStreet": "at 15th St NW",
+        "postalCode": "20005",
+        "state": "D.C."
+      }
+    }
+  }
 
-  const stores = {
+  let arr = [];
+
+  const s = arrayOfFeature => {
+    return {
+      "type": "FeatureCollection",
+      "features": arrayOfFeature
+    }
+  }
+
+  const mockStores = {
       "type": "FeatureCollection",
       "features": [
     {
@@ -37,7 +71,7 @@ export default function Map() {
       }
     }
     ]
-  }
+}
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -58,22 +92,9 @@ export default function Map() {
     setLat(position.coords.latitude);
   }
 
-  const myZas = () => {
-    fetch("http://localhost:4000/v1/pizzas", {
-      method: 'GET',
-      headers: {}
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      setD(data.pizza)
-    })
-    .catch(err => console.error(err))
-  }
-
-
   useEffect(() => {
     // if (map.current) return;
+    if (dataReceived) return
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v10',
@@ -87,7 +108,7 @@ export default function Map() {
         type: 'circle',
         source: {
           type: 'geojson',
-          data: stores
+          data: mockStores
         }
       });
     });
@@ -95,9 +116,43 @@ export default function Map() {
 
 
   useEffect(() => {
-    if (d && d.length) return
-    myZas()
+    if (dataReceived) { return }
+    getVenuesPizza().then(res => {
+      return res.json()
+    }).then(data => {
+      if (data && data.venuepizzas) {
+
+        setData(data.venuepizzas.map(object => {
+          return {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                object.venue_lon,
+                object.venue_lat       
+              ]
+            },
+            "properties": {
+              "phoneFormatted": "(202) 234-7336",
+              "phone": "2022347336",
+              "address": "1471 P St NW",
+              "city": "Washington DC",
+              "country": "United States",
+              "crossStreet": "at 15th St NW",
+              "postalCode": "20005",
+              "state": "D.C."
+            }
+          }
+      }))
+
+    }
+    })
   }, [getLocation])
+
+
+  useEffect(() => {
+    console.log(arr)
+  }, [arr])
 
   return (
     <div>
