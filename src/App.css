@@ -65,3 +65,36 @@
   cursor: pointer; /* Cursor on hover */
   border-radius: 0.4rem;
 }
+
+.bubble-container {
+}
+
+.bubble:before {
+  display: flex;
+  justify-content: center;
+  content: '$123';
+}
+
+.bubble {
+  position: relative;
+  border-color: black;
+  border-width: 0.1rem;
+  cursor: pointer;
+  height: 1.4rem;
+  width: 3rem;
+  background: white;
+  border-radius: 0.2rem;
+}
+
+.pointer {
+  position: relative;
+  top: 1.5rem;
+  left: 1.2rem;
+  border-color: black;
+  border-width: 0.1rem;
+  background: black;
+  width: 0.7rem;
+  height: 0.7rem;
+  transform: rotate(45deg);
+  display: relative;
+}

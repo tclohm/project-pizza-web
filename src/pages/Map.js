@@ -10,68 +10,37 @@ export default function Map() {
   const [lng, setLng] = useState(-118.431133);
   const [lat, setLat] = useState(34.004421);
   const [zoom, setZoom] = useState(13);
-  const [data, setData] = useState([]);
   const [dataReceived, setDataReceived] = useState(false);
 
   const { getVenuesPizza } = useContext(NetworkContext)
 
-  const feature = (lat, lon) => {
-    return {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          lat,
-          lon
-        ]
-      },
-      "properties": {
-        "phoneFormatted": "(202) 234-7336",
-        "phone": "2022347336",
-        "address": "1471 P St NW",
-        "city": "Washington DC",
-        "country": "United States",
-        "crossStreet": "at 15th St NW",
-        "postalCode": "20005",
-        "state": "D.C."
-      }
-    }
-  }
-
-  let arr = [];
-
-  const s = arrayOfFeature => {
+  const store = arrayOfFeature => {
     return {
       "type": "FeatureCollection",
       "features": arrayOfFeature
     }
   }
 
-  const mockStores = {
-      "type": "FeatureCollection",
-      "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.431133,
-          34.004421        
-        ]
-      },
-      "properties": {
-        "phoneFormatted": "(202) 234-7336",
-        "phone": "2022347336",
-        "address": "1471 P St NW",
-        "city": "Washington DC",
-        "country": "United States",
-        "crossStreet": "at 15th St NW",
-        "postalCode": "20005",
-        "state": "D.C."
-      }
+  const addMarkers = stores => {
+    for (const marker of stores.features) {
+      const bubble = document.createElement('div');
+      const pointer = document.createElement('div');
+      const container = document.createElement('div');
+      bubble.id = `marker-${marker.properties.id}`;
+      pointer.id = `pointer-${marker.properties.id}`;
+      bubble.className = 'bubble';
+      pointer.className = 'pointer';
+      container.className = 'bubble-container';
+      bubble.style.backgroundImage = `url(${marker.properties.image})`;
+
+      container.append(pointer)
+      container.append(bubble)
+
+      new mapboxgl.Marker(container, { offset: [0, -23] })
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(map.current)
     }
-    ]
-}
+  }
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -93,66 +62,49 @@ export default function Map() {
   }
 
   useEffect(() => {
-    // if (map.current) return;
-    if (dataReceived) return
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/light-v10',
-      center: [lng, lat],
-      zoom: zoom
-    });
-
-    map.current.on('load', () => {
-      map.current.addLayer({
-        id: 'locations',
-        type: 'circle',
-        source: {
-          type: 'geojson',
-          data: mockStores
-        }
-      });
-    });
-  }, [lng, lat]);
-
-
-  useEffect(() => {
-    if (dataReceived) { return }
-    getVenuesPizza().then(res => {
-      return res.json()
-    }).then(data => {
-      if (data && data.venuepizzas) {
-
-        setData(data.venuepizzas.map(object => {
-          return {
-            "type": "Feature",
-            "geometry": {
-              "type": "Point",
-              "coordinates": [
-                object.venue_lon,
-                object.venue_lat       
-              ]
-            },
-            "properties": {
-              "phoneFormatted": "(202) 234-7336",
-              "phone": "2022347336",
-              "address": "1471 P St NW",
-              "city": "Washington DC",
-              "country": "United States",
-              "crossStreet": "at 15th St NW",
-              "postalCode": "20005",
-              "state": "D.C."
+      if (dataReceived) { return }
+      getVenuesPizza().then(res => {
+        return res.json()
+      }).then(data => {
+        if (data && data.venuepizzas) {
+          return data.venuepizzas.map(object => {
+            return {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  object.lon,
+                  object.lat       
+                ]
+              },
+              "properties": {
+                "id": `${object.id}`,
+                "image": `localhost:4000/v1/images/${object.pizza_image_id}`
+              }
             }
-          }
-      }))
+          })
+        }
+      }).then(data => {
+        const collection = store(data)
+        map.current = new mapboxgl.Map({
+          container: mapContainer.current,
+          style: 'mapbox://styles/mapbox/light-v10',
+          center: [lng, lat],
+          zoom: zoom
+        });
+        map.current.on('load', () => {
 
-    }
-    })
-  }, [getLocation])
+          map.current.addSource('places', {
+            'type': 'geojson',
+            'data': collection
+          });
 
+          addMarkers(collection)
+        });
 
-  useEffect(() => {
-    console.log(arr)
-  }, [arr])
+        setDataReceived(true)
+      })
+  }, [lng, lat, dataReceived, getVenuesPizza, zoom]);
 
   return (
     <div>
