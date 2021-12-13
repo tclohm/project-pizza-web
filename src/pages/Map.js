@@ -4,11 +4,14 @@ import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidGNsb2htIiwiYSI6ImNqMDMwM3N3azA4N2cycWxzOXRxc2ExenQifQ.LNWEYTdZW2YaurDIgqXJtg';
 
+const url = 'http://localhost:4000/v1/images/';
+
 export default function Map() {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-118.431133);
   const [lat, setLat] = useState(34.004421);
+  const [data, setData] = useState([]);
   const [zoom, setZoom] = useState(13);
   const [dataReceived, setDataReceived] = useState(false);
 
@@ -67,6 +70,7 @@ export default function Map() {
         return res.json()
       }).then(data => {
         if (data && data.venuepizzas) {
+          setData(data.venuepizzas)
           return data.venuepizzas.map(object => {
             return {
               "type": "Feature",
@@ -109,11 +113,20 @@ export default function Map() {
   return (
     <div>
       <div ref={mapContainer} className="min-h-90 w-full">
-      <div className="absolute top-0 z-10 left-0 w-96 h-full bg-white rounded">
-      <button 
-      className="absolute top-0 z-10 bg-red-600 flex w-full justify-center py-2"
-      onClick={() => getLocation()}>Current Location</button>
-      </div>
+        <div className="absolute top-0 z-10 left-0 w-96 h-full bg-white rounded">
+          <button 
+            className="absolute top-0 z-10 bg-red-600 flex w-full justify-center py-2"
+            onClick={() => getLocation()}>Current Location</button>
+            <div className="mt-12"></div>
+            {data.map((obj, id) => (
+              <div className="pl-4 py-2 flex flex-col border-b">
+                <div className="flex items-center">
+                  <img className="h-12 w-12 rounded" src={url + `${obj.pizza_image_id}`} alt="pizza" />
+                  <p className="ml-2 font-black" key={id}>{obj.venue_name}</p>
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );
