@@ -31,7 +31,7 @@ export default function Map() {
       const container = document.createElement('div');
       bubble.id = `marker-${marker.properties.id}`;
       pointer.id = `pointer-${marker.properties.id}`;
-      bubble.className = 'bubble';
+      bubble.className = 'bubble font-black';
       pointer.className = 'pointer';
       container.className = 'bubble-container';
       bubble.style.backgroundImage = `url(${marker.properties.image})`;
@@ -113,16 +113,20 @@ export default function Map() {
   return (
     <div>
       <div ref={mapContainer} className="min-h-90 w-full">
-        <div className="absolute top-0 z-10 left-0 w-96 h-full bg-white rounded">
+        <div className="absolute top-0 z-10 left-0 w-96 h-full flex flex-col bg-white rounded">
+          <p className="px-2 text-lg font-black border-b p-2">Los Angeles, CA</p>
           <button 
-            className="absolute top-0 z-10 bg-red-600 flex w-full justify-center py-2"
-            onClick={() => getLocation()}>Current Location</button>
-            <div className="mt-12"></div>
+            className="absolute top-0 z-10 flex self-end p-2 m-2 border rounded"
+            onClick={() => getLocation()}><i className="fas fa-location-arrow"></i></button>
+            <div className="mt-2"></div>
             {data.map((obj, id) => (
-              <div className="pl-4 py-2 flex flex-col border-b">
+              <div className="px-2 py-2 flex flex-col border-b">
                 <div className="flex items-center">
                   <img className="h-12 w-12 rounded" src={url + `${obj.pizza_image_id}`} alt="pizza" />
-                  <p className="ml-2 font-black" key={id}>{obj.venue_name}</p>
+                  <div className="px-2">
+                  <p className="font-black" key={id}>{obj.venue_name}</p>
+                  <p className="font-extralight text-xs">{obj.venue_address}</p>
+                  </div>
                 </div>
               </div>
             ))}
