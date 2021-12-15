@@ -129,7 +129,11 @@ export default function Map() {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} 
+        </div>
+        <div className="inset-x-0 flex justify-center mt-4 sticky bottom-[calc(1rem+env(safe-area-inset-bottom,0))] z-10">
+        <div className="absolute inset-x-0 bg-gradient-to-t from-white -top-4 bottom-[calc(-1*(1rem+env(safe-area-inset-bottom,0)))]"></div>
+        <button className="relative text-sm font-semibold text-gray-900 bg-white py-2 px-4 rounded-full ring-1 ring-gray-900/10 shadow-sm z-10">View List</button>
         </div>
       </div>
     </div>
