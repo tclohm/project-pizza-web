@@ -35,6 +35,7 @@ ReactDOM.render(
                 </Route>
              </Switch>
             </Router>
+            
         </NetworkProvider>
         </PizzaInputProvider>
       </div>
