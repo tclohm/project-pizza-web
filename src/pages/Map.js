@@ -103,7 +103,10 @@ export default function Map() {
 
           map.current.addSource('places', {
             'type': 'geojson',
-            'data': collection
+            'data': collection,
+            'cluster': true,
+            'clusterMaxZoom': 14,
+            'clusterRadius': 50
           });
 
           addMarkers(collection)
