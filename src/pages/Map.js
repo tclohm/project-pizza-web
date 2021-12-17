@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
-import Modal from "../components/Modal";
 import { NetworkContext } from "../context/NetworkContext";
+
 import mapboxgl from 'mapbox-gl';
+import swal from "sweetalert";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidGNsb2htIiwiYSI6ImNqMDMwM3N3azA4N2cycWxzOXRxc2ExenQifQ.LNWEYTdZW2YaurDIgqXJtg';
 
@@ -51,7 +52,7 @@ export default function Map() {
     if (navigator.geolocation) {
 
         function error(err) {
-            console.error("To err is human", err)
+            swal("Oops!\nYou denied geolocation permissions", "If this was a mistake, you can change it in your browser settings.", "error");
         }
 
         navigator.geolocation.getCurrentPosition(getCoordinates, error)
@@ -138,8 +139,8 @@ export default function Map() {
         <div className="absolute top-0 z-10 left-0 w-80 h-full flex flex-col bg-white rounded">
           <p className="px-2 text-lg font-black border-b p-2">Los Angeles, CA</p>
           <button 
-            className="absolute top-0 z-10 flex self-end p-2 m-2 border rounded"
-            onClick={() => getLocation()}><i className="fas fa-location-arrow"></i></button>
+            className="absolute top-0 z-30 flex self-end p-2 m-2 border rounded hover:bg-gray-100"
+            onClick={() => getLocation()}><i className="fas fa-location-arrow hover:bg-gray-100"></i></button>
             <div className="fixed z-20 py-10 overflow-y-auto">
             {data.map((obj, id) => (
               <div className="pl-2 py-2 w-80 border-b hover:bg-gray-100 cursor-pointer" key={id}>
