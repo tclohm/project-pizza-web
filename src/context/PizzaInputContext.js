@@ -15,6 +15,7 @@ const initialState = {
 		address: '',
 	},
 	style: '',
+	price: 0,
 	description: '',
 	cheesiness: 0,
 	flavor: 0,
@@ -49,6 +50,9 @@ const reducer = (state = initialState, action) => {
 			case "style":
 				const { style } = payload
 				return { ...state, style }
+			case "price":
+				const { price } = payload
+				return { ...state, price }
 			case "description":
 				const { description } = payload
 				return { ...state, description }
