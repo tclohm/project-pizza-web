@@ -30,6 +30,22 @@
   font-size: 1.5rem;
 }
 
+#decrease:before {
+  font-family: "FontAwesome";
+  content: "\f053";
+}
+
+#increase:before {
+  font-family: "FontAwesome";
+  content: "\f054";
+}
+
+#price:before {
+  font-family: "FontAwesome";
+  content: "\f155";
+}
+
+
 .slider {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
