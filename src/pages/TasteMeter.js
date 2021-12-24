@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { PizzaInputContext } from "../context/PizzaInputContext";
 import { NetworkContext } from "../context/NetworkContext";
@@ -86,8 +87,21 @@ export default function TasteMeter () {
 					</div>
 				</div>
 			</div>
-			<button className="upload bg-red-600 mx-4 my-4 py-2 lg:w-20 lg:self-end rounded"
-			onClick={() => all()}>submit</button>
+			<div className="flex md:justify-end justify-around">
+				<Link 
+					className="flex justify-center items-center py-2 my-2 bg-gray-200 px-16 md:px-4 md:mr-4 rounded-lg font-medium hover:bg-gray-300"
+					to="/"
+				>
+					<i className="fas fa-chevron-left mr-2 text-xs"></i>back
+				</Link>
+			<Link 
+	            id="continue"
+	            className="upload flex justify-center px-16 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8 font-bold"
+	            to="/taste"
+	            >
+	                continue
+	            </Link>
+	        </div>
 		</div>
 	);
 };

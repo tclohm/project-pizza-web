@@ -8,6 +8,7 @@ import { NetworkProvider } from "./context/NetworkContext";
 
 import App from './App';
 import TasteMeter from './pages/TasteMeter';
+import Price from "./pages/Price";
 import Map from "./pages/Map";
 
 import Header from "./components/Header";
@@ -29,6 +30,9 @@ ReactDOM.render(
                 </Route>
                 <Route path="/taste">
                   <TasteMeter/>
+                </Route>
+                <Route path="/price">
+                  <Price/>
                 </Route>
                 <Route path="/map">
                   <Map/>
