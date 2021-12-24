@@ -177,6 +177,7 @@ function App() {
                     ref={imageUploader}
                     className="hidden"
                     />
+                    {/* Image */}
                     <div
                     id="inputPictureArea"
                     className="flex justify-center items-center border-dashed border-4 h-96 w-3/4 cursor-pointer relative" 
