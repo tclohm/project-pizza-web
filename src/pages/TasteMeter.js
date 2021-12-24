@@ -97,7 +97,7 @@ export default function TasteMeter () {
 			<Link 
 	            id="continue"
 	            className="upload flex justify-center px-16 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8 font-bold"
-	            to="/taste"
+	            to="/price"
 	            >
 	                continue
 	            </Link>
