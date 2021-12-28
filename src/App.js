@@ -157,7 +157,13 @@ function App() {
                             onClick={() => getLocation()}
                             > 
                                 Add a location
-                                <span className="absolute right-8 bg-red-500 text-white rounded p-2">{input.location.name}</span>
+                                {input.location.name === "" 
+                                ?
+                                   <></>
+
+                                :
+                                   <span className="absolute right-8 bg-red-500 text-white rounded p-2">{input.location.name}</span>
+                                }
                             </button>
                             <Modal open={open} toggle={setOpen}>
                                 <FindPlace 
