@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { NetworkContext } from "../context/NetworkContext";
 import { PizzaInputContext } from "../context/PizzaInputContext";
@@ -13,9 +13,11 @@ export default function Price() {
 	const [comment, setComment] = useState("")
 	const [image, setImage] = useState('')
 
-	const { input } = useContext(PizzaInputContext);
+	const { input, clear } = useContext(PizzaInputContext);
 	const { getImage, postPizza, postVenuePizza } = useContext(NetworkContext);
 
+	let history = useHistory();
+	
 	const reducer = payload => {
 		if (payload < 0) {
 			return "Wait...they paid you to eat their pizza 🧐"
@@ -58,6 +60,10 @@ export default function Price() {
 			if (id) {
 				postVenuePizza({ venue_id: input.venueId, pizza_id: id })
 			}
+		}).then(() => {
+			clear()
+		}).then(() => {
+			history.push("/map")
 		})
 	}
 
