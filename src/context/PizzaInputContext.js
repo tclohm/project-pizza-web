@@ -26,6 +26,7 @@ const initialState = {
 }
 
 const ADD = "ADD";
+const CLEAR = "CLEAR";
 
 const reducer = (state = initialState, action) => {
 	if (action.type === ADD) {
@@ -75,6 +76,9 @@ const reducer = (state = initialState, action) => {
 				return { ...state, payload }
 		}
 	}
+	if (action.type === CLEAR) {
+		return initialState
+	}
 	return state;
 }
 
@@ -96,8 +100,15 @@ export const PizzaInputProvider = ({ children }) => {
 		})
 	}
 
+	const clear = () => {
+		dispatch({
+			type: CLEAR,
+			payload: {}
+		})
+	}
+
 	return (
-		<PizzaInputContext.Provider value={{ input, add }}>
+		<PizzaInputContext.Provider value={{ input, add, clear }}>
 			{children}
 		</PizzaInputContext.Provider>
 	);
