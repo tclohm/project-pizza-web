@@ -1,3 +1,12 @@
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
 #pizzatime {
   font-family: "Pacifico";
   color: tan;
@@ -83,12 +92,6 @@
 }
 
 .bubble-container {
-}
-
-.bubble:before {
-  display: flex;
-  justify-content: center;
-  content: '$123';
 }
 
 .bubble {
