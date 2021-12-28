@@ -9,7 +9,7 @@ import Slider from "../components/Slider";
 
 export default function TasteMeter () {
 	const { input, add } = useContext(PizzaInputContext);
-	const { getImage, postPizza, postVenuePizza } = useContext(NetworkContext);
+	const { getImage } = useContext(NetworkContext);
 	const [image, setImage] = useState('')
 
 	useEffect(() => {
@@ -21,26 +21,6 @@ export default function TasteMeter () {
 			})
 		}
 	}, [input.imageId, getImage, image])
-
-	const all = () => {
-		postPizza(
-			{
-				name: input.name,
-				style: input.style,
-				description: input.description,
-				image_id: input.imageId,
-				cheesiness: input.cheesiness,
-				flavor: input.flavor,
-				sauciness: input.sauciness,
-				saltiness: input.saltiness,
-				charness: input.charness,
-			}
-		).then(id => {
-			if (id) {
-				postVenuePizza({ venue_id: input.venueId, pizza_id: id })
-			}
-		})
-	}
 
 	return (
 		<div className="absolute flex flex-col justify-around min-h-90 w-full">

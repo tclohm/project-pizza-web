@@ -29,6 +29,7 @@ export default function Map() {
 
   const addMarkers = stores => {
     for (const marker of stores.features) {
+      console.log(marker)
       const bubble = document.createElement('div');
       const pointer = document.createElement('div');
       const container = document.createElement('div');
@@ -37,8 +38,9 @@ export default function Map() {
       bubble.className = 'bubble font-black';
       pointer.className = 'pointer';
       container.className = 'bubble-container';
-      bubble.style.backgroundImage = `url(${marker.properties.image})`;
-
+      bubble.style.display = 'flex';
+      bubble.style.justifyContent = 'center';
+      bubble.textContent = `$${marker.properties.price}`
       container.append(pointer)
       container.append(bubble)
 
@@ -86,7 +88,8 @@ export default function Map() {
               },
               "properties": {
                 "id": `${object.id}`,
-                "image": `localhost:4000/v1/images/${object.pizza_image_id}`
+                "image": `localhost:4000/v1/images/${object.pizza_image_id}`,
+                "price": `${object.price}`
               }
             }
           })
@@ -104,9 +107,6 @@ export default function Map() {
           map.current.addSource('places', {
             'type': 'geojson',
             'data': collection,
-            'cluster': true,
-            'clusterMaxZoom': 14,
-            'clusterRadius': 50
           });
 
           addMarkers(collection)
