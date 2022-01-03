@@ -82,7 +82,7 @@ export default function Price() {
 	}, [price])
 
 	const onChange = e => {
-		setPrice(e.target.value)
+		setPrice(Number(e.target.value))
 	}
 
 	const increase = e => {
