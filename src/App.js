@@ -160,7 +160,6 @@ function App() {
                                 {input.location.name === "" 
                                 ?
                                    <></>
-
                                 :
                                    <span className="absolute right-8 bg-red-500 text-white rounded p-2">{input.location.name}</span>
                                 }
