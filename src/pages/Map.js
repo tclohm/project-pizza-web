@@ -15,7 +15,7 @@ export default function Map() {
   const [lng, setLng] = useState(-118.431133);
   const [lat, setLat] = useState(34.004421);
   const [data, setData] = useState([]);
-  const [zoom, setZoom] = useState(15);
+  const [zoom, setZoom] = useState(10);
   const [dataReceived, setDataReceived] = useState(false);
 
   const { getVenuesPizza } = useContext(NetworkContext)
@@ -108,12 +108,10 @@ export default function Map() {
             'type': 'geojson',
             'data': collection,
           });
-
           addMarkers(collection)
         });
-
-        setDataReceived(true)
       })
+      setDataReceived(true)
   }, [lng, lat, dataReceived, getVenuesPizza, zoom]);
 
   return (
@@ -132,10 +130,22 @@ export default function Map() {
       }
       <div className="absolute rounded z-20 left-80 ml-4 top-20 flex flex-col bg-white w-8">
         <button 
-        onClick={(e) => setZoom(zoom)}
+        onClick={() => { 
+          setZoom(zoom + 1) 
+              map.current.flyTo({
+                center: [lng, lat],
+                zoom: zoom
+    })
+        }}
         className="border rounded-t border-gray-900 border-b-0 shadow-sm h-8 w-8">+</button>
         <button
-        onClick={(e) => setZoom(zoom)}
+        onClick={() => { 
+          setZoom(zoom - 1)
+              map.current.flyTo({
+                center: [lng, lat],
+                zoom: zoom
+    })
+        }}
         className="border rounded-b border-gray-900 shadow-sm h-8 w-8">-</button>
       </div>
       <div ref={mapContainer} className="flex flex-col justify-end min-h-90 w-full">
