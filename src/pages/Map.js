@@ -29,7 +29,6 @@ export default function Map() {
 
   const addMarkers = stores => {
     for (const marker of stores.features) {
-      console.log(marker)
       const bubble = document.createElement('div');
       const pointer = document.createElement('div');
       const container = document.createElement('div');
@@ -132,21 +131,25 @@ export default function Map() {
         <button 
         onClick={() => { 
           setZoom(zoom + 1) 
-              map.current.flyTo({
-                center: [lng, lat],
-                zoom: zoom
-    })
+          map.current.flyTo({
+            center: [lng, lat],
+            zoom: zoom
+          })
         }}
-        className="border rounded-t border-gray-900 border-b-0 shadow-sm h-8 w-8">+</button>
+        className="border rounded-t border-gray-900 border-b-0 shadow-sm h-8 w-8 hover:bg-gray-100">
+          +
+        </button>
         <button
-        onClick={() => { 
-          setZoom(zoom - 1)
-              map.current.flyTo({
-                center: [lng, lat],
-                zoom: zoom
-    })
-        }}
-        className="border rounded-b border-gray-900 shadow-sm h-8 w-8">-</button>
+          onClick={() => { 
+            setZoom(zoom - 1)
+            map.current.flyTo({
+              center: [lng, lat],
+              zoom: zoom
+            })
+          }}
+        className="border rounded-b border-gray-900 shadow-sm h-8 w-8 hover:bg-gray-100">
+          -
+        </button>
       </div>
       <div ref={mapContainer} className="flex flex-col justify-end min-h-90 w-full">
         <div className="absolute top-0 z-10 left-0 w-80 h-full flex flex-col bg-white rounded">
@@ -173,8 +176,8 @@ export default function Map() {
           onClick={() => setOpen(!open)}
           className="relative text-sm font-semibold text-gray-900 bg-white py-2 px-4 rounded-full ring-1 ring-gray-900 shadow-sm z-10">Filter</button>
         </div>
-        <div className="flex justify-center bottom-4 left-8 mt-4 sticky z-10">
-          <button className="relative left-48 text-sm font-semibold text-gray-900 bg-white py-2 px-4 rounded-full ring-1 ring-gray-900 shadow-sm z-10">View List</button>
+        <div className="flex justify-center bottom-8 left-52 mt-4 sticky z-10">
+          <button className="relative text-sm font-semibold text-gray-900 bg-white py-2 px-4 rounded-full ring-1 ring-gray-900 shadow-sm z-10">View List</button>
         </div>
       </div>
     </div>

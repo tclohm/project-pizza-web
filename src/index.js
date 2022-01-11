@@ -34,9 +34,6 @@ ReactDOM.render(
                 <Route path="/price">
                   <Price/>
                 </Route>
-                <Route path="/map">
-                  <Map/>
-                </Route>
              </Switch>
             </Router>
             
