@@ -9,7 +9,8 @@ import { NetworkProvider } from "./context/NetworkContext";
 import App from './App';
 import TasteMeter from './pages/TasteMeter';
 import Price from "./pages/Price";
-import Map from "./pages/Map";
+import Discover from "./pages/Discover";
+import Profile from "./pages/Profile";
 
 import Header from "./components/Header";
 
@@ -33,6 +34,12 @@ ReactDOM.render(
                 </Route>
                 <Route path="/price">
                   <Price/>
+                </Route>
+                <Route path="/discover">
+                  <Discover/>
+                </Route>
+                <Route path="/profile">
+                  <Profile/>
                 </Route>
              </Switch>
             </Router>
