@@ -22,7 +22,7 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
 
             const request = {
                 location: current,
-                radius: "500",
+                radius: "5000",
                 type: ["restaurant"]
             };
 
