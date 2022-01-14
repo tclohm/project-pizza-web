@@ -22,7 +22,7 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
 
             const request = {
                 location: current,
-                radius: "500",
+                radius: "5000",
                 type: ["restaurant"]
             };
 
@@ -44,32 +44,34 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
 			onClick={e => close(e)}>
 		</button>
 		<div>
-			{places.map((obj, id) => (
-				<button 
-				key={id}
-				className="flex justify-start items-center h-12 mt-1 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
-				onClick={
-					(e) => {
-						add({
-							location: {
-								name: obj.name,
-								lat: obj.geometry.location.lat(),
-								lon: obj.geometry.location.lng(),
-								address: obj.vicinity,
-							}
-						})
-						close(e)
-					}
-				}
-				>
-					{obj.name}
-				</button>
-			))}
 			<input 
               className="flex overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 w-full border-b mb-8"
               type="text" 
               name="location" 
               placeholder="Dont see the restaurant where you ordered your pizza. Type it in here"/>
+            <div className="h-full overflow-y-auto scrolling-touch overflow-scroll">
+				{places.map((obj, id) => (
+					<button 
+					key={id}
+					className="flex justify-start items-center h-12 mt-1 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
+					onClick={
+						(e) => {
+							add({
+								location: {
+									name: obj.name,
+									lat: obj.geometry.location.lat(),
+									lon: obj.geometry.location.lng(),
+									address: obj.vicinity,
+								}
+							})
+							close(e)
+						}
+					}
+					>
+						{obj.name}
+					</button>
+				))}
+			</div>
 		</div>
 	</div>
     )

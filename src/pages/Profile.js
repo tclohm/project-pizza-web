@@ -38,8 +38,8 @@ export default function Profile() {
 						<div className="flex items-center">
 						  <img className="h-12 w-12 rounded-full" src={url + `${obj.pizza_image_id}`} alt="pizza" />
 						  <div className="px-2 text-xs">
-						  <p className="font-black">{obj.venue_name}</p>
 						  <p className="font-extralight">{obj.pizza_name}</p>
+						  <p className="font-black">{obj.venue_name}</p>
 						  <p className="text-gray-500 font-semibold">{new Date(obj.created_at).toDateString()}</p>
 						  </div>
 						</div>
