@@ -53,9 +53,16 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
 			.catch(err => {
 				console.error(err)
 			})
+			.finally(() => {
+				setTyping(false)
+			})
 
     	}
     }, [typing])
+
+    useEffect(() => {
+    	setTyping(true)
+    }, [input])
 
     return (
     <div className="relative mt-12 border rounded-r-xl bg-white w-11/12 shadow">
