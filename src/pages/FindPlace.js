@@ -5,6 +5,8 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
 
     const [places, setPlaces] = useState([]);
 
+    const [input, setInput] = useState("");
+    const [typing, setTyping] = useState(false);
 
     const callback = (results, status) => {
         console.log(results)
@@ -34,6 +36,27 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
         }
     }, [latitude, longitude])
 
+
+    useEffect(() => {
+    	if (typing === false) return
+    	if (typing) {
+
+    		const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&types=establishment&location=${latitude}%2C${longitude}&radius=500&key=${process.env.REACT_APP_GG_KEY}`
+
+			fetch(url, {
+				method: 'GET',
+				headers: {}
+			})
+			.then(res => {
+				console.log(res)
+			})
+			.catch(err => {
+				console.error(err)
+			})
+
+    	}
+    }, [typing])
+
     return (
     <div className="relative mt-12 border rounded-r-xl bg-white w-11/12 shadow">
 		<h1 className="text-gray-400 text-lg font-black my-4 px-8 border-b w-full">Around you</h1>
@@ -47,7 +70,8 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
 			<input 
               className="flex overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 w-full border-b mb-8"
               type="text" 
-              name="location" 
+              name="location"
+              onChange={e => setInput(e.target.value)} 
               placeholder="Dont see the restaurant where you ordered your pizza. Type it in here"/>
             <div className="h-full overflow-y-auto scrolling-touch overflow-scroll">
 				{places.map((obj, id) => (
