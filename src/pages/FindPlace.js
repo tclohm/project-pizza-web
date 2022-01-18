@@ -4,9 +4,9 @@ import React, { useState, useEffect } from "react";
 export default function FindPlace({ latitude, longitude, add, modalRef, close }) {
 
     const [places, setPlaces] = useState([]);
+    const [results, setResults] = useState([])
 
     const [input, setInput] = useState("");
-    const [typing, setTyping] = useState(false);
 
     const callback = (results, status) => {
         console.log(results)
@@ -36,33 +36,12 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
         }
     }, [latitude, longitude])
 
-
     useEffect(() => {
-    	if (typing === false) return
-    	if (typing) {
-
-    		const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&types=establishment&location=${latitude}%2C${longitude}&radius=500&key=${process.env.REACT_APP_GG_KEY}`
-
-			fetch(url, {
-				method: 'GET',
-				headers: {}
-			})
-			.then(res => {
-				console.log(res)
-			})
-			.catch(err => {
-				console.error(err)
-			})
-			.finally(() => {
-				setTyping(false)
-			})
-
-    	}
-    }, [typing])
-
-    useEffect(() => {
-    	setTyping(true)
-    }, [input])
+    	const results = places.filter(obj => {
+    		return obj.name.toLowerCase().includes(input.toLowerCase())
+    	})
+    	setResults(results)
+    }, [input, places])
 
     return (
     <div className="relative mt-12 border rounded-r-xl bg-white w-11/12 shadow">
@@ -79,9 +58,37 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
               type="text" 
               name="location"
               onChange={e => setInput(e.target.value)} 
-              placeholder="Dont see the restaurant where you ordered your pizza. Type it in here"/>
+              placeholder="Search within the list of options"/>
             <div className="h-full overflow-y-auto scrolling-touch overflow-scroll">
-				{places.map((obj, id) => (
+
+
+				{	input.length !== 0 ?
+
+					results.map((obj, id) => (
+					<button 
+					key={id}
+					className="flex justify-start items-center h-12 mt-1 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
+					onClick={
+						(e) => {
+							add({
+								location: {
+									name: obj.name,
+									lat: obj.geometry.location.lat(),
+									lon: obj.geometry.location.lng(),
+									address: obj.vicinity,
+								}
+							})
+							close(e)
+						}
+					}
+					>
+						{obj.name}
+					</button>
+				))
+
+				:
+
+					places.map((obj, id) => (
 					<button 
 					key={id}
 					className="flex justify-start items-center h-12 mt-1 px-8 w-full focus:outline-none font-bold text-gray-400 text-xs hover:bg-gray-200"
