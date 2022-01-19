@@ -4,7 +4,7 @@ import { NetworkContext } from "../context/NetworkContext";
 import mapboxgl from 'mapbox-gl';
 import swal from "sweetalert";
 
-mapboxgl.accessToken = 'pk.eyJ1IjoidGNsb2htIiwiYSI6ImNqMDMwM3N3azA4N2cycWxzOXRxc2ExenQifQ.LNWEYTdZW2YaurDIgqXJtg';
+mapboxgl.accessToken = `${process.env.REACT_APP_MB_KEY}`;
 
 const url = 'http://localhost:4000/v1/images/';
 
