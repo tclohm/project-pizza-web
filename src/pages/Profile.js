@@ -1,13 +1,14 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Detail from "./Detail";
+import Map from "../components/Map";
 import TableCell from "../components/TableCell";
 import { NetworkContext } from "../context/NetworkContext";
-
-import mapboxgl from 'mapbox-gl';
 
 export default function Profile() {
 
 	const [data, setData] = useState([])
+
+	const [collection, setCollection] = useState({})
 
 	const [results, setResults] = useState([])
 
@@ -17,21 +18,48 @@ export default function Profile() {
 
 	const [selected, setSelected] = useState("")
 
-	const mapContainer = useRef(null);
-  	const map = useRef(null)
-
 	const { getVenuesPizza } = useContext(NetworkContext)
+
+
+	const store = arrayOfFeature => {
+		return {
+		  "type": "FeatureCollection",
+		  "features": arrayOfFeature
+		}
+	}
 
 	useEffect(() => {
 		if (dataReceived) { return }
 	      		getVenuesPizza().then(res => {
 	        	return res.json()
-      		}).then(data => {
+      		})
+      		.then(data => {
 	    		if (data && data.venuepizzas) {
 	    			setData(data.venuepizzas)
-	    			setDataReceived(true)
-    		}
-    	})
+	    			setSelected(data.venuepizzas[0])
+	    			return data.venuepizzas.map(object => {
+						return {
+							"type": "Feature",
+							"geometry": {
+								"type": "Point",
+								"coordinates": [
+									object.lon,
+									object.lat       
+								]
+							},
+							"properties": {
+								"id": `${object.id}`,
+								"image": `localhost:4000/v1/images/${object.pizza_image_id}`,
+								"price": `${object.price}`
+							}
+						}
+					})
+	    		}
+	    	})
+	    	.then(data => {
+	    		setCollection(store(data))
+	    	})
+	    setDataReceived(true)
 	}, [getVenuesPizza, dataReceived])
 
 
@@ -41,53 +69,6 @@ export default function Profile() {
     	})
     	setResults(results)
     }, [input, data])
-
-
-    const store = (object) => {
-		return {
-			"type": "FeatureCollection",
-			"features": [{
-			"type": "Feature",
-				"geometry": {
-				    "type": "Point",
-				    "coordinates": [
-				      object.lon,
-				      object.lat       
-				    ],
-				},
-				"properties": {
-					"id": `${object.id}`,
-					"price": `${object.price}`
-				},
-			},
-			]
-		}
-}
-
-
-      
-
-  const addMarker = store => {
-    for (const marker of store.features) {
-      const bubble = document.createElement('div');
-      const pointer = document.createElement('div');
-      const container = document.createElement('div');
-      bubble.id = `marker-${marker.properties.id}`;
-      pointer.id = `pointer-${marker.properties.id}`;
-      bubble.className = 'bubble font-black';
-      pointer.className = 'pointer';
-      container.className = 'bubble-container';
-      bubble.style.display = 'flex';
-      bubble.style.justifyContent = 'center';
-      bubble.textContent = `$${marker.properties.price}`
-      container.append(pointer)
-      container.append(bubble)
-
-      new mapboxgl.Marker(container, { offset: [0, -23] })
-        .setLngLat(marker.geometry.coordinates)
-        .addTo(map.current)
-    }
-  }
 
 
 	return (
@@ -110,11 +91,11 @@ export default function Profile() {
 					{
 						input.length !== 0 ?
 						results.map((obj, id) => (
-							<TableCell obj={obj} id={id} select={setSelected} />
+							<TableCell obj={obj} key={id} select={setSelected} />
 	            		))
 						:
 						data.map((obj, id) => (
-							<TableCell obj={obj} id={id} select={setSelected} />
+							<TableCell obj={obj} key={id} select={setSelected} />
 	            	))}
             		<p className="flex justify-center text-gray-400 text-xs">empty all the way down</p>
             	</div>
@@ -127,11 +108,8 @@ export default function Profile() {
 						<p>empty</p>
 					:
 						<div className="hidden md:flex md:flex-col">
-						<div 
-							ref={mapContainer} 
-							className="flex flex-col justify-end h-48 w-full bg-yellow-200"></div>
-						<Detail selected={selected}/>
-							
+							<Map lng={selected.lon} lat={selected.lat} collection={collection} />
+							<Detail selected={selected}/>
 						</div>
 					}
 			</div>
