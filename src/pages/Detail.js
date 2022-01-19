@@ -53,11 +53,11 @@ export default function Detail({ selected }) {
 			</div>
 			
 			</div>
-			<p>created at: {selected.created_at}</p>
+			<p>Visited on: {new Date(selected.created_at).toDateString()}</p>
 			
 			<p>lat: {selected.lat}</p>
 			<p>lon: {selected.lon}</p>
-			<p>price: ${selected.price}</p>
+			<p>The price you paid: ${selected.price}</p>
 			
 			
 			<p>Address: {selected.venue_address}</p>
