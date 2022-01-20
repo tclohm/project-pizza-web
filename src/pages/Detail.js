@@ -10,6 +10,9 @@ export default function Detail({ selected }) {
 	return (
 		<div>
 			<div className="flex flex-col lg:flex-row justify-between">
+				<p className="absolute bg-green-500 rounded-full text-white h-8 w-8 flex justify-center items-center font-semibold text-xs">
+					${selected.price}
+				</p>
 				<PizzaImageNameVenue input={selected} image={url} className="flex m-2"/>
 				<div className="flex flex-col p-4 m-2 ring-1 ring-black rounded">
 					<h4 className="font-semibold text-md">Address</h4>
