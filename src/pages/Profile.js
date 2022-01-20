@@ -74,14 +74,14 @@ export default function Profile() {
 	return (
 		<div className="flex w-full">
 
-			<div className="left bg-gray-200 lg:w-5/12 w-full h-screen overflow-y-auto snap-y">
-				<div className="sticky top-0 bg-gray-200 shadow">
+			<div className="left bg-white lg:w-5/12 w-full h-screen overflow-y-auto snap-y">
+				<div className="sticky top-0 shadow flex flex-col bg-white">
 					<p 
-					className="flex justify-start w-full font-semibold text-white px-2 py-1 bg-pink-500 text-xs z-10">
+					className="w-full font-semibold text-white px-2 py-1 bg-pink-500 text-xs z-10">
 					Reviewed
 					</p>
 					<input 
-		              className="flex overflow-ellipsis overflow-hidden ring-4 ring-gray-200 ring-inset focus:outline-none py-2 px-8 w-full rounded-lg"
+		              className="overflow-ellipsis overflow-hidden border focus:outline-none p-2 m-2 rounded hover:bg-yellow-100"
 		              type="text" 
 		              name="location"
 		              onChange={e => setInput(e.target.value)} 

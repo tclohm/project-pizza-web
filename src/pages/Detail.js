@@ -17,7 +17,6 @@ export default function Detail({ selected }) {
 					<p className="text-xs font-light">Visited on: {new Date(selected.created_at).toDateString()}</p>
 				</div>
 			</div>
-			<p>The price you paid: ${selected.price}</p>
 			<div className="flex justify-center">
 				<div className="flex flex-col items-center">
 					<label
