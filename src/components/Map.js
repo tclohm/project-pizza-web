@@ -18,11 +18,9 @@ export default function Map({ lng, lat, collection }) {
 			const container = document.createElement('div');
 			bubble.id = `marker-${marker.properties.id}`;
 			pointer.id = `pointer-${marker.properties.id}`;
-			bubble.className = 'bubble font-black';
+			bubble.className = 'bubble font-black text-xs flex justify-center items-center';
 			pointer.className = 'pointer';
 			container.className = 'bubble-container';
-			bubble.style.display = 'flex';
-			bubble.style.justifyContent = 'center';
 			bubble.textContent = `$${marker.properties.price}`
 			container.append(pointer)
 			container.append(bubble)
@@ -40,7 +38,8 @@ export default function Map({ lng, lat, collection }) {
 			container: mapContainer.current,
 			style: 'mapbox://styles/mapbox/light-v10',
 			center: [lng, lat],
-			zoom: zoom
+			zoom: zoom,
+			interactive: false
 		});
         
         map.current.on('load', () => {
@@ -63,9 +62,9 @@ export default function Map({ lng, lat, collection }) {
 
 
 	return (
-		<div 
-			ref={mapContainer} 
-			className="flex flex-col justify-end h-48 w-full">
-		</div>
+			<div 
+				ref={mapContainer} 
+				className="flex flex-col justify-end h-48 w-full">
+			</div>
 	)
 }
