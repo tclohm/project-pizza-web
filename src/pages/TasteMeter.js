@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
+import { pizzaSchema } from "../validations/schemas";
 
 import { PizzaInputContext } from "../context/PizzaInputContext";
 import { NetworkContext } from "../context/NetworkContext";
@@ -11,6 +13,8 @@ export default function TasteMeter () {
 	const { input, add } = useContext(PizzaInputContext);
 	const { getImage } = useContext(NetworkContext);
 	const [image, setImage] = useState('')
+
+	const history = useHistory()
 
 	useEffect(() => {
 		if (image === '') {
@@ -74,13 +78,31 @@ export default function TasteMeter () {
 				>
 					<i className="fas fa-chevron-left mr-2 text-xs"></i>back
 				</Link>
-			<Link 
+			<button 
 	            id="continue"
 	            className="upload flex justify-center px-16 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8 font-bold"
-	            to="/price"
+	            onClick={e => {
+	            	pizzaSchema.isValid({
+			            name: input.name,
+			            style: input.style,
+			            price: input.price,
+			            cheesiness: input.cheesiness,
+			            flavor: input.flavor,
+			            sauciness: input.sauciness,
+			            saltiness: input.saltiness,
+			            charness: input.charness,
+			            description: input.description,
+        }).then(async valid => {
+            if (valid) {
+            	console.log(valid)
+            } else {
+            	alert("wrong")
+            }
+        })
+	            }}
 	            >
 	                continue
-	            </Link>
+	            </button>
 	        </div>
 		</div>
 	);

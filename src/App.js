@@ -1,9 +1,11 @@
 import { useRef, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 import { PizzaInputContext } from "./context/PizzaInputContext";
 import { NetworkContext } from "./context/NetworkContext";
+
+import { venueSchema } from "./validations/schemas";
 
 import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
@@ -32,6 +34,8 @@ function App() {
 
     const { input, add } = useContext(PizzaInputContext);
     const { upload, postVenue } = useContext(NetworkContext);
+
+    const history = useHistory();
 
     const showImg = () => {
         const placeholder = document.getElementById('placeholder')
@@ -246,14 +250,27 @@ function App() {
                             />
                         </div>
                     }
-                        <Link 
+                        <button 
                         id="continue"
                         className="hidden upload px-24 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8"
-                        to="/taste"
-                        onClick={e => postVenue(input.location)}
+                        onClick={e => {
+                            venueSchema.isValid({
+                                name: input.location.name,
+                                latitude: input.location.lat,
+                                longitude: input.location.lon,
+                                address: input.location.address
+                            }).then(valid => {
+                                if (valid) {
+                                    postVenue(input.location)
+                                    history.push("/taste")
+                                } else {
+                                    alert("error")
+                                }
+                            })
+                        }}
                         >
                             continue
-                        </Link>
+                        </button>
                 </div>
             </div>
         </Wrapper>

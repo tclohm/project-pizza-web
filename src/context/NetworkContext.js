@@ -42,7 +42,7 @@ export const NetworkProvider = ({ children }) => {
     }
 
     const postVenue = venue => { 
-    	fetch(`${url}/venues`, { 
+        fetch(`${url}/venues`, { 
             method: 'POST',
             headers: {},
             body: JSON.stringify(venue)
@@ -67,20 +67,20 @@ export const NetworkProvider = ({ children }) => {
     }
 
     const postPizza = async pizza => {
-        const res = await fetch(`${url}/pizzas`, {
-            method: 'POST',
-            headers: {},
-            body: JSON.stringify(pizza)
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.pizza.id) {
-                return data.pizza.id
-            }
-        }).catch(err => {
-            console.error(err)
-        })
-        return res
+            const res = await fetch(`${url}/pizzas`, {
+                method: 'POST',
+                headers: {},
+                body: JSON.stringify(pizza)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.pizza.id) {
+                    return data.pizza.id
+                }
+            }).catch(err => {
+                console.error(err)
+            })
+            return res
     }
 
 	const updatePizza = (pizza, id) => {
