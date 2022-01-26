@@ -1,6 +1,7 @@
 import { useRef, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import Swal from 'sweetalert2';
 
 import { PizzaInputContext } from "./context/PizzaInputContext";
 import { NetworkContext } from "./context/NetworkContext";
@@ -120,7 +121,10 @@ function App() {
         if (navigator.geolocation) {
 
             function error(err) {
-                console.error("To err is human", err)
+                Swal.fire("Bummer",
+                    "The app wont really work without your location :(",
+                    "question"
+                )
             }
 
             navigator.geolocation.getCurrentPosition(getCoordinates, error)
@@ -276,13 +280,19 @@ function App() {
                                             postVenue(input.location)
                                             history.push("/taste")
                                         } else {
-                                            alert("please fill in everything")
+                                            Swal.fire("Something is missing!",
+                                                "You need to fill out everything before we can move forward",
+                                                "error"
+                                            )
                                         }
 
                                     })
 
                                 } else {
-                                    alert("error")
+                                   Swal.fire("Something is missing!",
+                                        "You need to fill out everything before we can move forward",
+                                        "error"
+                                    )
                                 }
                             }).catch(err => console.error(err))
                         }}

@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import Swal from 'sweetalert2'
 
-import { pizzaSchema } from "../validations/schemas";
+import { tasteSchema } from "../validations/schemas";
 
 import { PizzaInputContext } from "../context/PizzaInputContext";
 import { NetworkContext } from "../context/NetworkContext";
@@ -82,21 +83,22 @@ export default function TasteMeter () {
 	            id="continue"
 	            className="upload flex justify-center px-16 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8 font-bold"
 	            onClick={e => {
-	            	pizzaSchema.isValid({
-			            name: input.name,
-			            style: input.style,
-			            price: input.price,
+	            	tasteSchema.isValid({
+			           
 			            cheesiness: input.cheesiness,
 			            flavor: input.flavor,
 			            sauciness: input.sauciness,
 			            saltiness: input.saltiness,
-			            charness: input.charness,
-			            description: input.description,
+			            charness: input.charness
+			   
         }).then(async valid => {
             if (valid) {
-            	console.log(valid)
+            	history.push("/price")
             } else {
-            	alert("wrong")
+            	Swal.fire("Something is missing!",
+                    "You need to fill out everything before we can move forward",
+                    "error"
+                )
             }
         })
 	            }}
