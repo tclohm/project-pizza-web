@@ -10,12 +10,17 @@ export let venueSchema = yup.object().shape({
 export let pizzaSchema = yup.object().shape({
 	name: yup.string().required(),
 	style: yup.string().required(),
-	price: yup.number().required(),
+	description: yup.string().required()
+})
+
+
+export let tasteSchema = yup.object().shape({
 	cheesiness: yup.number().required(),
 	flavor: yup.number().required(),
 	sauciness: yup.number().required(),
 	saltiness: yup.number().required(),
-	charness: yup.number().required(),
-	description: yup.string().required()
+	charness: yup.number().required()
 })
+
+export let priceSchema = yup.number().required()
 

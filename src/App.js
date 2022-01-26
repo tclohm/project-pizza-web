@@ -1,11 +1,12 @@
 import { useRef, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import Swal from 'sweetalert2';
 
 import { PizzaInputContext } from "./context/PizzaInputContext";
 import { NetworkContext } from "./context/NetworkContext";
 
-import { venueSchema } from "./validations/schemas";
+import { venueSchema, pizzaSchema } from "./validations/schemas";
 
 import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
@@ -120,7 +121,10 @@ function App() {
         if (navigator.geolocation) {
 
             function error(err) {
-                console.error("To err is human", err)
+                Swal.fire("Bummer",
+                    "The app wont really work without your location :(",
+                    "question"
+                )
             }
 
             navigator.geolocation.getCurrentPosition(getCoordinates, error)
@@ -255,18 +259,42 @@ function App() {
                         className="hidden upload px-24 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8"
                         onClick={e => {
                             venueSchema.isValid({
+
                                 name: input.location.name,
                                 latitude: input.location.lat,
                                 longitude: input.location.lon,
                                 address: input.location.address
+
                             }).then(valid => {
                                 if (valid) {
-                                    postVenue(input.location)
-                                    history.push("/taste")
+
+                                    pizzaSchema.isValid({
+
+                                        name: input.name,
+                                        style: input.style,
+                                        description: input.description
+
+                                    }).then(valid => {
+
+                                        if (valid) {
+                                            postVenue(input.location)
+                                            history.push("/taste")
+                                        } else {
+                                            Swal.fire("Something is missing!",
+                                                "You need to fill out everything before we can move forward",
+                                                "error"
+                                            )
+                                        }
+
+                                    })
+
                                 } else {
-                                    alert("error")
+                                   Swal.fire("Something is missing!",
+                                        "You need to fill out everything before we can move forward",
+                                        "error"
+                                    )
                                 }
-                            })
+                            }).catch(err => console.error(err))
                         }}
                         >
                             continue
