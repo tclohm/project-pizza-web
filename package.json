@@ -18,6 +18,7 @@
     "react-spring": "^9.3.0",
     "react-use-measure": "^2.0.4",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.3.6",
     "web-vitals": "^1.0.1",
     "yup": "^0.32.11"
   },

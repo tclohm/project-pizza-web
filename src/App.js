@@ -5,7 +5,7 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { PizzaInputContext } from "./context/PizzaInputContext";
 import { NetworkContext } from "./context/NetworkContext";
 
-import { venueSchema } from "./validations/schemas";
+import { venueSchema, pizzaSchema } from "./validations/schemas";
 
 import ImagePlaceholder from "./components/ImagePlaceholder";
 import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
@@ -255,18 +255,36 @@ function App() {
                         className="hidden upload px-24 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8"
                         onClick={e => {
                             venueSchema.isValid({
+
                                 name: input.location.name,
                                 latitude: input.location.lat,
                                 longitude: input.location.lon,
                                 address: input.location.address
+
                             }).then(valid => {
                                 if (valid) {
-                                    postVenue(input.location)
-                                    history.push("/taste")
+
+                                    pizzaSchema.isValid({
+
+                                        name: input.name,
+                                        style: input.style,
+                                        description: input.description
+
+                                    }).then(valid => {
+
+                                        if (valid) {
+                                            postVenue(input.location)
+                                            history.push("/taste")
+                                        } else {
+                                            alert("please fill in everything")
+                                        }
+
+                                    })
+
                                 } else {
                                     alert("error")
                                 }
-                            })
+                            }).catch(err => console.error(err))
                         }}
                         >
                             continue
