@@ -22,5 +22,7 @@ export let tasteSchema = yup.object().shape({
 	charness: yup.number().required()
 })
 
-export let priceSchema = yup.number().required()
+export let priceSchema = yup.object().shape({
+	price: yup.number().required().min(0).max(500)
+})
 
