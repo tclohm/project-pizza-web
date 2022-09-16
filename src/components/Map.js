@@ -64,7 +64,7 @@ export default function Map({ lng, lat, collection }) {
 	return (
 			<div 
 				ref={mapContainer} 
-				className="flex flex-col justify-end h-48 w-full">
+				className="flex flex-col justify-end md:h-48 w-full h-28">
 			</div>
 	)
 }
