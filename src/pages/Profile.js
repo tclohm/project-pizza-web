@@ -48,9 +48,8 @@ export default function Profile() {
 								]
 							},
 							"properties": {
-								"id": `${object.id}`,
-								"image": `localhost:4000/v1/images/${object.pizza_image_id}`,
-								"price": `${object.price}`
+								"id": `${object.venue_id}`,
+								"price": `${object.pizzas[0].price}`
 							}
 						}
 					})
@@ -65,14 +64,14 @@ export default function Profile() {
 
 	useEffect(() => {
     	const results = data.filter(obj => {
-    		return obj.pizza_name.toLowerCase().includes(input.toLowerCase()) || obj.venue_name.toLowerCase().includes(input.toLowerCase())
+    		return obj.venue_name.toLowerCase().includes(input.toLowerCase())
     	})
     	setResults(results)
     }, [input, data])
 
 
 	return (
-		<div className="flex w-full">
+		<div className="w-full md:flex absolute">
 
 			<div className="left bg-white lg:w-5/12 w-full h-screen overflow-y-auto snap-y">
 				<div className="sticky top-0 shadow flex flex-col bg-white">
@@ -101,15 +100,25 @@ export default function Profile() {
             	</div>
 			</div>
 			
-			<div className="right md:w-full">
+			<div className="right md:w-full sticky left-0 bottom-0">
 					{
 					selected === ""
 					?
 						<p>empty</p>
 					:
-						<div className="hidden md:flex md:flex-col">
+						<div className="bg-white md:relative flex flex-col">
 							<Map lng={selected.lon} lat={selected.lat} collection={collection} />
-							<Detail selected={selected}/>
+							<div className="flex flex-col p-4 m-2 ring-1 ring-black rounded">
+								<h4 className="font-semibold text-md">Address</h4>
+								<p className="text-md">{selected.venue_address}</p>
+								<p className="text-xs font-light">Last visited: {new Date(selected.pizzas[0].created_at).toDateString()}</p>
+							</div>
+							{
+								selected.pizzas.map((pizza, i) => (
+									<Detail key={i} pizza={pizza}/>
+								))
+							}
+							
 						</div>
 					}
 			</div>

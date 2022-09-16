@@ -1,9 +1,12 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 import { NetworkContext } from "../context/NetworkContext";
 import { PizzaInputContext } from "../context/PizzaInputContext";
+
+import { priceSchema } from "../validations/schemas";
 
 import PizzaImageNameVenue from "../components/PizzaImageNameVenue";
 import Chart from "../components/Chart";
@@ -138,7 +141,22 @@ export default function Price() {
 				<button 
 		            id="continue"
 		            className="upload flex justify-center px-16 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8 font-bold"
-		            onClick={e => all()}
+		            onClick={() => {
+		            	priceSchema.isValid({
+		            		price: price,
+		            	}).then(valid => {
+
+		            		if (valid) {
+		            			all()
+		            		} else {
+		            			Swal.fire("The Price!",
+                                        "The price must be $0 between $500",
+                                        "error"
+                                )
+		            		}
+		            	})
+
+		            }}
 		            >
 		                submit
 		            </button>
