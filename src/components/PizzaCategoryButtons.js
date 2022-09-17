@@ -1,17 +1,19 @@
 import React from "react";
 
+
+// MARK: -- change to objects and place definitions
 const selection = [
-"Neopolitan",
-"New York-style",
-"Sicilian",
-"Grandma pizza",
-"Detroit-style",
-"New Haven-style",
-"California-style",
-"Chicago deep-dish",
-"St. Louis-style",
-"Roman-style",
-"Other"
+	{"Neopolitan": "Round, thin, fluffy, charred"},
+	{"New York-style": "Round, thin, crispy on the outside but chewy on the inside"},
+	{"Sicilian": "Rectangular, thick, puffy"},
+	{"Grandma pizza": "Rectangular, thin"},
+	{"Detroit-style": "Rectangular, thick"},
+	{"New Haven-style": "Round, thin, crunchy"},
+	{"California-style": "Round, typically thin. All about the produce on top"},
+	{"Chicago deep-dish": "Round, thick. Oily, less protein, dense"},
+	{"St. Louis-style": "Round, thin, cracker-like. Crunch when bitten"},
+	{"Roman-style": "Rectangular, thick, puffy. Big and bubbly cross section"},
+	{"Other": ""}
 ]
 
 export default function PizzaCategoryButtons({ set, selected, add }) {
@@ -24,20 +26,26 @@ export default function PizzaCategoryButtons({ set, selected, add }) {
 
 	return (
 		<div className="mx-6 text-xs">
-			{selection.map((style, id) => (
-				style === selected ?
+			<p className="text-xs font-light mx-2">Features: {
+				selected === "" ?
+				"?"
+				:
+				Object.values(selection.map(i => i).filter(i => Object.keys(i) === selected)[0])[0]
+			}</p>
+			{selection.flatMap((obj, id) => Object.keys(obj)).map((obj, id) => (
+				obj === selected ?
 				<button
 				key={id} 
 				onClick={e => select(e)}
 				className="border-red-500 bg-red-500 text-white border-2 my-4 mx-1 px-1 py-2 rounded-lg font-semibold">
-					{style}
+					{obj}
 				</button>
 				:
 				<button 
 				key={id}
 				onClick={e => select(e)}
 				className="border-red-300 border-2 my-4 mx-1 px-1 py-2 rounded-lg font-semibold">
-					{style}
+					{obj}
 				</button>
 			))}
 		</div>
