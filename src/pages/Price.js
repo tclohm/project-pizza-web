@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Swal from 'sweetalert2';
 
@@ -38,13 +38,14 @@ export default function Price() {
 		}
 	}
 
-	const data = [
+	const data = useMemo(() => {
+		return [
 		{ value: input.cheesiness, emoji: "🧀", },
 		{ value: input.flavor, emoji: "👅" },
 		{ value: input.sauciness, emoji: "🍅" },
 		{ value: input.saltiness, emoji: "🧂" },
 		{ value: input.charness, emoji: "🔥" }
-	]
+	]}, [input])
 
 	const all = () => {
 		postPizza(

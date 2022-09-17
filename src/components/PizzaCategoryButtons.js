@@ -2,19 +2,19 @@ import React from "react";
 
 
 // MARK: -- change to objects and place definitions
-const selection = [
-	{"Neopolitan": "Round, thin, fluffy, charred"},
-	{"New York-style": "Round, thin, crispy on the outside but chewy on the inside"},
-	{"Sicilian": "Rectangular, thick, puffy"},
-	{"Grandma pizza": "Rectangular, thin"},
-	{"Detroit-style": "Rectangular, thick"},
-	{"New Haven-style": "Round, thin, crunchy"},
-	{"California-style": "Round, typically thin. All about the produce on top"},
-	{"Chicago deep-dish": "Round, thick. Oily, less protein, dense"},
-	{"St. Louis-style": "Round, thin, cracker-like. Crunch when bitten"},
-	{"Roman-style": "Rectangular, thick, puffy. Big and bubbly cross section"},
-	{"Other": ""}
-]
+const selection = {
+	"Neopolitan": "Round, thin, fluffy, charred",
+	"New York-style": "Round, thin, crispy on the outside but chewy on the inside",
+	"Sicilian": "Rectangular, thick, puffy",
+	"Grandma pizza": "Rectangular, thin",
+	"Detroit-style": "Rectangular, thick",
+	"New Haven-style": "Round, thin, crunchy",
+	"California-style": "Round, typically thin. All about the produce on top",
+	"Chicago deep-dish": "Round, thick. Oily, less protein, dense",
+	"St. Louis-style": "Round, thin, cracker-like. Crunch when bitten",
+	"Roman-style": "Rectangular, thick, puffy. Big and bubbly cross section",
+	"Other": "NA",
+}
 
 export default function PizzaCategoryButtons({ set, selected, add }) {
 
@@ -26,13 +26,12 @@ export default function PizzaCategoryButtons({ set, selected, add }) {
 
 	return (
 		<div className="mx-6 text-xs">
-			<p className="text-xs font-light mx-2">Features: {
-				selected === "" ?
-				"?"
-				:
-				Object.values(selection.map(i => i).filter(i => Object.keys(i) === selected)[0])[0]
+			<p className="text-xs font-light mx-2">Features: {selected === "" ?
+				"---"
+			:
+				selection[selected]
 			}</p>
-			{selection.flatMap((obj, id) => Object.keys(obj)).map((obj, id) => (
+			{Object.keys(selection).map((obj, id) => (
 				obj === selected ?
 				<button
 				key={id} 
