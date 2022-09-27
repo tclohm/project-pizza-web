@@ -11,13 +11,15 @@ import { priceSchema } from "../validations/schemas";
 import PizzaImageNameVenue from "../components/PizzaImageNameVenue";
 import Chart from "../components/Chart";
 
+const inputstyles = "overflow-ellipsis overflow-hidden w-2/3 focus:outline-none py-2 px-8 mt-8 border-b text-sm inputfield"
+
 export default function Price() {
 
 	const [price, setPrice] = useState(0)
 	const [comment, setComment] = useState("")
 	const [image, setImage] = useState('')
 
-	const { input, clear } = useContext(PizzaInputContext);
+	const { input, clear, add } = useContext(PizzaInputContext);
 	const { getImage, postPizza, postVenuePizza } = useContext(NetworkContext);
 
 	let history = useHistory();
@@ -45,7 +47,7 @@ export default function Price() {
 		{ value: input.sauciness, emoji: "🍅" },
 		{ value: input.saltiness, emoji: "🧂" },
 		{ value: input.charness, emoji: "🔥" }
-	]}, [input])
+	]}, [])
 
 	const all = () => {
 		postPizza(
@@ -131,6 +133,18 @@ export default function Price() {
 	        ></button>
         	</div>
         	<p className="text-xs font-light text-gray-600">{comment}</p>
+        	<label className="text-xs font-black py-2 text-yellow-500">
+				Anything else you want to add?
+			</label>
+        	<input 
+				className={inputstyles} 
+				type="text" 
+				name="description" 
+				placeholder="Any more detail you like to add about the pizza (required)"
+				onChange={e => add({
+					description: e.target.value
+				})}
+			/>
         	<div className="absolute w-full bottom-0 md:right-0">
 	        	<div className="flex md:justify-end justify-around">
 					<Link 

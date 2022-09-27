@@ -44,7 +44,7 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
     }, [input, places])
 
     return (
-    <div className="relative mt-12 border rounded-r-xl bg-white w-11/12 shadow">
+    <div className="relative h-full mt-12 border rounded-r-xl bg-white w-11/12 shadow">
     	<div className="flex text-gray-400">
 			<h1 className="text-lg font-black my-4 px-8 border-b w-full">Around you</h1>
 			<p className="absolute -right-8 top-6 font-light text-xs h-2 w-48">powered by <i className="fab fa-google"></i>oogle</p>
@@ -55,7 +55,7 @@ export default function FindPlace({ latitude, longitude, add, modalRef, close })
 			ref={modalRef}
 			onClick={e => close(e)}>
 		</button>
-		<div className="h-screen h-min overflow-y-auto snap-y">
+		<div className="overflow-y-auto snap-y">
 			<input 
               className="flex overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 w-full border-b mb-8"
               type="text" 

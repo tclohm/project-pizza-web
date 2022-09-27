@@ -72,17 +72,19 @@ export default function TasteMeter () {
 					</div>
 				</div>
 			</div>
-			<div className="flex md:justify-end justify-around">
-				<Link 
-					className="flex justify-center items-center py-2 my-2 bg-gray-200 px-16 md:px-4 md:mr-4 rounded-lg font-medium hover:bg-gray-300"
-					to="/"
-				>
-					<i className="fas fa-chevron-left mr-2 text-xs"></i>back
-				</Link>
-			<button 
-	            id="continue"
-	            className="upload flex justify-center px-16 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8 font-bold"
-	            onClick={e => {
+	        <div className="absolute w-full bottom-0 md:right-0">
+	        	<div className="flex md:justify-end justify-around">
+					<Link 
+						className="flex justify-center items-center py-2 my-2 bg-gray-200 px-16 md:px-4 md:mr-4 rounded-lg font-medium hover:bg-gray-300"
+						to="/category"
+					>
+						<i className="fas fa-chevron-left mr-2 text-xs"></i>back
+					</Link>
+				<button 
+		            id="continue"
+		            className="upload flex justify-center px-16 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8 font-bold"
+		            onClick={e => {
+
 	            	tasteSchema.isValid({
 			           
 			            cheesiness: input.cheesiness,
@@ -91,20 +93,21 @@ export default function TasteMeter () {
 			            saltiness: input.saltiness,
 			            charness: input.charness
 			   
-        }).then(async valid => {
-            if (valid) {
-            	history.push("/price")
-            } else {
-            	Swal.fire("Something is missing!",
-                    "You need to fill out everything before we can move forward",
-                    "error"
-                )
-            }
-        })
-	            }}
-	            >
-	                continue
-	            </button>
+        			}).then(async valid => {
+			            if (valid) {
+			            	history.push("/price")
+			            } else {
+			            	Swal.fire("Something is missing!",
+			                    "You need to fill out everything before we can move forward",
+			                    "error"
+			                )
+            			}
+        			})
+	            	}}
+		            >
+		                continue
+		            </button>
+		        </div>
 	        </div>
 		</div>
 	);
