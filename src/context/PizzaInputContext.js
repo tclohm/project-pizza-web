@@ -21,8 +21,8 @@ const initialState = {
 	flavor: 0,
 	sauciness: 0,
 	saltiness: 0,
-	charness: 0
-	
+	charness: 0,
+	conclusion: ''
 }
 
 const ADD = "ADD";
@@ -72,6 +72,9 @@ const reducer = (state = initialState, action) => {
 			case "charness":
 				const { charness } = payload
 				return { ...state, charness }
+			case "conclusion":
+				const { conclusion } = payload
+				return { ...state, conclusion }
 			default:
 				return { ...state, payload }
 		}

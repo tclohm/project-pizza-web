@@ -7,6 +7,7 @@ import { PizzaInputProvider } from "./context/PizzaInputContext";
 import { NetworkProvider } from "./context/NetworkContext";
 
 import App from './App';
+import Category from './pages/Category';
 import TasteMeter from './pages/TasteMeter';
 import Price from "./pages/Price";
 import Discover from "./pages/Discover";
@@ -28,6 +29,9 @@ ReactDOM.render(
              <Switch>
                 <Route exact path="/">
                   <App/>
+                </Route>
+                <Route path="/category">
+                  <Category/>
                 </Route>
                 <Route path="/taste">
                   <TasteMeter/>

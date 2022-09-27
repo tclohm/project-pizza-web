@@ -16,7 +16,7 @@ export default function Modal({ children, open }) {
     return (
         <div>
 			{open ?
-			<animated.div style={{ opacity, transform }} className="absolute -top-10 h-full w-full md:w-1/2 z-40">
+			<animated.div style={{ opacity, transform }} className="absolute -top-12 h-full w-full md:w-1/2 z-40">
 				{children}
 			</animated.div>
 			:

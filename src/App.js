@@ -6,10 +6,9 @@ import Swal from 'sweetalert2';
 import { PizzaInputContext } from "./context/PizzaInputContext";
 import { NetworkContext } from "./context/NetworkContext";
 
-import { venueSchema, pizzaSchema } from "./validations/schemas";
+import { venueSchema, pizzaNameSchema } from "./validations/schemas";
 
 import ImagePlaceholder from "./components/ImagePlaceholder";
-import PizzaCategoryButtons from "./components/PizzaCategoryButtons";
 import Modal from "./components/Modal";
 import FindPlace from "./pages/FindPlace";
 
@@ -27,8 +26,6 @@ function App() {
     const uploadedImage = useRef(null);
     const imageUploader = useRef(null);
     const [isPlaceholder, setIsPlaceholder] = useState(true);
-    const [style, setStyle] = useState('');
-    const [other, setOther] = useState('Other');
 
     // MARK: -- Modal
     const [open, setOpen] = useState(false);
@@ -70,7 +67,6 @@ function App() {
 
         setIsPlaceholder(true)
         uploadedImage.current.src = ""
-        setStyle("")
     }
 
     const handleImageUpload = e => {
@@ -201,98 +197,44 @@ function App() {
                         ref={uploadedImage}
                         className="h-full"
                         />
-                        {style === "" ? 
-                            <></>
-                        :
-                            style === "Other" ?
-                                <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
-                                style={{ width: `${uploadedImage.current.width}px` }}
-                                >
-                                    {other}
-                                </p>
-                            :
-                                <p className="absolute flex justify-center mt-40 bg-black text-white font-semibold py-2 bg-opacity-80" 
-                                style={{ width: `${uploadedImage.current.width}px` }}
-                                >
-                                    {style}
-                                </p>  
-                        }
                         <button 
                         id="trash" 
                         className="hidden hover:bg-blue-400 h-12 w-12 rounded absolute top-0 right-0"
                         onClick={e => removeImage(e)}
                         ></button>
                     </div>
-                    {isPlaceholder ?
-                        <></>
-                    :
-                        <div className="flex flex-col w-full p-2 text-gray-600 text-sm">
-                            <label className="py-2 px-8">What category does it fall under? (required)</label>
-                            <PizzaCategoryButtons set={setStyle} selected={style} add={add} />
-                            {style === "Other" ?
-                                <input 
-                                className={inputstyles} 
-                                type="text" 
-                                name="other"
-                                value={other} 
-                                onChange={e => { 
-                                    setOther(e.target.value)
-                                    add({ style: e.target.value })
-                                }}
-                                placeholder="What's this type of pizza"/>
-                            :
-                                <></>
-                            }
-                            <input 
-                            className={inputstyles} 
-                            type="text" 
-                            name="description" 
-                            placeholder="Any more detail you like to add about the pizza (optional)"
-                            onChange={e => add({
-                                description: e.target.value
-                            })}
-                            />
-                        </div>
-                    }
                         <button 
                         id="continue"
                         className="hidden upload px-24 md:px-4 my-2 py-2 rounded-lg border-2 bg-red-600 border-red-700 md:self-end md:mr-8"
                         onClick={e => {
-                            venueSchema.isValid({
 
-                                name: input.location.name,
-                                latitude: input.location.lat,
-                                longitude: input.location.lon,
-                                address: input.location.address
-
+                            pizzaNameSchema.isValid({
+                                name: input.name
                             }).then(valid => {
-                                if (valid) {
-
-                                    pizzaSchema.isValid({
-
-                                        name: input.name,
-                                        style: input.style,
-                                        description: input.description
-
-                                    }).then(valid => {
-
-                                        if (valid) {
-                                            postVenue(input.location)
-                                            history.push("/taste")
-                                        } else {
-                                            Swal.fire("Something is missing!",
-                                                "You need to fill out everything before we can move forward",
-                                                "error"
-                                            )
-                                        }
-
-                                    })
-
-                                } else {
-                                   Swal.fire("Something is missing!",
-                                        "You need to fill out everything before we can move forward",
+                                if (!valid) {
+                                    Swal.fire("Name is missing!",
+                                        "You need to fill out the Name field before we can move forward",
                                         "error"
                                     )
+                                } else {
+                                    venueSchema.isValid({
+
+                                        name: input.location.name,
+                                        latitude: input.location.lat,
+                                        longitude: input.location.lon,
+                                        address: input.location.address
+
+                                    }).then(valid => {
+                                        if (valid) {
+                                            postVenue(input.location)
+                                            history.push("/category")
+                                    } else {
+                                        Swal.fire("Location is missing!",
+                                            "You need to pick a place where you took this photo",
+                                            "error"
+                                        )
+                                    }
+                                })
                                 }
                             }).catch(err => console.error(err))
                         }}

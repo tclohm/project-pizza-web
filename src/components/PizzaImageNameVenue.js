@@ -12,7 +12,7 @@ export default function PizzaImageNameVenue({ input, image, className }) {
 				<div className="flex flex-col">
 					<p className="lg:text-xl text-lg font-bold px-1">{input.name ? input.name : input.pizza_name}</p>
 					<PizzaStyle input={input} />
-					<p className="text-gray-300 font-black text-2xl">SATISFIED</p>
+					<p className="text-gray-300 font-black text-2xl">{input.conclusion}</p>
 				</div>
 			</div>
 		</div>
