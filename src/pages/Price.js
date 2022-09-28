@@ -49,30 +49,30 @@ export default function Price() {
 		{ value: input.charness, emoji: "🔥" }
 	]}, [input])
 
-	const all = () => {
-		postPizza(
-			{
-				name: input.name,
-				style: input.style,
-				price: price,
-				description: input.description,
-				image_id: input.imageId,
-				cheesiness: input.cheesiness,
-				flavor: input.flavor,
-				sauciness: input.sauciness,
-				saltiness: input.saltiness,
-				charness: input.charness,
-			}
-		).then(id => {
-			if (id) {
-				postVenuePizza({ venue_id: input.venueId, pizza_id: id })
-			}
-		}).then(() => {
-			clear()
-		}).then(() => {
-			history.push("/map")
-		})
-	}
+	// const all = () => {
+	// 	postPizza(
+	// 		{
+	// 			name: input.name,
+	// 			style: input.style,
+	// 			price: price,
+	// 			description: input.description,
+	// 			image_id: input.imageId,
+	// 			cheesiness: input.cheesiness,
+	// 			flavor: input.flavor,
+	// 			sauciness: input.sauciness,
+	// 			saltiness: input.saltiness,
+	// 			charness: input.charness,
+	// 		}
+	// 	).then(id => {
+	// 		if (id) {
+	// 			postVenuePizza({ venue_id: input.venueId, pizza_id: id })
+	// 		}
+	// 	}).then(() => {
+	// 		clear()
+	// 	}).then(() => {
+	// 		history.push("/map")
+	// 	})
+	// }
 
 	useEffect(() => {
 		if (image === '') {
@@ -162,7 +162,7 @@ export default function Price() {
 		            	}).then(valid => {
 
 		            		if (valid) {
-		            			all()
+		            			history.push("/other")
 		            		} else {
 		            			Swal.fire("The Price!",
                                         "The price must be $0 between $500",

@@ -1,18 +1,22 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+
+import PizzaImageNameVenue from "../components/PizzaImageNameVenue";
 
 import { PizzaInputContext } from "../context/PizzaInputContext";
 import { NetworkContext } from "../context/NetworkContext";
 
-const selection = [
-	"I would recommend it", 
-	"I approve", 
-	"Meh...It was fine", 
-	"I disapprove", 
-	"Dissatisfied"
-]
+const selection = {
+	"RECOMMENDED": "I would recommend it", 
+	"SATISFIED": "I approve", 
+	"CONTENT": "Meh...It was fine", 
+	"DISSATISFIED": "I disapprove", 
+	"STAY AWAY": "I'm not going back",
+}
 
 export default function Conclusion() {
+
+	const [image, setImage] = useState('')
 
 	const { input, add } = useContext(PizzaInputContext);
 	const { getImage } = useContext(NetworkContext);
@@ -21,30 +25,43 @@ export default function Conclusion() {
 
 	const select = e => {
 		e.preventDefault();
-		setConclusion(e.target.textContent)
-		add({ style: e.target.textContent })
+		setConclusion(e.target.value)
+		add({ conclusion: e.target.value })
 	}
 
+	useEffect(() => {
+		if (image === '') {
+			getImage(input.imageId).then(res => {
+				if (res.url) {
+					setImage(res.url)
+				}
+			})
+		}
+	}, [input.imageId, getImage, image])
+
 	return( 
-		<div>
-			<label className="text-lg font-black py-2 text-yellow-500">
-				How much was the pizza, roughly?
+		<div className="flex flex-col w-full h-96 justify-center items-center p-2">
+			<PizzaImageNameVenue input={input} image={image} className="flex self-start px-8" />
+			<label className="text-lg font-black py-2 text-yellow-500 self-start px-8">
+				How was the pizza?
 			</label>
 			<div>
-			{selection.map((obj, id) => (
-				obj === conclusion ?
+			{Object.entries(selection).map((obj, id) => (
+				obj[0] === conclusion ?
 				<button
 				key={id} 
 				onClick={e => select(e)}
+				value={obj[0]}
 				className="border-red-500 bg-red-500 text-white border-2 my-4 mx-1 px-1 py-2 rounded-lg font-semibold">
-					{obj}
+					{obj[1]}
 				</button>
 				:
 				<button 
 				key={id}
 				onClick={e => select(e)}
+				value={obj[0]}
 				className="border-red-300 border-2 my-4 mx-1 px-1 py-2 rounded-lg font-semibold">
-					{obj}
+					{obj[1]}
 				</button>
 			))}
 			</div>
