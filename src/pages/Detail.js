@@ -1,7 +1,4 @@
-import React from "react";
-
 import PizzaImageNameVenue from "../components/PizzaImageNameVenue";
-
 
 export default function Detail({ pizza }) {
 

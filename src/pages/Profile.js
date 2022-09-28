@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Detail from "./Detail";
 import Map from "../components/Map";
 import TableCell from "../components/TableCell";

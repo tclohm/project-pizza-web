@@ -10,6 +10,7 @@ import App from './App';
 import Category from './pages/Category';
 import TasteMeter from './pages/TasteMeter';
 import Price from "./pages/Price";
+import Conclusion from "./pages/Conclusion";
 import Discover from "./pages/Discover";
 import Profile from "./pages/Profile";
 
@@ -38,6 +39,9 @@ ReactDOM.render(
                 </Route>
                 <Route path="/price">
                   <Price/>
+                </Route>
+                <Route path="/other">
+                  <Conclusion/>
                 </Route>
                 <Route path="/discover">
                   <Discover/>

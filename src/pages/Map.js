@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { NetworkContext } from "../context/NetworkContext";
 
 import mapboxgl from 'mapbox-gl';
