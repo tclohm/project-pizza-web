@@ -31,7 +31,7 @@ export default function Category () {
 	}, [input.imageId, getImage, image])
 
 	return (
-		<div className="flex flex-col w-full justify-center p-2">
+		<div className="flex flex-col justify-center">
 	
 			<PizzaImageNameVenue input={input} image={image} className="flex flex-row items-end px-8"/>
 			<label className="py-2 px-8 ext-lg font-black text-yellow-500">Category</label>
@@ -50,7 +50,7 @@ export default function Category () {
 				:
 					<></>
 				}
-			<div className="absolute w-full bottom-0 md:right-0 left-0">
+			<div className="absolute w-full bottom-1 md:right-0">
 	        	<div className="flex md:justify-end justify-around">
 					<Link 
 						className="flex justify-center items-center py-2 my-2 bg-gray-200 px-16 md:px-4 md:mr-4 rounded-lg font-medium hover:bg-gray-300"

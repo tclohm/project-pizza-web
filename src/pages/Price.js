@@ -11,8 +11,6 @@ import { priceSchema } from "../validations/schemas";
 import PizzaImageNameVenue from "../components/PizzaImageNameVenue";
 import Chart from "../components/Chart";
 
-const inputstyles = "overflow-ellipsis overflow-hidden w-2/3 focus:outline-none py-2 px-8 mt-8 border-b text-sm inputfield"
-
 export default function Price() {
 
 	const [price, setPrice] = useState(0)
@@ -46,7 +44,8 @@ export default function Price() {
 		{ value: input.flavor, emoji: "👅" },
 		{ value: input.sauciness, emoji: "🍅" },
 		{ value: input.saltiness, emoji: "🧂" },
-		{ value: input.charness, emoji: "🔥" }
+		{ value: input.charness, emoji: "🔥" },
+		{ value: input.spiciness, emoji: "🌶" },
 	]}, [input])
 
 	// const all = () => {
@@ -133,19 +132,7 @@ export default function Price() {
 	        ></button>
         	</div>
         	<p className="text-xs font-light text-gray-600">{comment}</p>
-        	<label className="text-xs font-black py-2 text-yellow-500">
-				Anything else you want to add?
-			</label>
-        	<input 
-				className={inputstyles} 
-				type="text" 
-				name="description" 
-				placeholder="Any more detail you like to add about the pizza (required)"
-				onChange={e => add({
-					description: e.target.value
-				})}
-			/>
-        	<div className="absolute w-full bottom-0 md:right-0">
+        	<div className="absolute w-full bottom-1 md:right-0">
 	        	<div className="flex md:justify-end justify-around">
 					<Link 
 						className="flex justify-center items-center py-2 my-2 bg-gray-200 px-16 md:px-4 md:mr-4 rounded-lg font-medium hover:bg-gray-300"

@@ -28,22 +28,24 @@ export default function PizzaCategoryButtons({ set, selected, add }) {
 			:
 				selection[selected]
 			}</p>
+			<div className="grid grid-flow-row grid-cols-2 md:grid-cols-5">
 			{Object.keys(selection).map((obj, id) => (
 				obj === selected ?
 				<button
 				key={id} 
 				onClick={e => select(e)}
-				className="border-red-500 bg-red-500 text-white border-2 my-4 mx-1 px-1 py-2 rounded-lg font-semibold">
+				className="border-red-500 bg-red-500 text-white border-2 my-2 mx-1 px-1 py-4 rounded-lg font-semibold">
 					{obj}
 				</button>
 				:
 				<button 
 				key={id}
 				onClick={e => select(e)}
-				className="border-red-300 border-2 my-4 mx-1 px-1 py-2 rounded-lg font-semibold">
+				className="border-red-300 border-2 my-2 mx-1 px-1 py-4 rounded-lg font-semibold">
 					{obj}
 				</button>
 			))}
+			</div>
 		</div>
 	);
 };
