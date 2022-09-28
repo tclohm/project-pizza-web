@@ -1,6 +1,3 @@
-import React from "react";
-
-
 // MARK: -- change to objects and place definitions
 const selection = {
 	"Neopolitan": "Round, thin, fluffy, charred",
