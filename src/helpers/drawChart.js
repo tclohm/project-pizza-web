@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 
 export default function drawChart(element, data) {
-	const colors = ["gold", "lightpink", "crimson", "snow", "firebrick"]
+	const colors = ["gold", "lightpink", "tomato", "snow", "firebrick", "red"]
 	const boxSize = 500;
 
 	d3.select(element).select("svg").remove()

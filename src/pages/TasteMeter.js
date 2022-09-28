@@ -28,8 +28,8 @@ export default function TasteMeter () {
 	}, [input.imageId, getImage, image])
 
 	return (
-		<div className="absolute flex flex-col justify-around min-h-90 w-full">
-			<div className="relative flex lg:flex-row flex-col-reverse w-full">
+		<div className="absolute flex flex-col min-h-90 w-full">
+			<div className="relative flex lg:flex-row flex-col-reverse w-full mb-0">
 				<div className="flex flex-col justify-center w-full lg:mx-20 px-4">
 					<PizzaImageNameVenue input={input} image={image} className="lg:flex flex-row items-end hidden"/>
 					<div className="flex flex-col lg:justify-center">
@@ -39,11 +39,12 @@ export default function TasteMeter () {
 							<Slider name="Sauciness" value={input.sauciness} add={add} />
 							<Slider name="Saltiness" value={input.saltiness} add={add} />
 							<Slider name="Charness" value={input.charness} add={add} />
+							<Slider name="Spiciness" value={input.spiciness} add={add} />
 					</div>
 				</div>
 				<div className="flex flex-col w-full lg:h-full lg:items-center">
 					<PizzaImageNameVenue input={input} image={image} className="lg:hidden flex flex-row items-end p-4"/>
-					<div className="flex lg:flex-col w-full lg:w-1/2 justify-center items-center overflow-hidden">
+					<div className="flex lg:flex-col w-full lg:w-1/2 justify-center items-center overflow-hidden md:mb-12">
 						<label
 							 name="Cheesiness"
 							 style={{ fontSize: `${input.cheesiness}rem` }}
@@ -69,10 +70,15 @@ export default function TasteMeter () {
 							 style={{ fontSize: `${input.charness}rem` }}
 							 className="h-8 w-8 m-6 lg:m-8 flex items-center justify-center"
 							>🔥</label>
+						<label
+							 name="Spiciness"
+							 style={{ fontSize: `${input.spiciness}rem` }}
+							 className="h-8 w-8 m-6 lg:m-8 flex items-center justify-center"
+							>🌶</label>
 					</div>
 				</div>
 			</div>
-	        <div className="absolute w-full bottom-0 md:right-0">
+	        <div className="absolute w-full bottom-1 md:right-0">
 	        	<div className="flex md:justify-end justify-around">
 					<Link 
 						className="flex justify-center items-center py-2 my-2 bg-gray-200 px-16 md:px-4 md:mr-4 rounded-lg font-medium hover:bg-gray-300"
