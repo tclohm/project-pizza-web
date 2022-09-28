@@ -47,7 +47,7 @@ export default function Price() {
 		{ value: input.sauciness, emoji: "🍅" },
 		{ value: input.saltiness, emoji: "🧂" },
 		{ value: input.charness, emoji: "🔥" }
-	]}, [])
+	]}, [input])
 
 	const all = () => {
 		postPizza(
@@ -173,7 +173,7 @@ export default function Price() {
 
 		            }}
 		            >
-		                submit
+		                continue
 		            </button>
 		        </div>
 	        </div>
