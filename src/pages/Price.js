@@ -17,8 +17,8 @@ export default function Price() {
 	const [comment, setComment] = useState("")
 	const [image, setImage] = useState('')
 
-	const { input, clear, add } = useContext(PizzaInputContext);
-	const { getImage, postPizza, postVenuePizza } = useContext(NetworkContext);
+	const { input } = useContext(PizzaInputContext);
+	const { getImage } = useContext(NetworkContext);
 
 	let history = useHistory();
 	
@@ -47,31 +47,6 @@ export default function Price() {
 		{ value: input.charness, emoji: "🔥" },
 		{ value: input.spiciness, emoji: "🌶" },
 	]}, [input])
-
-	// const all = () => {
-	// 	postPizza(
-	// 		{
-	// 			name: input.name,
-	// 			style: input.style,
-	// 			price: price,
-	// 			description: input.description,
-	// 			image_id: input.imageId,
-	// 			cheesiness: input.cheesiness,
-	// 			flavor: input.flavor,
-	// 			sauciness: input.sauciness,
-	// 			saltiness: input.saltiness,
-	// 			charness: input.charness,
-	// 		}
-	// 	).then(id => {
-	// 		if (id) {
-	// 			postVenuePizza({ venue_id: input.venueId, pizza_id: id })
-	// 		}
-	// 	}).then(() => {
-	// 		clear()
-	// 	}).then(() => {
-	// 		history.push("/map")
-	// 	})
-	// }
 
 	useEffect(() => {
 		if (image === '') {
@@ -149,7 +124,7 @@ export default function Price() {
 		            	}).then(valid => {
 
 		            		if (valid) {
-		            			history.push("/other")
+		            			history.push("/conclusion")
 		            		} else {
 		            			Swal.fire("The Price!",
                                         "The price must be $0 between $500",

@@ -97,7 +97,8 @@ export default function TasteMeter () {
 			            flavor: input.flavor,
 			            sauciness: input.sauciness,
 			            saltiness: input.saltiness,
-			            charness: input.charness
+			            charness: input.charness,
+			            spiciness: input.spiciness,
 			   
         			}).then(async valid => {
 			            if (valid) {

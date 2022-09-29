@@ -40,7 +40,7 @@ ReactDOM.render(
                 <Route path="/price">
                   <Price/>
                 </Route>
-                <Route path="/other">
+                <Route path="/conclusion">
                   <Conclusion/>
                 </Route>
                 <Route path="/discover">
