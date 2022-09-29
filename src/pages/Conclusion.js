@@ -81,7 +81,7 @@ export default function Conclusion() {
 		}).then(() => {
 			clear()
 		}).then(() => {
-			history.push("/profile")
+			history.push("/")
 		}).catch(err => console.log(err))
 
 	}

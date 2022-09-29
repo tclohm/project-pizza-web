@@ -17,7 +17,7 @@ export default function Price() {
 	const [comment, setComment] = useState("")
 	const [image, setImage] = useState('')
 
-	const { input } = useContext(PizzaInputContext);
+	const { input, add } = useContext(PizzaInputContext);
 	const { getImage } = useContext(NetworkContext);
 
 	let history = useHistory();
@@ -124,6 +124,7 @@ export default function Price() {
 		            	}).then(valid => {
 
 		            		if (valid) {
+		            			add({ price: price })
 		            			history.push("/conclusion")
 		            		} else {
 		            			Swal.fire("The Price!",
