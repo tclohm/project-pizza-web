@@ -21,7 +21,8 @@ export let tasteSchema = yup.object().shape({
 	flavor: yup.number().required(),
 	sauciness: yup.number().required(),
 	saltiness: yup.number().required(),
-	charness: yup.number().required()
+	charness: yup.number().required(),
+	spiciness: yup.number().required(),
 })
 
 export let priceSchema = yup.object().shape({

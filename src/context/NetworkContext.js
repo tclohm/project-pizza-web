@@ -66,9 +66,26 @@ export const NetworkProvider = ({ children }) => {
         .catch(err => console.error(err))
     }
 
-    const postPizza = async pizza => {
-            const res = await fetch(`${url}/pizzas`, {
+    const postReview = async review => {
+            const res = await fetch(`${url}/reviews`, {
                 method: 'POST',
+                headers: {},
+                body: JSON.stringify(review)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.review.id) {
+                    return data.review.id
+                }
+            }).catch(err => {
+                console.error(err)
+            })
+            return res
+    }
+
+    const postPizza = async pizza => {
+        const res = await fetch(`${url}/pizzas`, {
+                 method: 'POST',
                 headers: {},
                 body: JSON.stringify(pizza)
             })
@@ -80,6 +97,7 @@ export const NetworkProvider = ({ children }) => {
             }).catch(err => {
                 console.error(err)
             })
+
             return res
     }
 
@@ -117,6 +135,7 @@ export const NetworkProvider = ({ children }) => {
 			getImage,
 			postVenue,
 			updateVenue,
+            postReview,
             postPizza,
             updatePizza,
             postVenuePizza,

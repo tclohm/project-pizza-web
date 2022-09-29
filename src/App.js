@@ -13,7 +13,7 @@ import Modal from "./components/Modal";
 import FindPlace from "./pages/FindPlace";
 
 import './App.css';
-const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b inputfield"
+// const inputstyles = "overflow-ellipsis overflow-hidden focus:outline-none py-2 px-8 border-b inputfield"
 
 const render = (status) => {
     if (status === Status.LOADING) return <p>loading...</p>
