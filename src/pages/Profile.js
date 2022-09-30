@@ -49,7 +49,7 @@ export default function Profile() {
 							},
 							"properties": {
 								"id": `${object.venue_id}`,
-								"price": `${object.pizzas[0].price}`
+								"price": `${object.pizzas[0].opinions[0].price}`
 							}
 						}
 					})
@@ -111,11 +111,11 @@ export default function Profile() {
 							<div className="flex flex-col p-4 m-2 ring-1 ring-black rounded">
 								<h4 className="font-semibold text-md">Address</h4>
 								<p className="text-md">{selected.venue_address}</p>
-								<p className="text-xs font-light">Last visited: {new Date(selected.pizzas[0].created_at).toDateString()}</p>
+								<p className="text-xs font-light">Last visited: {new Date(selected.pizzas[0].opinions[0].created_at).toDateString()}</p>
 							</div>
 							{
 								selected.pizzas.map((pizza, i) => (
-									<Detail key={i} pizza={pizza}/>
+									<Detail key={i} pizza={pizza} opinions={pizza.opinions}/>
 								))
 							}
 							
