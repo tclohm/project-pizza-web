@@ -1,6 +1,6 @@
 import PizzaImageNameVenue from "../components/PizzaImageNameVenue";
 
-export default function Detail({ pizza }) {
+export default function Detail({ pizza, opinions }) {
 
 	const url = 'http://localhost:4000/v1/images/' + pizza.pizza_image_id
 
