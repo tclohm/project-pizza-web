@@ -1,18 +1,35 @@
-import PizzaImageNameVenue from "../components/PizzaImageNameVenue";
+import PizzaStyle from "../components/PizzaStyle";
 
-export default function Detail({ pizza, opinions }) {
+export default function Detail({ pizza }) {
 
-	const url = 'http://localhost:4000/v1/images/' + pizza.pizza_image_id
+	console.log(pizza)
 
+	const url = (image_id) => {
+		return 'http://localhost:4000/v1/images/' + image_id
+
+	}
 	return (
 		<div>
-			<div className="flex flex-col justify-between">
+			{pizza.opinions.map(obj => (
+				<div className="flex flex-col justify-between">
 				<div className="flex justify-between border-b mx-2">
 					<p className="absolute bg-green-500 rounded-full text-white h-8 w-8 flex justify-center items-center font-semibold text-xs shadow">
-						${pizza.price}
+						${obj.price}
 					</p>
-					<PizzaImageNameVenue input={pizza} image={url} className="flex m-2"/>
-					<p className="font-light text-xs">{new Date(pizza.created_at).toDateString()}</p>
+					<div className="flex m-2">
+						<img 
+						src={url(obj.pizza_image_id)} 
+						alt="food"
+						className="lg:h-24 lg:w-24 h-16 w-16 rounded" />
+						<div className="flex items-start mx-2">
+							<div className="flex flex-col">
+								<p className="lg:text-xl text-lg font-bold px-1">{pizza.name ? pizza.name : pizza.pizza_name}</p>
+								<PizzaStyle input={pizza} />
+								<p className="text-gray-300 font-black text-2xl">{obj.conclusion}</p>
+							</div>
+						</div>
+					</div>
+					<p className="font-light text-xs">{new Date(obj.created_at).toDateString()}</p>
 				</div>
 				<div className="absolute right-2">
 					<div className="flex justify-center mt-4 xl:mt-10">
@@ -22,7 +39,7 @@ export default function Detail({ pizza, opinions }) {
 							 style={{ fontSize: '2rem' }}
 							 className="h-8 w-8 flex justify-center"
 							>🧀</label>
-							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{pizza.cheesiness}</p>
+							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{obj.cheesiness}</p>
 						</div>
 						<div className="flex flex-col items-center">
 							<label
@@ -30,7 +47,7 @@ export default function Detail({ pizza, opinions }) {
 							 style={{ fontSize: '2rem' }}
 							 className="h-8 w-8 flex justify-center"
 							>👅</label>
-							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{pizza.flavor}</p>
+							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{obj.flavor}</p>
 						</div>
 						<div className="flex flex-col items-center">
 							<label
@@ -38,7 +55,7 @@ export default function Detail({ pizza, opinions }) {
 							 style={{ fontSize: '2rem' }}
 							 className="h-8 w-8 flex justify-center"
 							>🍅</label>
-							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{pizza.sauciness}</p>
+							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{obj.sauciness}</p>
 						</div>
 						<div className="flex flex-col items-center">
 							<label
@@ -46,7 +63,7 @@ export default function Detail({ pizza, opinions }) {
 							 style={{ fontSize: '2rem' }}
 							 className="h-8 w-8 flex justify-center"
 							>🧂</label>
-							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{pizza.saltiness}</p>
+							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{obj.saltiness}</p>
 						</div>
 						<div className="flex flex-col items-center">
 							<label
@@ -54,11 +71,21 @@ export default function Detail({ pizza, opinions }) {
 							 style={{ fontSize: '2rem' }}
 							 className="h-8 w-8 flex justify-center"
 							>🔥</label>
-							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{pizza.charness}</p>
+							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{obj.charness}</p>
+						</div>
+						<div className="flex flex-col items-center">
+							<label
+							 name="Spiciness"
+							 style={{ fontSize: '2rem' }}
+							 className="h-8 w-8 flex justify-center"
+							>🌶</label>
+							<p className="relative bottom-0 bg-yellow-400 rounded-full h-8 w-8 flex justify-center items-center font-black">{obj.charness}</p>
 						</div>
 					</div>
 				</div>
 			</div>
+			))}
+			
 		</div>
 	)
 
