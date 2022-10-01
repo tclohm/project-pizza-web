@@ -115,7 +115,7 @@ export default function Profile() {
 							</div>
 							{
 								selected.pizzas.map((pizza, i) => (
-									<Detail key={i} pizza={pizza} opinions={pizza.opinions}/>
+									<Detail key={i} pizza={pizza} />
 								))
 							}
 							
