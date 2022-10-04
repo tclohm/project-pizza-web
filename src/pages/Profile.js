@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import Detail from "./Detail";
 import Map from "../components/Map";
 import TableCell from "../components/TableCell";
 import { NetworkContext } from "../context/NetworkContext";
@@ -73,7 +72,7 @@ export default function Profile() {
 	return (
 		<div className="w-full md:flex absolute">
 
-			<div className="left bg-white lg:w-5/12 w-full h-screen overflow-y-auto snap-y">
+			<div className="left bg-white lg:w-11/12 w-full overflow-y-auto snap-y">
 				<div className="sticky top-0 shadow flex flex-col bg-white">
 					<p 
 					className="w-full font-semibold text-white px-2 py-1 bg-pink-500 text-xs z-10">
@@ -99,8 +98,7 @@ export default function Profile() {
             		<p className="flex justify-center text-gray-400 text-xs">empty all the way down</p>
             	</div>
 			</div>
-			
-			<div className="right md:w-full sticky left-0 bottom-0">
+			<div className="md:w-full sticky left-0 bottom-0">
 					{
 					selected === ""
 					?
@@ -113,16 +111,9 @@ export default function Profile() {
 								<p className="text-md">{selected.venue_address}</p>
 								<p className="text-xs font-light">Last visited: {new Date(selected.pizzas[0].opinions[0].created_at).toDateString()}</p>
 							</div>
-							{
-								selected.pizzas.map((pizza, i) => (
-									<Detail key={i} pizza={pizza} />
-								))
-							}
-							
 						</div>
 					}
 			</div>
-
 		</div>
 
 	)
