@@ -10,7 +10,7 @@ export default function TableCell({ obj, select }) {
 			  <div className="px-2 text-xs">
 			  <p className="font-black">{obj.venue_name}</p>
 			  <p className="text-gray-500 font-semibold">{obj.venue_address}</p>
-			  <p>{obj.pizzas.length} reviews</p>
+			  <p>{obj.pizzas.length} {obj.pizzas.length > 1 ? "pizzas" : "pizza"} reviewed</p>
 			  </div>
 			</div>
 		</div>

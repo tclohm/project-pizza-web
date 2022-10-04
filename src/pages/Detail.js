@@ -2,8 +2,6 @@ import PizzaStyle from "../components/PizzaStyle";
 
 export default function Detail({ pizza }) {
 
-	console.log(pizza)
-
 	const url = (image_id) => {
 		return 'http://localhost:4000/v1/images/' + image_id
 
@@ -11,7 +9,7 @@ export default function Detail({ pizza }) {
 	return (
 		<div>
 			{pizza.opinions.map(obj => (
-				<div className="flex flex-col justify-between">
+				<div key={obj.pizza_id} className="flex flex-col justify-between">
 				<div className="flex justify-between border-b mx-2">
 					<p className="absolute bg-green-500 rounded-full text-white h-8 w-8 flex justify-center items-center font-semibold text-xs shadow">
 						${obj.price}
