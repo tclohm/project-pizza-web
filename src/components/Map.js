@@ -9,8 +9,6 @@ export default function Map({ lng, lat, collection }) {
 
 	const [zoom] = useState(13)
 
-
-
 	const addMarkers = stores => {
 		for (const marker of stores.features) {
 			const bubble = document.createElement('div');
@@ -64,7 +62,10 @@ export default function Map({ lng, lat, collection }) {
 	return (
 			<div 
 				ref={mapContainer} 
-				className="flex flex-col justify-end md:h-48 w-full h-28">
+				style={{
+					height: "70vh"
+				}}
+				className="flex flex-col justify-end w-full h-96">
 			</div>
 	)
 }
