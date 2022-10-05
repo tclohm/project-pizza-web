@@ -2,8 +2,6 @@ import React from "react";
 
 export default function TableCell({ obj, select }) {
 
-	console.log(obj)
-
 	const url = (image_id) => {
 		return 'http://localhost:4000/v1/images/' + image_id
 	}
@@ -11,6 +9,7 @@ export default function TableCell({ obj, select }) {
 	return (
 		<div 
 			onClick={ () => select(obj) }
+			onMouseEnter={() => select(obj)}
 			className="flex flex-row pl-2 py-2 border-b hover:bg-gray-100 cursor-pointer bg-white" 
 			>
 			<div className="w-full flex justify-between items-center">
