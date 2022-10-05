@@ -89,11 +89,19 @@ export default function Profile() {
 					{
 						input.length !== 0 ?
 						results.map((obj, id) => (
-							<TableCell obj={obj} key={id} select={setSelected} />
+							<TableCell 
+								obj={obj} 
+								key={id} 
+								select={setSelected} 
+							/>
 	            		))
 						:
 						data.map((obj, id) => (
-							<TableCell obj={obj} key={id} select={setSelected} />
+							<TableCell 
+							obj={obj} 
+							key={id} 
+							select={setSelected}
+						/>
 	            	))}
             		<p className="flex justify-center text-gray-400 text-xs">empty all the way down</p>
             	</div>
