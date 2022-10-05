@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Map from "../components/Map";
 import TableCell from "../components/TableCell";
+import Details from "../components/Details";
 import { NetworkContext } from "../context/NetworkContext";
 
 export default function Profile() {
@@ -48,7 +49,8 @@ export default function Profile() {
 							},
 							"properties": {
 								"id": `${object.venue_id}`,
-								"price": `${object.pizzas[0].opinions[0].price}`
+								"price": `${object.pizzas[0].opinions[0].price}`,
+								"name": `${object.venue_name}-${object.venue_id}`
 							}
 						}
 					})
@@ -114,6 +116,7 @@ export default function Profile() {
 					:
 						<div className="bg-white md:relative flex flex-col">
 							<Map lng={selected.lon} lat={selected.lat} collection={collection} />
+							<Details selected={selected.pizzas} />
 							<div className="flex flex-col p-4 m-2 ring-1 ring-black rounded">
 								<h4 className="font-semibold text-md">Address</h4>
 								<p className="text-md">{selected.venue_address}</p>

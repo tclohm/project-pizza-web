@@ -20,6 +20,7 @@ export default function Map({ lng, lat, collection }) {
 			pointer.className = 'pointer';
 			container.className = 'bubble-container';
 			bubble.textContent = `$${marker.properties.price}`
+			bubble.id = `${marker.properties.name}`
 			container.append(pointer)
 			container.append(bubble)
 
@@ -63,9 +64,9 @@ export default function Map({ lng, lat, collection }) {
 			<div 
 				ref={mapContainer} 
 				style={{
-					height: "70vh"
+					height: "60vh"
 				}}
-				className="flex flex-col justify-end w-full h-96">
+				className="flex flex-col justify-end w-full h-64">
 			</div>
 	)
 }

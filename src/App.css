@@ -103,11 +103,6 @@ input::-webkit-inner-spin-button {
   border-radius: 0.4rem;
 }
 
-.bubble#selected {
-  color: black;
-  background: red;
-}
-
 .pointer {
   position: relative;
   top: 1.7rem;
@@ -121,6 +116,6 @@ input::-webkit-inner-spin-button {
   display: relative;
 }
 
-.pointer#selected {
+.active {
   background: red;
 }
