@@ -16,7 +16,9 @@ export default function TableCell({ obj, select }) {
 				}
 			}}
 			onMouseLeave={() => {
-				el.current.classList.remove(['active'])
+				if (el !== null || el !== undefined) {
+					el.current.classList.remove(['active'])
+				}
 			}}
 			className="flex flex-row pl-2 py-2 border-b hover:bg-gray-100 cursor-pointer bg-white" 
 			>
