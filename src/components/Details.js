@@ -68,8 +68,11 @@ export default function Details({ selected }) {
 					src={url(o.pizza_image_id)}
 					alt="food"
 					className="h-14 w-14 rounded mr-2 cursor-pointer"
-					onClick={() => {
+					onMouseEnter={() => {
 						setTaste(o)
+					}}
+					onMouseLeave={() => {
+						setTaste({})
 					}}
 					/>
 			))))}
