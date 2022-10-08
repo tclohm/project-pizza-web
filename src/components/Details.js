@@ -9,8 +9,13 @@ export default function Details({ selected }) {
 	}
 
 	return (
-		<div className="flex flex-col">
-				<div className="flex justify-center">
+		<div className="flex flex-col items-center bg-yellow-400 w-full">
+				{ taste.conclusion ?
+				<p className="absolute z-20 bottom-80 bg-white rounded px-4 py-1 font-black">{taste.conclusion}</p>
+				:
+				<p className=""></p>
+				}
+				<div className="flex justify-center w-1/2 bg-green-100">
 				<div className="flex flex-col items-center">
 					<label
 					 name="Cheesiness"
@@ -77,7 +82,7 @@ export default function Details({ selected }) {
 					/>
 			))))}
 			</div>
-			<p className="text-xs font-black">You're reviews ⬆️</p>
+			<p className="text-xs font-black">Your reviews ⬆️</p>
 		</div>
 	)
 }
