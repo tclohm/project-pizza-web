@@ -1,7 +1,7 @@
 export default function Favorites() {
 	return (
 		<div className="bg-green-200 h-3/5 font-black">
-			<h2>Projects</h2>
+			<h2>Recent</h2>
 			<div className="grid grid-rows-2 grid-flow-col gap-4">
 				<div className="border shadow flex">
 					<img src="pizza.png"
@@ -9,7 +9,7 @@ export default function Favorites() {
 						 className="h-12 w-12"
 					/>
 					<div>
-						<h4>Project name</h4>
+						<h4>Restaurant name</h4>
 						<p className="text-gray-400 font-bold">conclusion</p>
 					</div>
 
