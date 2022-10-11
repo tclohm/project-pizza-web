@@ -5,7 +5,7 @@ export default function Calendar() {
 
 	return (
 		<div 
-		classNameName="calendar-graph mx-3 flex flex-col items-end md:items-center overflow-clip pt-1 ContributionCalendar h-full text-center"
+		className="calendar-graph mx-3 flex flex-col items-end md:items-center overflow-clip pt-1 ContributionCalendar h-full text-center"
 		data-graph-url="/users/tclohm/contributions"
 		data-from="2022-01-01 00:00:00 -0800"
 		data-to="2022-12-31 23:59:59 -0800"
@@ -484,26 +484,26 @@ export default function Calendar() {
 			  <rect width="10" height="10" x="-38" y="0" className="ContributionCalendar-day" rx="2" ry="2" data-count="0" data-date="2022-10-09" data-level="0"></rect>
 			  <rect width="10" height="10" x="-38" y="13" className="ContributionCalendar-day" rx="2" ry="2" data-count="7" data-date="2022-10-10" data-level="2"></rect>
 			</g>
-				<text x="14" y="-7" className="ContributionCalendar-label">Oct</text>
-				<text x="66" y="-7" className="ContributionCalendar-label">Nov</text>
-				<text x="118" y="-7" className="ContributionCalendar-label">Dec</text>
-				<text x="170" y="-7" className="ContributionCalendar-label">Jan</text>
-				<text x="235" y="-7" className="ContributionCalendar-label">Feb</text>
-				<text x="287" y="-7" className="ContributionCalendar-label">Mar</text>
-				<text x="339" y="-7" className="ContributionCalendar-label">Apr</text>
-				<text x="391" y="-7" className="ContributionCalendar-label">May</text>
-				<text x="456" y="-7" className="ContributionCalendar-label">Jun</text>
-				<text x="508" y="-7" className="ContributionCalendar-label">Jul</text>
-				<text x="573" y="-7" className="ContributionCalendar-label">Aug</text>
-				<text x="625" y="-7" className="ContributionCalendar-label">Sep</text>
-				<text x="677" y="-7" className="ContributionCalendar-label">Oct</text>
-				<text textAnchor="start" className="ContributionCalendar-label" dx="-15" dy="8" style={{display: "none"}}>Sun</text>
-				<text textAnchor="start" className="ContributionCalendar-label" dx="-15" dy="22">Mon</text>
-				<text textAnchor="start" className="ContributionCalendar-label" dx="-15" dy="32" style={{display: "none"}}>Tue</text>
-				<text textAnchor="start" className="ContributionCalendar-label" dx="-15" dy="48">Wed</text>
-				<text textAnchor="start" className="ContributionCalendar-label" dx="-15" dy="57" style={{display: "none"}}>Thu</text>
-				<text textAnchor="start" className="ContributionCalendar-label" dx="-15" dy="73">Fri</text>
-				<text textAnchor="start" className="ContributionCalendar-label" dx="-15" dy="81" style={{display: "none"}}>Sat</text>
+				<text x="14" y="-7" className="text-xs">Oct</text>
+				<text x="66" y="-7" className="text-xs">Nov</text>
+				<text x="118" y="-7" className="text-xs">Dec</text>
+				<text x="170" y="-7" className="text-xs">Jan</text>
+				<text x="235" y="-7" className="text-xs">Feb</text>
+				<text x="287" y="-7" className="text-xs">Mar</text>
+				<text x="339" y="-7" className="text-xs">Apr</text>
+				<text x="391" y="-7" className="text-xs">May</text>
+				<text x="456" y="-7" className="text-xs">Jun</text>
+				<text x="508" y="-7" className="text-xs">Jul</text>
+				<text x="573" y="-7" className="text-xs">Aug</text>
+				<text x="625" y="-7" className="text-xs">Sep</text>
+				<text x="677" y="-7" className="text-xs">Oct</text>
+				<text textAnchor="start" className="text-xs" dx="-15" dy="8" style={{display: "none"}}>Sun</text>
+				<text textAnchor="start" className="text-xs" dx="-15" dy="22">Mon</text>
+				<text textAnchor="start" className="text-xs" dx="-15" dy="32" style={{display: "none"}}>Tue</text>
+				<text textAnchor="start" className="text-xs" dx="-15" dy="48">Wed</text>
+				<text textAnchor="start" className="text-xs" dx="-15" dy="57" style={{display: "none"}}>Thu</text>
+				<text textAnchor="start" className="text-xs" dx="-15" dy="73">Fri</text>
+				<text textAnchor="start" className="text-xs" dx="-15" dy="81" style={{display: "none"}}>Sat</text>
 			</g>
 			</svg>
 		</div>
