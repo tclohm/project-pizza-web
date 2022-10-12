@@ -6,9 +6,20 @@ export default function Calendar() {
 	const timeDiff = today.getTime() - past.getTime()
 	const daysDiff = timeDiff / (1000 * 3600 * 25) 
 
+	const getDaysInMonth = (year, month) => {
+		return new Date(year, month, 0).getDate()
+	}
+
 		/* need to figure out how to add color when someone posts
 			for (let i = 0 ; i < 748 ; i += 14) {
-
+				const g = <g transform="translate(i, 0)">
+								  <rect width="10" height="10" x="14" y="0" className="ContributionCalendar-day" rx="2" ry="2" data-count="2" data-date="2021-10-10" data-level="1"></rect>
+																	  y="13"																  data-date="2021-10-11"
+																	  y="26"																  data-date="2021-10-12"
+																      y="39"																  data-date="2021-10-13"
+																	  y="52"																  data-date="2021-10-14"
+																	  y="65"																  data-date="2021-10-15"
+																	  y="78"																  data-date="2021-10-16"
 			}
 		*/
 
