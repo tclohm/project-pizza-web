@@ -1,7 +1,7 @@
 export default function Calendar() {
 
 	const today = new Date()
-	const past = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+	const past = new Date(today.getFullYear() - 1, today.getMonth() + 1, today.getDate())
 
 	const timeDiff = today.getTime() - past.getTime()
 	const daysDiff = timeDiff / (1000 * 3600 * 25) 
