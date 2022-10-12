@@ -4,6 +4,7 @@ export default function Calendar() {
 	const today = new Date().toISOString().slice(0,10)
 
 	return (
+		// need to figure out how to add color when someone posts
 		<div 
 		className="calendar-graph mx-3 flex flex-col items-end md:items-center overflow-clip pt-1 ContributionCalendar h-full text-center"
 		data-graph-url="/users/tclohm/contributions"
