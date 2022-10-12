@@ -1,10 +1,18 @@
 export default function Calendar() {
 
-	const later = new Date('2021-10-10').toISOString().slice(0,10)
-	const today = new Date().toISOString().slice(0,10)
+	const today = new Date()
+	const past = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
 
-	return (
-		// need to figure out how to add color when someone posts
+	const timeDiff = today.getTime() - past.getTime()
+	const daysDiff = timeDiff / (1000 * 3600 * 25) 
+
+		/* need to figure out how to add color when someone posts
+			for (let i = 0 ; i < 748 ; i += 14) {
+
+			}
+		*/
+
+	return (	
 		<div 
 		className="calendar-graph mx-3 flex flex-col items-end md:items-center overflow-clip pt-1 ContributionCalendar h-full text-center"
 		data-graph-url="/users/tclohm/contributions"
