@@ -1,30 +1,6 @@
-import { createContext, useState, useEffect } from "react"
+import { createContext, useState } from "react"
 
 export const DateContext = createContext()
-
-const initialInfo = [
-	{
-		result: 'LOADING',
-		reviews: [],
-	}
-]
-
-const types = {
-	LOADING: 'LOADING',
-	SUCCESS: 'SUCCESS',
-	FAILURE: 'FAILURE',
-}
-
-const reducer = (state, action) => {
-	switch (action.type) {
-		case types.LOADING:
-			return { ...state, result: action.value }
-		case types.SUCCESS:
-			return { ...state, result: action.value }
-		case types.FAILURE:
-			return { ...state, result: action.value }
-	}
-}
 
 export const DateProvider = ({ children }) => {
 
