@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { DateContext } from "./context/DateContext"
+import { DateContext } from "../context/DateContext"
 
 import { Link } from "react-router-dom"
 

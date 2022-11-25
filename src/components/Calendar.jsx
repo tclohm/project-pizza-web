@@ -1,5 +1,5 @@
 import { memo, useState, useEffect, useContext } from "react"
-import { DateContext } from "./context/DateContext"
+import { DateContext } from "../context/DateContext"
 
 //  const months = [
 //     {"Jan": 65},
@@ -45,7 +45,6 @@ const Calendar = () => {
     const { future, past, setHoveredDate, setState, setInfo } = useContext(DateContext)
     const [dates, setDates] = useState([])
     const [monthsPosition, setMonthsPosition] = useState([])
-    const [position, setPosition] = useState(0)
     const [reviewed, setReviewed] = useState([])
     const [color, setColor] = useState('')
 
@@ -63,9 +62,9 @@ const Calendar = () => {
         }
     }
 
-    const futureSunday = (date) => {
-        return new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay())
-    }
+    // const futureSunday = (date) => {
+    //     return new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay())
+    // }
 
 
     useEffect(() => {
@@ -117,7 +116,7 @@ const Calendar = () => {
 
                 const date = new Date(datestring).toUTCString().slice(8,11)
 
-                if (future.toUTCString().slice(8,11) == date) {
+                if (future.toUTCString().slice(8,11) === date) {
                     // MARK: -- layout for months above grid
                     const fullMonth = new Date(future.getFullYear(), future.getMonth(), 0).getDate()
                     const daysLeft = fullMonth - future.getDate()
@@ -143,7 +142,7 @@ const Calendar = () => {
 
             }
             // MARK: -- seven days per week
-            if (i % 7 === 0 && d.length != 0) {
+            if (i % 7 === 0 && d.length !== 0) {
 
                 dt = [...dt, d]
                 d = []
@@ -165,7 +164,7 @@ const Calendar = () => {
         // MARK: -- state
         setDates(dt)
         setMonthsPosition(monthsPosition)
-    }, [])
+    }, [future, past])
 	
 	const onHover = (e) => {
         e.preventDefault()
