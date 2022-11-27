@@ -11,8 +11,6 @@ import Category from './pages/Category';
 import TasteMeter from './pages/TasteMeter';
 import Price from "./pages/Price";
 import Conclusion from "./pages/Conclusion";
-import Discover from "./pages/Discover";
-import IDK from "./pages/IDK";
 import Profile from "./pages/Profile";
 
 import Header from "./components/Header";
@@ -44,14 +42,8 @@ ReactDOM.render(
                 <Route path="/conclusion">
                   <Conclusion/>
                 </Route>
-                <Route path="/discover">
-                  <Discover/>
-                </Route>
                 <Route>
                   <Profile/>
-                </Route>
-                <Route path="/idk">
-                  <IDK/>
                 </Route>
              </Switch>
             </Router>
