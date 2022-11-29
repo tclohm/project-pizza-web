@@ -53,7 +53,6 @@ ReactDOM.render(
                 <Route path="/detail/:pizzaId">
                  <CalendarDetail />
                 </Route>
-
              </Switch>
             </Router>   
         </NetworkProvider>

@@ -11,7 +11,7 @@ function CalendarProfile() {
 
     return (
         <div className="App flex flex-col justify-center items-center w-screen">
-            <div className="mx-3 flex flex-col items-end md:items-center overflow-clip pt-1 ContributionCalendar h-full text-center">
+            <div className="mx-3 flex flex-col items-center overflow-clip pt-1 h-full text-center">
                 <Calendar />
                 <div className="flex w-screen justify-center">
                     <ContributionActivity />

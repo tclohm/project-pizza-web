@@ -16,7 +16,7 @@ const ContributionActivity = () => {
 	}, [info])
 
 	return (
-		<div className="flex w-full justify-between">
+		<div className="flex sm:flex-row flex-col w-full justify-between">
 			<div className="flex-col">
 				<h2>Contribution Activity</h2>
 				<div className="w-full pb-4">

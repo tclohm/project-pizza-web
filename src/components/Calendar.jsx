@@ -201,11 +201,11 @@ const Calendar = () => {
     }
 
 	return (
-		<div className="flex flex-col">
-		<svg width="730" height="112" overflow="scroll">
-            <g className="overflow-x-auto" transform="translate(15, 20)">
+		<div className="flex flex-col items-center overflow-hidden md:w-full overflow-x-auto w-96 object-right">
+		<svg width="730" height="112">
+            <g transform="translate(15, 20)">
                 {dates.map((date, i) => (
-                    <g key={i} transform={`translate(${i*14}, 0)`}>
+                    <g className="flex-none" key={i} transform={`translate(${i*14}, 0)`}>
                         {date.map((d, x) => (
                             (reviewed.includes(d) ?
                                 <rect key={x} width="10" height="10" x={14-i+1} y={x*13} rx="2" ry="2" data-date={new Date(d).toUTCString().slice(0, 17)} style={{"fill": "tomato"}} onMouseEnter={e => onHover(e)} onMouseLeave={e => onLeave(e)} onClick={e => onClick(e)}></rect>
