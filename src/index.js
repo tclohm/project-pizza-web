@@ -13,7 +13,7 @@ import Price from "./pages/Price";
 import Conclusion from "./pages/Conclusion";
 import Profile from "./pages/Profile";
 import CalendarProfile from "./pages/CalendarProfile"
-import Detail from "./pages/Detail"
+import CalendarDetail from "./pages/CalendarDetail"
 
 import Header from "./components/Header";
 
@@ -51,7 +51,7 @@ ReactDOM.render(
                  <CalendarProfile />
                 </Route>
                 <Route path="/detail/:pizzaId">
-                 <Detail/>
+                 <CalendarDetail />
                 </Route>
 
              </Switch>

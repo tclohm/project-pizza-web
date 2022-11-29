@@ -4,8 +4,9 @@ export default function Detail({ pizza }) {
 
 	const url = (image_id) => {
 		return 'http://localhost:4000/v1/images/' + image_id
-
 	}
+
+	
 	return (
 		<div>
 			{pizza.opinions.map(obj => (
