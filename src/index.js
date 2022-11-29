@@ -12,8 +12,12 @@ import TasteMeter from './pages/TasteMeter';
 import Price from "./pages/Price";
 import Conclusion from "./pages/Conclusion";
 import Profile from "./pages/Profile";
+import CalendarProfile from "./pages/CalendarProfile"
+import Detail from "./pages/Detail"
 
 import Header from "./components/Header";
+
+import { DateProvider } from "./context/DateContext"
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
@@ -22,8 +26,9 @@ ReactDOM.render(
   <React.StrictMode>
     <div id="wrapper">
       <Header/>
+      <DateProvider>
       <PizzaInputProvider>
-        <NetworkProvider>
+      <NetworkProvider>
           
             <Router>
              <Switch>
@@ -42,14 +47,18 @@ ReactDOM.render(
                 <Route path="/conclusion">
                   <Conclusion/>
                 </Route>
-                <Route>
-                  <Profile/>
+                <Route path="/profile">
+                 <CalendarProfile />
                 </Route>
+                <Route path="/detail/:pizzaId">
+                 <Detail/>
+                </Route>
+
              </Switch>
-            </Router>
-            
+            </Router>   
         </NetworkProvider>
         </PizzaInputProvider>
+        </DateProvider>
       </div>
   </React.StrictMode>,
     document.getElementById('root')

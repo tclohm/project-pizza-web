@@ -1,12 +1,11 @@
-import "./App.css"
 import { useState } from "react"
-import Calendar from "./Calendar"
-import ContributionActivity from "./ContributionActivity";
-import YearButton from "./YearButton";
+import Calendar from "../components/Calendar"
+import ContributionActivity from "../components/ContributionActivity";
+import YearButton from "../components/YearButton";
 
 const years = {"2022": true, "2021": false, "2020": false};
 
-function App() {
+function CalendarProfile() {
 
     const [selectedYear, setSelectedYear] = useState("2022");
 
@@ -25,4 +24,4 @@ function App() {
     )
 }
 
-export default App
+export default CalendarProfile
