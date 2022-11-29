@@ -7,16 +7,16 @@ import RightSideBar from "./RightSideBar"
 
 const ContributionActivity = () => {
 
-	const { hoveredDate, info, state, images } = useContext(DateContext)
+	const { hoveredDate, info, state } = useContext(DateContext)
 
 	const [date, setDate] = useState("")
 
 	useEffect(() => {
 		setDate(hoveredDate)
-	}, [info])
+	}, [info, hoveredDate])
 
 	return (
-		<div className="flex sm:flex-row flex-col w-full justify-between">
+		<div className="flex sm:flex-row flex-col w-full justify-around">
 			<div className="flex-col">
 				<h2>Contribution Activity</h2>
 				<div className="w-full pb-4">
@@ -24,11 +24,11 @@ const ContributionActivity = () => {
 						<span className="pl-2 pr-3">{hoveredDate}</span>
 					</h3>
 					<p>{state}</p>
-					<div className="flex-col items-start">
+					<div className="flex-col">
 						<p>Published: {date}</p>
 						{info.length > 0 &&
 							info.map((obj) => (
-								<div key={obj.id} className="flex justify-start">
+								<div key={obj.id} className="flex justify-center">
 									<Link to={`/detail/${obj.pizza_id}`} >
 										<div className="w-full">
 											<div className="flex border-b my-1">

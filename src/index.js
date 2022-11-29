@@ -11,7 +11,6 @@ import Category from './pages/Category';
 import TasteMeter from './pages/TasteMeter';
 import Price from "./pages/Price";
 import Conclusion from "./pages/Conclusion";
-import Profile from "./pages/Profile";
 import CalendarProfile from "./pages/CalendarProfile"
 import CalendarDetail from "./pages/CalendarDetail"
 

@@ -1,6 +1,8 @@
 import { memo, useState, useEffect, useContext } from "react"
 import { DateContext } from "../context/DateContext"
 
+import { useWindowSize } from "../useWindowSize"
+
 //  const months = [
 //     {"Jan": 65},
 //     {"Feb": 52},
@@ -42,17 +44,25 @@ import { DateContext } from "../context/DateContext"
 
 const Calendar = () => {
 
+    const scrollElement = document.getElementById("h-scroll")
+
     const { future, past, setHoveredDate, setState, setInfo } = useContext(DateContext)
     const [dates, setDates] = useState([])
     const [monthsPosition, setMonthsPosition] = useState([])
     const [reviewed, setReviewed] = useState([])
     const [color, setColor] = useState('')
 
-
+    const { width } = useWindowSize()
 
 	const nextDay = (date) => {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
     }
+
+    useEffect(() => {
+        if (width < 787) {
+            scrollElement.scrollTo(1000, 0)
+        }
+    }, [width, scrollElement])
 
     const prevSunday = (date) => {
         if (date.getDay() === 6) {
@@ -201,36 +211,38 @@ const Calendar = () => {
     }
 
 	return (
-		<div className="flex flex-col items-center overflow-hidden md:w-full overflow-x-auto w-96 object-right">
-		<svg width="730" height="112">
-            <g transform="translate(15, 20)">
-                {dates.map((date, i) => (
-                    <g className="flex-none" key={i} transform={`translate(${i*14}, 0)`}>
-                        {date.map((d, x) => (
-                            (reviewed.includes(d) ?
-                                <rect key={x} width="10" height="10" x={14-i+1} y={x*13} rx="2" ry="2" data-date={new Date(d).toUTCString().slice(0, 17)} style={{"fill": "tomato"}} onMouseEnter={e => onHover(e)} onMouseLeave={e => onLeave(e)} onClick={e => onClick(e)}></rect>
-                            :
-                                <rect key={x} width="10" height="10" x={14-i+1} y={x*13} rx="2" ry="2" data-date={new Date(d).toUTCString().slice(0, 17)} style={{"fill": "lightgray"}} onMouseEnter={e => onHover(e)} onMouseLeave={e => onLeave(e)}></rect>
-                            )
+		<div id="h-scroll" className="flex flex-col items-center overflow-hidden md:w-full overflow-x-auto w-96 object-right">
+    		<div className="relative p-4 border rounded">
+                <svg width="730" height="112">
+                    <g transform="translate(15, 20)">
+                        {dates.map((date, i) => (
+                            <g className="flex-none" key={i} transform={`translate(${i*14}, 0)`}>
+                                {date.map((d, x) => (
+                                    (reviewed.includes(d) ?
+                                        <rect key={x} width="10" height="10" x={14-i+1} y={x*13} rx="2" ry="2" data-date={new Date(d).toUTCString().slice(0, 17)} style={{"fill": "tomato"}} onMouseEnter={e => onHover(e)} onMouseLeave={e => onLeave(e)} onClick={e => onClick(e)}></rect>
+                                    :
+                                        <rect key={x} width="10" height="10" x={14-i+1} y={x*13} rx="2" ry="2" data-date={new Date(d).toUTCString().slice(0, 17)} style={{"fill": "lightgray"}} onMouseEnter={e => onHover(e)} onMouseLeave={e => onLeave(e)}></rect>
+                                    )
+                                ))}
+                            </g>
                         ))}
                     </g>
-                ))}
-            </g>
-	        {monthsPosition.map((object, i) => (
+        	        {monthsPosition.map((object, i) => (
 
-	            <text key={i} x={Object.values(object)[0]} y="10" className="text-xs">{Object.keys(object)[0]}</text>
+        	            <text key={i} x={Object.values(object)[0]} y="10" className="text-xs">{Object.keys(object)[0]}</text>
 
-	        ))}
-	        <text key="13" x={monthsPosition.length > 0 ? Object.values(monthsPosition[0])[0] - 675 : ""} y="10" className="text-xs">{monthsPosition.length > 0 ? Object.keys(monthsPosition[0])[0] : ""}</text>
-	        <text textAnchor="start" className="text-xs" dx="-15" dy="8" style={{display: "none"}}>Sun</text>
-	        <text textAnchor="start" className="text-xs" dx="2" dy="42">Mon</text>
-	        <text textAnchor="start" className="text-xs" dx="-15" dy="32" style={{display: "none"}}>Tue</text>
-	        <text textAnchor="start" className="text-xs" dx="2" dy="68">Wed</text>
-	        <text textAnchor="start" className="text-xs" dx="-15" dy="57" style={{display: "none"}}>Thu</text>
-	        <text textAnchor="start" className="text-xs" dx="2" dy="94">Fri</text>
-	        <text textAnchor="start" className="text-xs" dx="-15" dy="81" style={{display: "none"}}>Sat</text>
-	    </svg>
-	    <h2 className="font-extralight text-black self-end mb-2 ml-8 text-xs">{past.toISOString().slice(0, 4)} - {future.toISOString().slice(0, 4)}</h2>
+        	        ))}
+        	        <text key="13" x={monthsPosition.length > 0 ? Object.values(monthsPosition[0])[0] - 675 : ""} y="10" className="text-xs">{monthsPosition.length > 0 ? Object.keys(monthsPosition[0])[0] : ""}</text>
+        	        <text textAnchor="start" className="text-xs" dx="-15" dy="8" style={{display: "none"}}>Sun</text>
+        	        <text textAnchor="start" className="text-xs" dx="2" dy="42">Mon</text>
+        	        <text textAnchor="start" className="text-xs" dx="-15" dy="32" style={{display: "none"}}>Tue</text>
+        	        <text textAnchor="start" className="text-xs" dx="2" dy="68">Wed</text>
+        	        <text textAnchor="start" className="text-xs" dx="-15" dy="57" style={{display: "none"}}>Thu</text>
+        	        <text textAnchor="start" className="text-xs" dx="2" dy="94">Fri</text>
+        	        <text textAnchor="start" className="text-xs" dx="-15" dy="81" style={{display: "none"}}>Sat</text>
+        	    </svg>
+                <h2 className="absolute right-0 font-extralight text-black ml-8 text-xs">{past.toISOString().slice(0, 4)} - {future.toISOString().slice(0, 4)}</h2>
+            </div>
 	    </div>
 	)
 }
