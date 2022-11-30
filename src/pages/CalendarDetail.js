@@ -40,7 +40,7 @@ const CalendarDetail = () => {
 			const venueId = selected.venuepizza.venue_id
 			fetch(`http://localhost:4000/v1/venuepizzas/${venueId}/pizzas`)
 			.then(res => res.json())
-			.then(data => setOther(data.venuepizzas.filter(obj => obj.pizza_id != selected.venuepizza.pizza_id)))
+			.then(data => setOther(data.venuepizzas.filter(obj => obj.pizza_id !== selected.venuepizza.pizza_id)))
 		}
 	}, [selected])
 

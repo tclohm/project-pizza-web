@@ -211,7 +211,7 @@ const Calendar = () => {
     }
 
 	return (
-		<div id="h-scroll" className="flex flex-col items-center overflow-hidden md:w-full overflow-x-auto w-96 object-right">
+		<div id="h-scroll" className="flex flex-col items-center overflow-hidden md:w-full overflow-x-auto w-96 object-right no-scrollbar">
     		<div className="relative p-4 border rounded">
                 <svg width="730" height="112">
                     <g transform="translate(15, 20)">
