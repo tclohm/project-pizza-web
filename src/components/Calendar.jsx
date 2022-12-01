@@ -104,19 +104,20 @@ const Calendar = () => {
         ]
 
         let monthIndex = future.getMonth()
-        if (monthIndex === 11) {
-            monthIndex = 0
-        }
-        const head = months.slice(monthIndex + 1, months.length)
-        const tail = months.slice(0, monthIndex + 1)
+        // if (monthIndex === 11) {
+        //     monthIndex = 0
+        // }
 
+        const head = months.slice(monthIndex, months.length)
+        const tail = months.slice(0, monthIndex)
+        
         const monthsPosition = [...head, ...tail]
         let pointer = 0
 
         let dt = [];
         let date = prevSunday(past)
         let d = [];
-        let index = 14;
+        let index = 30;
 
         for (let i = 0; i < 371; i++) {
 
@@ -128,22 +129,24 @@ const Calendar = () => {
 
                 if (future.toUTCString().slice(8,11) === date) {
                     // MARK: -- layout for months above grid
+
                     const fullMonth = new Date(future.getFullYear(), future.getMonth(), 0).getDate()
                     const daysLeft = fullMonth - future.getDate()
-                    index += (717 / 12) - (daysLeft / 7)
+                    index += 10
+
+                    console.log(date, fullMonth, daysLeft, index)
                 }  else {
-                    index += (717 / 12) - ((new Date(datestring).getDate() / 7))
+                    index += 52
                 }
                 
                 // MARK: -- pointer for monthsPosition
-
                 if (date === future.toUTCString().slice(8, 11) && future.getDate() >= 1 && future.getDate() <= 6) {
                     monthsPosition[pointer][date] = 695
                 } else {
                     monthsPosition[pointer][date] = index
                 }
                 
-                if (pointer > 11) {
+                if (pointer > 10) {
                     pointer = 0
                 } else {
                     pointer++
