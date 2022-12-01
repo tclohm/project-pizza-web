@@ -24,13 +24,14 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
   <React.StrictMode>
     <div id="wrapper">
-      <Header/>
+      
       <DateProvider>
       <PizzaInputProvider>
       <NetworkProvider>
           
             <Router>
-             <Switch>
+              <Header/>
+              <Switch>
                 <Route exact path="/">
                   <App/>
                 </Route>
@@ -52,8 +53,9 @@ ReactDOM.render(
                 <Route path="/detail/:pizzaId">
                  <CalendarDetail />
                 </Route>
-             </Switch>
-            </Router>   
+              </Switch>
+            </Router>  
+             
         </NetworkProvider>
         </PizzaInputProvider>
         </DateProvider>
