@@ -117,27 +117,43 @@ const Calendar = () => {
         let dt = [];
         let date = prevSunday(past)
         let d = [];
-        let index = 30;
+        let index = 10;
 
-        for (let i = 0; i < 371; i++) {
+        while (date < future) {
 
             const datestring = date.toISOString().slice(0, 10)
 
             if (datestring.slice(8,10) === "01") {
 
                 const date = new Date(datestring).toUTCString().slice(8,11)
-                console.log(date)
 
                 if (future.toUTCString().slice(8,11) === date) {
                     // MARK: -- layout for months above grid
 
                     const fullMonth = new Date(future.getFullYear(), future.getMonth(), 0).getDate()
                     const daysLeft = fullMonth - future.getDate()
-                    index += 10
+                    index += (fullMonth - daysLeft)
 
-                }  else {
-                    index += 52
+                    //console.log(future, date, fullMonth, daysLeft)
+
+                } else {
+                    const fullMonth = new Date(new Date(datestring).getFullYear(), new Date(datestring).getMonth(), 0).getDate()
+                    switch (fullMonth) {
+                    case 30:
+                        index += 64
+                        break
+                    case 31:
+                        index += 58
+                        break
+                    case 28:
+                        index += 48
+                        break
+                    default:
+                        index += 100
+                        break
+                    }
                 }
+                
                 
                 // MARK: -- pointer for monthsPosition
                 if (date === future.toUTCString().slice(8, 11) && future.getDate() >= 1 && future.getDate() <= 6) {
@@ -146,7 +162,7 @@ const Calendar = () => {
                     monthsPosition[pointer][date] = index
                 }
                 
-                if (pointer > 10) {
+                if (pointer > 11) {
                     pointer = 0
                 } else {
                     pointer++
@@ -155,8 +171,8 @@ const Calendar = () => {
 
             }
             // MARK: -- seven days per week
-            if (i % 7 === 0 && d.length !== 0) {
-
+            if (date.toUTCString().slice(0,3) === "Sun" && d.length !== 0) {
+                console.log(date)
                 dt = [...dt, d]
                 d = []
 
@@ -177,8 +193,6 @@ const Calendar = () => {
         // MARK: -- state
         setDates(dt)
         setMonthsPosition(monthsPosition)
-
-        console.log(monthsPosition)
     }, [future, past])
 	
 	const onHover = (e) => {
