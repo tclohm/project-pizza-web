@@ -104,9 +104,9 @@ const Calendar = () => {
         ]
 
         let monthIndex = future.getMonth()
-        // if (monthIndex === 11) {
-        //     monthIndex = 0
-        // }
+        if (monthIndex === 11) {
+            monthIndex = 0
+        }
 
         const head = months.slice(monthIndex, months.length)
         const tail = months.slice(0, monthIndex)
@@ -126,6 +126,7 @@ const Calendar = () => {
             if (datestring.slice(8,10) === "01") {
 
                 const date = new Date(datestring).toUTCString().slice(8,11)
+                console.log(date)
 
                 if (future.toUTCString().slice(8,11) === date) {
                     // MARK: -- layout for months above grid
@@ -134,7 +135,6 @@ const Calendar = () => {
                     const daysLeft = fullMonth - future.getDate()
                     index += 10
 
-                    console.log(date, fullMonth, daysLeft, index)
                 }  else {
                     index += 52
                 }
@@ -177,6 +177,8 @@ const Calendar = () => {
         // MARK: -- state
         setDates(dt)
         setMonthsPosition(monthsPosition)
+
+        console.log(monthsPosition)
     }, [future, past])
 	
 	const onHover = (e) => {
