@@ -117,7 +117,7 @@ const Calendar = () => {
         let dt = [];
         let date = prevSunday(past)
         let d = [];
-        let index = 10;
+        let index = 20;
 
         while (date < future) {
 
@@ -134,22 +134,20 @@ const Calendar = () => {
                     const daysLeft = fullMonth - future.getDate()
                     index += (fullMonth - daysLeft)
 
-                    //console.log(future, date, fullMonth, daysLeft)
-
                 } else {
                     const fullMonth = new Date(new Date(datestring).getFullYear(), new Date(datestring).getMonth(), 0).getDate()
                     switch (fullMonth) {
                     case 30:
-                        index += 64
+                        index += 52
                         break
                     case 31:
-                        index += 58
+                        index += 64
                         break
                     case 28:
-                        index += 48
+                        index += 32
                         break
                     default:
-                        index += 100
+                        index += 0
                         break
                     }
                 }
