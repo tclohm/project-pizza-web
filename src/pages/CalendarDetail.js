@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, Link, useHistory } from 'react-router-dom'
 
-import Map from "../components/Map"
-
 const Ingredient = ({ emoji, number }) => {
 	return (
 		<div className="flex-col rounded-xl mx-1 py-2">
@@ -61,7 +59,6 @@ const CalendarDetail = () => {
 			{selected && selected.venuepizza && location ?
 					<div key={location.id}>
 						<h1 className="text-2xl font-light ">{location.name}</h1>
-						<Map lng={location.lng} lat={location.lat} collection={{}}/>
 						<p className="text-blue-500 bg-gray-200 px-1 text-xs md:text-sm">{location.address}</p>
 						<div className="w-full rounded-2xl relative py-2">
 							<div className="flex flex-row justify-between">

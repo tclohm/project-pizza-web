@@ -9,6 +9,13 @@ export default function Map({ lng, lat, collection }) {
 
 	const [zoom] = useState(13)
 
+	const store = arrayOfFeature => {
+    return {
+      "type": "FeatureCollection",
+      "features": arrayOfFeature
+    }
+  }
+
 	const addMarkers = stores => {
 		for (const marker of stores.features) {
 			const bubble = document.createElement('div');
