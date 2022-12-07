@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams, Link, useHistory } from 'react-router-dom'
 
+import Map from "../components/Map"
+
 const Ingredient = ({ emoji, number }) => {
 	return (
 		<div className="flex-col rounded-xl mx-1 py-2">
@@ -18,6 +20,8 @@ const CalendarDetail = () => {
 	const [selected, setSelected] = useState({})
 	const [location, setLocation] = useState({})
 	const [other, setOther] = useState([])
+
+	console.log(location)
 
 	useEffect(() => {
 		fetch(`http://localhost:4000/v1/venuepizzas/${pizzaId}`)
@@ -59,6 +63,7 @@ const CalendarDetail = () => {
 			{selected && selected.venuepizza && location ?
 					<div key={location.id}>
 						<h1 className="text-2xl font-light ">{location.name}</h1>
+						<Map location={location} />
 						<p className="text-blue-500 bg-gray-200 px-1 text-xs md:text-sm">{location.address}</p>
 						<div className="w-full rounded-2xl relative py-2">
 							<div className="flex flex-row justify-between">
