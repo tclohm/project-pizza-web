@@ -3,16 +3,29 @@ import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MB_KEY}`;
 
-export default function Map({ lng, lat, collection }) {
+export default function Map({ location }) {
+
 	const mapContainer = useRef(null)
 	const map = useRef(null)
 
 	const [zoom] = useState(13)
 
-	const store = arrayOfFeature => {
+	const store = () => {
     return {
       "type": "FeatureCollection",
-      "features": arrayOfFeature
+      "features": [
+	      {
+	  			"type": "Feature",
+	  			"geometry": {
+			  		"type": "Point",
+			  		"coordinates": [location.lon, location.lat]
+	  			},
+			  	"properties": {
+			  		"title": `${location.name}`,
+			  		"description": 'pizza'
+			  	}
+	  		},
+  		]
     }
   }
 
@@ -26,7 +39,7 @@ export default function Map({ lng, lat, collection }) {
 			bubble.className = 'bubble font-black text-xs flex justify-center items-center';
 			pointer.className = 'pointer';
 			container.className = 'bubble-container';
-			bubble.textContent = `$${marker.properties.price}`
+			bubble.textContent = `$${marker.properties.description}`
 			bubble.id = `${marker.properties.name}`
 			container.append(pointer)
 			container.append(bubble)
@@ -38,12 +51,11 @@ export default function Map({ lng, lat, collection }) {
 	}
 
 	useEffect(() => {
-		if (Object.keys(collection).length === 0) return
-		if (map.current) return
+		if (Object.keys(location).length === 0) return
 		map.current = new mapboxgl.Map({
 			container: mapContainer.current,
 			style: 'mapbox://styles/mapbox/light-v10',
-			center: [lng, lat],
+			center: [location.lon, location.lat],
 			zoom: zoom,
 			interactive: false
 		});
@@ -52,28 +64,29 @@ export default function Map({ lng, lat, collection }) {
 
           map.current.addSource('places', {
             'type': 'geojson',
-            'data': collection,
+            'data': store(),
           });
-          addMarkers(collection)
+          addMarkers(store())
         });
 	})
 
 	useEffect(() => {
-		if (Object.keys(collection).length === 0) return
+		if (Object.keys(location).length === 0) return
+		if (map.current === null) return
 		map.current.flyTo({
-            center: [lng, lat],
+            center: [location.lon, location.lat],
             zoom: zoom
         })
-	}, [lng, lat, zoom, collection])
+	}, [zoom, location])
 
 
 	return (
 			<div 
 				ref={mapContainer} 
 				style={{
-					height: "60vh"
+					height: "20vh"
 				}}
-				className="flex flex-col justify-end w-full h-64">
+				className="flex flex-col justify-end w-full">
 			</div>
 	)
 }
