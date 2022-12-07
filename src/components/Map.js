@@ -21,6 +21,7 @@ export default function Map({ location }) {
 			  		"coordinates": [location.lon, location.lat]
 	  			},
 			  	"properties": {
+			  		"id": `${location.id}`,
 			  		"title": `${location.name}`,
 			  		"description": 'pizza'
 			  	}
@@ -32,16 +33,17 @@ export default function Map({ location }) {
 	const addMarkers = stores => {
 		for (const marker of stores.features) {
 			const bubble = document.createElement('div');
-			const pointer = document.createElement('div');
+			//const pointer = document.createElement('div');
 			const container = document.createElement('div');
 			bubble.id = `marker-${marker.properties.id}`;
-			pointer.id = `pointer-${marker.properties.id}`;
+			//pointer.id = `pointer-${marker.properties.id}`;
 			bubble.className = 'bubble font-black text-xs flex justify-center items-center';
-			pointer.className = 'pointer';
+			//pointer.className = 'pointer';
 			container.className = 'bubble-container';
-			bubble.textContent = `$${marker.properties.description}`
+			bubble.style.backgroundImage = "url(/pizza-icon.png)"
+			bubble.style.backgroundSize = '100%';
 			bubble.id = `${marker.properties.name}`
-			container.append(pointer)
+			//container.append(pointer)
 			container.append(bubble)
 
 			new mapboxgl.Marker(container, { offset: [0, -23] })
@@ -52,6 +54,7 @@ export default function Map({ location }) {
 
 	useEffect(() => {
 		if (Object.keys(location).length === 0) return
+		if (map.current) return
 		map.current = new mapboxgl.Map({
 			container: mapContainer.current,
 			style: 'mapbox://styles/mapbox/light-v10',
@@ -62,7 +65,7 @@ export default function Map({ location }) {
         
         map.current.on('load', () => {
 
-          map.current.addSource('places', {
+          map.current.addSource(`place-${location.lat}-${location.lon}`, {
             'type': 'geojson',
             'data': store(),
           });
@@ -84,7 +87,7 @@ export default function Map({ location }) {
 			<div 
 				ref={mapContainer} 
 				style={{
-					height: "20vh"
+					height: "30vh"
 				}}
 				className="flex flex-col justify-end w-full">
 			</div>
