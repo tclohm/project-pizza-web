@@ -12,6 +12,19 @@ const Ingredient = ({ emoji, number }) => {
 	)
 }
 
+const WatchAndStart = () => {
+	return (
+		<div className="fixed top-1 right-1">
+			<button>
+				<span className="z-10 bg-white rounded px-6 py-1 border"><i className="fa fa-eye"></i> Watch</span>
+			</button>
+			<button>
+				<span className="z-10 bg-white rounded px-6 py-1 border"><i className="fa fa-star"></i> Star</span>
+			</button>
+		</div>
+	)
+}
+
 const CalendarDetail = () => {
 	const { pizzaId } = useParams()
 
@@ -52,14 +65,6 @@ const CalendarDetail = () => {
 			<button onClick={() => navigate.goBack()}>
 				<span className="fixed top-0 z-10 bg-white rounded-full px-3 py-2 border"><i className="fa fa-arrow-left"></i></span>
 			</button>
-			<div className="fixed top-1 right-1">
-				<button>
-					<span className="z-10 bg-white rounded px-6 py-1 border"><i className="fa fa-eye"></i> Watch</span>
-				</button>
-				<button>
-					<span className="z-10 bg-white rounded px-6 py-1 border"><i className="fa fa-star"></i> Star</span>
-				</button>
-			</div>
 			{selected && selected.venuepizza && location ?
 					<div key={location.id}>
 						<h1 className="text-2xl font-light ">{location.name}</h1>
@@ -95,7 +100,7 @@ const CalendarDetail = () => {
 		:
 		<div key="ok">empty</div>
 		}
-		<p className="bg-gray-200 px-3">Other Reviews from {location.name}</p>
+		{other.length > 0 ? <p className="bg-gray-200 px-3">Other Reviews from {location.name}</p> : <p className="bg-gray-200 px-3">No Other Reviews for {location.name}</p>}
 		<div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 py-2">
 
 			{other.length > 0 ? other.map(obj => (
@@ -129,7 +134,7 @@ const CalendarDetail = () => {
 				</Link>
 			))
 			:
-			<div className="flex justify-center">
+			<div className="flex justify-start">
 				<span className="text-xl font-black text-gray-100">EMPTY</span>
 			</div>
 			}
