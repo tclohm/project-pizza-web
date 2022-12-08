@@ -132,22 +132,25 @@ const Calendar = () => {
 
                     const fullMonth = new Date(future.getFullYear(), future.getMonth(), 0).getDate()
                     const daysLeft = fullMonth - future.getDate()
-                    index += (fullMonth - daysLeft)
+                    index += (fullMonth + daysLeft)
+                    console.log(index, fullMonth, daysLeft)
 
                 } else {
                     const fullMonth = new Date(new Date(datestring).getFullYear(), new Date(datestring).getMonth(), 0).getDate()
                     switch (fullMonth) {
                     case 30:
-                        index += 52
+                        index += (4 * 10) + 10
                         break
                     case 31:
-                        index += 64
+                        index += (6 * 10)
                         break
                     case 28:
-                        index += 32
+                        index += (4 * 10)
                         break
                     default:
-                        index += 0
+                        const fullMonth = new Date(future.getFullYear(), future.getMonth(), 0).getDate()
+                        const daysLeft = fullMonth - future.getDate()
+                        index += (fullMonth - daysLeft)
                         break
                     }
                 }
