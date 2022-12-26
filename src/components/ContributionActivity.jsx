@@ -56,6 +56,7 @@ const ContributionActivity = () => {
 					</div>
 				</div>
 			</div>
+			{/* recently viewed */}
 			<RightSideBar />
 		</div>
 	)
