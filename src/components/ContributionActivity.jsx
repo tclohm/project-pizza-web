@@ -26,9 +26,10 @@ const ContributionActivity = () => {
 					<p>{state}</p>
 					<div className="flex-col">
 						<p>Published: {date}</p>
+						<div className="grid lg:grid-cols-3 grid-cols-1 gap-2">
 						{info.length > 0 &&
 							info.map((obj) => (
-								<div key={obj.id} className="flex justify-center">
+								<div key={obj.id}>
 									<Link to={`/detail/${obj.pizza_id}`} >
 										<div className="w-full">
 											<div className="flex border-b my-1">
@@ -53,11 +54,10 @@ const ContributionActivity = () => {
 								</div>
 							))
 						}
+						</div>
 					</div>
 				</div>
 			</div>
-			{/* recently viewed */}
-			<RightSideBar />
 		</div>
 	)
 }
